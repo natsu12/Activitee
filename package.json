@@ -15,5 +15,20 @@
   "bugs": {
     "url": "https://github.com/natsu12/Activitee/issues"
   },
-  "homepage": "https://github.com/natsu12/Activitee"
+  "homepage": "https://github.com/natsu12/Activitee",
+  "dependencies": {
+    "express": "^4.12.3",
+    "jade": "^1.9.2",
+    "moment": "^2.10.3",
+    "mongoose": "^4.0.3"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-concurrent": "^1.0.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-livescript": "^0.5.4",
+    "grunt-nodemon": "^0.4.0"
+  }
 }
