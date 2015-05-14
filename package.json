@@ -1,0 +1,19 @@
+{
+  "name": "Activitee",
+  "version": "1.0.0",
+  "description": "Course Project of SE-386 Software Process Improvement",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/natsu12/Activitee.git"
+  },
+  "author": "group3 (afternoon)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/natsu12/Activitee/issues"
+  },
+  "homepage": "https://github.com/natsu12/Activitee"
+}
