@@ -1,7 +1,7 @@
-require! ['express']
+require! {'express', Activity: '../controllers/activity'}
 router = express.Router! 
 
-is-authenticated = (req, res, next)-> if req.is-authenticated! then next! else res.redirect '/'
+is-authenticated = (req, res, next)-> if req.is-authenticated! then next! else res.redirect '/signin'
 
 module.exports = (passport)->
   router.get '/', (req, res)!-> res.render 'index', message: req.flash 'message'
@@ -16,15 +16,13 @@ module.exports = (passport)->
     success-redirect: '/home', failure-redirect: '/signup', failure-flash: true
   }
 
-  router.get '/home', (req, res)!-> res.render 'home', {
-    title: '活动主页'
-  }
-  router.get '/detail/:id', (req, res)!-> res.render 'detail', {
-    title: '活动详情页'
-  }
-  router.get '/create', (req, res)!-> res.render 'create', {
-    title: '发布活动'
-  }
+  router.get '/home', Activity.home
+  router.get '/detail/:id', Activity.detail
+  router.get '/create', is-authenticated, Activity.create
+  router.get '/edit/:id', is-authenticated, Activity.edit
+  router.post '/s-save', is-authenticated, Activity.save
+
+
   router.get '/following', (req, res)!-> res.render 'following', {
     title: '我关注的活动'
   }

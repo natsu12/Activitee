@@ -2,3 +2,41 @@ extends layout
 
 block content
   h1 #{title}
+
+  .container
+      .row
+          form.form-horizontal(method="post", action="/s-save")
+              .form-group
+                  label.col-sm-2.control-label(for="inputTitle") 活动名称
+                  .col-sm-10
+                      input#inputTitle.form-control(type="text", name="activity[title]")
+              .form-group
+                  label.col-sm-2.control-label(for="inputSummary") 活动简介
+                  .col-sm-10
+                      input#inputSummary.form-control(type="text", name="activity[summary]")
+              .form-group
+                  label.col-sm-2.control-label(for="inputTime") 时间
+                  .col-sm-10
+                      input#inputTime.form-control(type="text", name="activity[time]")
+              .form-group
+                  label.col-sm-2.control-label(for="inputPlace") 地点
+                  .col-sm-10
+                      input#inputPlace.form-control(type="text", name="activity[place]")
+              .form-group
+                  label.col-sm-2.control-label(for="inputNumber") 人数
+                  .col-sm-10
+                      input#inputNumber.form-control(type="text", name="activity[people_num]")
+              .form-group
+                  label.col-sm-2.control-label(for="inputImages") 图片
+                  .col-sm-10
+                      input#inputImages.form-control(type="text", name="activity[flash]")
+              .form-group
+                  label.col-sm-2.control-label(for="inputCover") 封面
+                  .col-sm-10
+                      input#inputCover.form-control(type="text", name="activity[cover]")
+
+              .form-group
+                  .col-sm-offset-2.col-sm-10
+                  button.btn.btn-default(type="submit") 提交
+  script(src="/livescript/create.js")
+

@@ -12,7 +12,7 @@ ActivitySchema = new mongoose.Schema {
   following_users: [{type: ObjectId, ref: 'User'}],        #已关注的用户
   joining_users: [{type: ObjectId, ref: 'User'}],          #已报名的用户
   tags: [{type: ObjectId, ref: 'Tag'}],                    #标记的tag
-  images: String,                                          #图片
+  images: [String],                                        #图片
   cover: String,                                           #封面
   status: String,                                          #审核状态
   meta: {
