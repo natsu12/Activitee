@@ -94,9 +94,103 @@
     3. 登陆用户可以发表评论，可以回复他人评论，叠楼式那种（一个框一个框嵌套）
     4. 登陆用户可以关注该活动，参与该活动
 4. 发布活动信息：create （登陆后才可以进入）
+  * 用到的数据：
+  ```
+    {
+      user: {
+        username,
+        avatar
+      }
+    }
+  ```
 5. 我关注的活动：following （登陆后才可以进入）
+  * 用到的数据：
+  ```
+    {
+      user: {
+        username,
+        avatar
+      },
+      activities: {
+        id,
+        title,
+        cover,
+        time,
+        host
+      },
+    }
+  ```
 6. 我参与的活动：joining （登陆后才可以进入）
+  * 用到的数据：
+  ```
+    {
+      user: {
+        username,
+        avatar
+      },
+      activities: {
+        id,
+        title,
+        cover,
+        time,
+        host
+      },
+    }
+  ```
 7. 我发布的活动：host （登陆后才可以进入）
-8. 活动审核页：admin （管理员才可以进入）
-9. 登录页：signin
-10. 注册页：register
+  ```
+    {
+      user: {
+        username,
+        avatar
+      },
+      activities: {
+        id,
+        title,
+        cover,
+        time,
+        host,
+        status
+      },
+    }
+  ```
+8. 修改活动信息：edit （登陆后才可以进入）
+* 用到的数据：
+  ```
+    {
+      user: {
+        username,
+        avatar
+      },
+      activities: {
+        id,
+        title,
+        summary,
+        time,
+        place,
+        host,
+        people_num,
+        tags,
+        images,
+      }
+    }
+  ```
+9. 活动审核页：admin （管理员才可以进入）
+  * 用到的数据：
+  ```
+    {
+      user: {
+        username,
+        avatar
+      },
+      activities: {  //status为0
+        id,
+        title,
+        cover,
+        time,
+        host
+      },
+    }
+  ```
+10. 登录页：signin
+11. 注册页：register
