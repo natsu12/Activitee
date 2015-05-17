@@ -28,14 +28,14 @@
         username,
         avatar
       },
-      activities: {
+      activities: {   // status为1的活动
         id,
         title,
         cover,
         time,
         host
       },
-      past_activities: {
+      past_activities: {  // 过期的活动
         id,
         title,
         cover,
@@ -64,7 +64,7 @@
         username,
         avatar
       },
-      activities: {
+      activity: {
         id,
         title,
         summary,
@@ -80,10 +80,10 @@
         username,
         content,
         createAt,
-        reply: {
-          from,
-          to,
-          content
+        reply: {  // 回复的对象
+          username,
+          content,
+          createAt,
         }
       }
     }
@@ -151,7 +151,7 @@
         cover,
         time,
         host,
-        status
+        status   // 0为未审核，1为已审核
       },
     }
   ```
@@ -184,7 +184,7 @@
         username,
         avatar
       },
-      activities: {  //status为0
+      activities: {  //status为0的活动
         id,
         title,
         cover,
