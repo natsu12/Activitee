@@ -28,23 +28,23 @@
         username,
         avatar
       },
-      activities: {   // status为1的活动
+      activities: [{   // status为1的活动
         id,
         title,
         cover,
         time,
         host
-      },
-      past_activities: {  // 过期的活动
+      }],
+      past_activities: [{  // 过期的活动
         id,
         title,
         cover,
         time,
         host
-      },
-      tags: {
+      }],
+      tags: [{
         name
-      }
+      }]
     }
   ```
   * 需求：
@@ -75,23 +75,25 @@
         tags,
         images,
       },
-      comment: {
+      comments: [{
         avatar,
         username,
         content,
         createAt,
-        reply: {  // 回复的对象
+        replies: [{
+          avatar,
           username,
           content,
           createAt,
-        }
-      }
+          replying_to    // 回复给谁，null代表回复层主
+        }]
+      }]
     }
   ```
   * 需求
     1. 需要呈现活动的：标题，简介，活动时间，活动地点，发布人，活动人数，标记的tag，图片
     2. 需要呈现属于这个活动的所有评论
-    3. 登陆用户可以发表评论，可以回复他人评论，叠楼式那种（一个框一个框嵌套）
+    3. 登陆用户可以发表评论，可以回复他人评论，回复他人的评论时用引用回复对象的评论
     4. 登陆用户可以关注该活动，参与该活动
 4. 发布活动信息：create （登陆后才可以进入）
   * 用到的数据：
@@ -111,13 +113,13 @@
         username,
         avatar
       },
-      activities: {
+      activities: [{
         id,
         title,
         cover,
         time,
         host
-      },
+      }],
     }
   ```
 6. 我参与的活动：joining （登陆后才可以进入）
@@ -128,13 +130,13 @@
         username,
         avatar
       },
-      activities: {
+      activities: [{
         id,
         title,
         cover,
         time,
         host
-      },
+      }],
     }
   ```
 7. 我发布的活动：host （登陆后才可以进入）
@@ -145,14 +147,14 @@
         username,
         avatar
       },
-      activities: {
+      activities: [{
         id,
         title,
         cover,
         time,
         host,
         status   // 0为未审核，1为已审核
-      },
+      }],
     }
   ```
 8. 修改活动信息：edit （登陆后才可以进入）
@@ -163,7 +165,7 @@
         username,
         avatar
       },
-      activities: {
+      activities: [{
         id,
         title,
         summary,
@@ -173,7 +175,7 @@
         people_num,
         tags,
         images,
-      }
+      }]
     }
   ```
 9. 活动审核页：admin （管理员才可以进入）
@@ -184,13 +186,13 @@
         username,
         avatar
       },
-      activities: {  //status为0的活动
+      activities: [{  //status为0的活动
         id,
         title,
         cover,
         time,
         host
-      },
+      }],
     }
   ```
 10. 登录页：signin
