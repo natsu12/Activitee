@@ -44,3 +44,4 @@ exports.use = -> app.use.apply app, &
 
 port = process.env.PORT || 5000
 app.listen port
+console.log 'Activitee started on port '+ port

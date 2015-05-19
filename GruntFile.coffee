@@ -87,7 +87,7 @@ module.exports = (grunt) ->
           ignore: ['README.md', 'node_modules/**', '.DS_Store']
           ext: ['js']
           watch: ['./']
-          delay: 1000
+          delay: 500
           env:
             PORT: 5000
           cwd: __dirname
