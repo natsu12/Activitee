@@ -38,15 +38,27 @@ exports.edit = (req, res)!->
         console.log err
       res.render 'edit', {
         title: '修改活动信息'
-        user: req.user
+        user: req.user,
+        activity: activity
       }
+
+# host page
+exports.host = (req, res)!->
+  user_id = req.user._id
+  Activity.findByUser user_id, (err, activities)!->
+    if err
+      console.log err
+    res.render 'host', {
+      title: '我发布的活动'
+      user: req.user
+      activities: activities
+    }
 
 # save an activity
 exports.save = (req, res)!->
   id = req.body.activity._id
   activityObj = req.body.activity
   if id isnt undefined     # 已存在，更新字段
-    console.log id
     Activity.findById id, (err, activity)!->
       if err
         console.log err
@@ -54,7 +66,7 @@ exports.save = (req, res)!->
       _activity.save (err, activity)!->
         if err
           console.log err
-        res.redirect '/detail/' + activity._id
+        res.redirect '/host'
   else                     # 不存在，新建字段
     _activity = new Activity {
       title: activityObj.title
@@ -62,16 +74,15 @@ exports.save = (req, res)!->
       time: activityObj.time
       place: activityObj.place
       host: req.user.username
+      host_id: req.user._id
       people_num: activityObj.people_num
       tags: activityObj.tags
       images: activityObj.images
       cover: activityObj.cover
       status: 0
     }
-    console.log _activity
 
     _activity.save (err, activity)!->
       if err
         console.log err
-      console.log activity
-      res.redirect '/detail/' + activity._id
+      res.redirect '/host'

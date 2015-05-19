@@ -8,6 +8,7 @@ ActivitySchema = new mongoose.Schema {
   time: Date,                                              #活动时间
   place: String,                                           #活动地点
   host: String,                                            #发布人
+  host_id: String,                                         #发布人id
   people_num: Number,                                      #活动人数
   following_users: [{type: ObjectId, ref: 'User'}],        #已关注的用户
   joining_users: [{type: ObjectId, ref: 'User'}],          #已报名的用户
@@ -39,6 +40,8 @@ ActivitySchema.statics = {
     @ .find {} .sort 'time' .exec cb
   findById: (id, cb)->
     @ .findOne {_id: id} .exec cb
+  findByUser: (id, cb)->
+    @ .find {host_id: id} .exec cb
 }
 
 module.exports = ActivitySchema

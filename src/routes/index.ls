@@ -21,7 +21,7 @@ module.exports = (passport)->
   router.get '/create', is-authenticated, Activity.create
   router.get '/edit/:id', is-authenticated, Activity.edit
   router.post '/s-save', is-authenticated, Activity.save
-
+  router.get '/host', is-authenticated, Activity.host
 
   router.get '/following', (req, res)!-> res.render 'following', {
     title: '我关注的活动'
@@ -29,9 +29,7 @@ module.exports = (passport)->
   router.get '/joining', (req, res)!-> res.render 'joining', {
     title: '我参与的活动'
   }
-  router.get '/host', (req, res)!-> res.render 'host', {
-    title: '我发布的活动'
-  }
+  
   router.get '/admin', (req, res)!-> res.render 'admin', {
     title: '活动审核页'
   }

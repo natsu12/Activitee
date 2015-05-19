@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1 #{title}
-
+  p 用户：#{user.username}
   .container
       .row
           form.form-horizontal(method="post", action="/s-save")
@@ -29,7 +29,7 @@ block content
               .form-group
                   label.col-sm-2.control-label(for="inputImages") 图片
                   .col-sm-10
-                      input#inputImages.form-control(type="text", name="activity[flash]")
+                      input#inputImages.form-control(type="text", name="activity[images]")
               .form-group
                   label.col-sm-2.control-label(for="inputCover") 封面
                   .col-sm-10
@@ -38,5 +38,6 @@ block content
               .form-group
                   .col-sm-offset-2.col-sm-10
                   button.btn.btn-default(type="submit") 提交
+
   script(src="/livescript/create.js")
 

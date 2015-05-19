@@ -20,6 +20,7 @@ app.use expressSession {secret: 'mySecretKey'}
 app.use passport.initialize!
 app.use passport.session!
 app.use flash!
+app.locals.moment = require 'moment'
 
 initPassport = require './passport/init'
 initPassport passport
