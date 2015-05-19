@@ -1,6 +1,26 @@
 extends layout
 
 block content
-	h1 #{title} 
-	a(href='/create', class='text-center new-account') create an activity
-	a(href='/host', class='text-center new-account') my activities
+  h1 #{title}
+  .container
+      .row
+          table.table.table-hover.table-bordered
+              tread
+                  tr
+                      th 活动名称
+                      th 时间
+                      th 封面
+                      th 发起人
+              tbody
+                  each item in activities
+                      tr(class="item-id-#{item._id}")
+                          td 
+                            a(href='/detail/#{item._id}') #{item.title}
+                          td #{moment(item.time).format('YYYY/MM/DD')}
+                          //- td #{item.tags}
+                          td #{item.cover}
+                          td #{item.host}
+
+
+  a(href='/create', class='text-center new-account') create an activity
+  a(href='/host', class='text-center new-account') my activities

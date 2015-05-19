@@ -2,3 +2,20 @@ extends layout
 
 block content
 	h1 #{title}
+	dl
+		dt 标题
+		dd=activity.title
+		dt 简介
+		dd=activity.summary
+		dt 时间
+		dd #{moment(activity.time).format('YYYY/MM/DD')}
+		dt 地点
+		dd=activity.place
+		dt 发布人
+		dd=activity.host
+		dt 人数
+		dd=activity.people_num
+		dt 图片
+		dd=activity.images
+
+	a(href='/home') 返回
