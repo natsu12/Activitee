@@ -38,7 +38,7 @@ exports.edit = (req, res)!->
         console.log err
       res.render 'edit', {
         title: '修改活动信息'
-        user: req.user,
+        user: req.user
         activity: activity
       }
 
@@ -86,3 +86,13 @@ exports.save = (req, res)!->
       if err
         console.log err
       res.redirect '/host'
+
+# delete an activity
+exports.delete = (req, res)!->
+  id = req.query.id
+  if id
+    Activity.remove {_id: id} (err)!->
+      if err
+        console.log err
+      else
+        res.json {success: 1}

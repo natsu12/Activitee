@@ -22,6 +22,7 @@ module.exports = (passport)->
   router.get '/edit/:id', is-authenticated, Activity.edit
   router.post '/s-save', is-authenticated, Activity.save
   router.get '/host', is-authenticated, Activity.host
+  router.delete '/host', is-authenticated, Activity.delete
 
   router.get '/following', (req, res)!-> res.render 'following', {
     title: '我关注的活动'
