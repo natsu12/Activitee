@@ -79,18 +79,22 @@ module.exports = (grunt) ->
           ext: ".css"
         ]
 
-    express:
+    nodemon:
       dev:
+        script: 'bin/server.js'
         options:
-          server: path.resolve('bin/server.js')
-          bases: [path.resolve('bin')]
-          livereload: true
-          serverreload: false
-          port: 5000
+          args: []
+          ignore: ['README.md', 'node_modules/**', '.DS_Store']
+          ext: ['js']
+          watch: ['./']
+          delay: 1000
+          env:
+            PORT: 5000
+          cwd: __dirname
 
     delta:
       options:
-        livereload: false
+        livereload: true
 
       livescript:
         files: ["src/**/*.ls"]
@@ -104,14 +108,13 @@ module.exports = (grunt) ->
         files: ["src/**/*.*", "!src/**/**.{ls,sass}"]
         tasks: ["newer:copy:appCode"]
 
-      express:
-        files: ["bin/**/*.*", "!bin/vendor/**/*"]
-        tasks: []
-        options:
-          livereload: true
-
       grunt:
         files: ['Gruntfile.coffee']
+    
+    concurrent:
+      tasks: ['nodemon', 'delta']
+      options:
+        logConcurrentOutput: true
 
  
   grunt.renameTask "watch", "delta"
@@ -119,8 +122,7 @@ module.exports = (grunt) ->
   grunt.registerTask "watch", [
     "clean"
     "build"
-    "express"
-    "delta"
+    "concurrent"
   ]
 
   grunt.registerTask "default", [
@@ -132,4 +134,4 @@ module.exports = (grunt) ->
     "sass"
     "copy"
   ]
-  
+

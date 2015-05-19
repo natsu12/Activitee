@@ -41,3 +41,6 @@ if (app.get 'env') is 'development' then app.use (err, req, res, next) ->
 
 exports = module.exports = server
 exports.use = -> app.use.apply app, &  
+
+port = process.env.PORT || 5000
+app.listen port
