@@ -2,11 +2,10 @@ require! ['mongoose']
 ObjectId = mongoose.Schema.Types.ObjectId
 
 CommentSchema = new mongoose.Schema {
-  act_id: String,                                #评论的活动的id，用于调用save方法后redirect回当前活动的url
-  from: {type: ObjectId, ref: 'User'},           #评论人
-  content: String,                               #评论内容
-  images: [String],                              #评论图片
-  replies: [{type: ObjectId, ref: 'Reply'}],     #楼中楼回复
+  act_id: String,                               #评论的活动的id，用于调用save方法后redirect回当前活动的url
+  from: {type: ObjectId, ref: 'User'},          #评论人
+  content: String,                              #评论内容
+  to: {type: ObjectId, ref: 'User'},            #回复对象，null代表回复层主
   meta: {
     createAt: {
       type: Date,

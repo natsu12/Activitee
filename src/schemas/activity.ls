@@ -15,7 +15,8 @@ ActivitySchema = new mongoose.Schema {
   tags: [{type: ObjectId, ref: 'Tag'}],                    #标记的tag
   images: [String],                                        #图片
   cover: String,                                           #封面
-  status: String,                                          #审核状态
+  need_info: Number,                                       #报名是否需要真实信息，0为不需要，1为需要
+  status: Number                                           #审核状态，0为未审核，1为审核
   meta: {
     createAt: {
       type: Date,

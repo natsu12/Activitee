@@ -2,6 +2,7 @@ require! {'express', Activity: '../controllers/data/activity'}
 require! ['../controllers/page/index', '../controllers/page/home', '../controllers/page/detail']
 require! ['../controllers/page/create', '../controllers/page/edit', '../controllers/page/host']
 require! ['../controllers/page/following', '../controllers/page/joining', '../controllers/page/admin']
+require! ['../controllers/page/setting']
 router = express.Router! 
 
 is-authenticated = (req, res, next)-> if req.is-authenticated! then next! else res.redirect '/signin'
@@ -25,23 +26,18 @@ module.exports = (passport)->
   # 页面渲染
   router.get '/', index
   router.get '/home', home
-  router.get '/detail/:id', detail
+  router.get '/detail/:id', detail 
   router.get '/create', is-authenticated, create
   router.get '/edit/:id', is-authenticated, edit
   router.get '/host', is-authenticated, host
-  router.get '/following', (req, res)!-> res.render 'following', {
-    title: '我关注的活动'
-  }
-  router.get '/joining', (req, res)!-> res.render 'joining', {
-    title: '我参与的活动'
-  }
-  router.get '/admin', (req, res)!-> res.render 'admin', {
-    title: '活动审核页'
-  }
+  router.get '/following', is-authenticated, following
+  router.get '/joining', is-authenticated, joining
+  router.get '/setting', is-authenticated, setting
+  router.get '/admin', is-authenticated, admin
 
   # 数据操作
-  router.post '/s-save', is-authenticated, Activity.save
-  router.delete '/host', is-authenticated, Activity.delete
+  router.post '/s-activity-save', is-authenticated, Activity.save
+  router.get '/s-activity-delete', is-authenticated, Activity.delete
 
 
 

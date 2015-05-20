@@ -1,8 +1,8 @@
 require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment'}
 
-# following page
+# setting page
 module.exports = (req, res)!->
-  res.render 'following', {
-    title: '我关注的活动'
+  res.render 'setting', {
+    title: '个人设置'
     user: req.user
   }
