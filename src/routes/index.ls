@@ -26,7 +26,7 @@ module.exports = (passport)->
   # 页面渲染
   router.get '/', index
   router.get '/home', home
-  router.get '/detail/:id', detail 
+  router.get '/detail/:id', detail
   router.get '/create', is-authenticated, create
   router.get '/edit/:id', is-authenticated, edit
   router.get '/host', is-authenticated, host
