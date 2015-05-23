@@ -1,4 +1,28 @@
 extends layout
 
 block content
-	h1 #{title}
+  h1 #{title}
+
+  p 用户：#{user.username}
+
+  .container
+    .row
+      form.form-horizontal(method="post", action="#")
+        input(type="hidden", name="user[username]", value=user.username)
+
+        .form-group
+          label.col-sm-2.control-label(for="inputImages") 头像  
+          .col-sm-6
+            if user.avatar
+              img(src="/avatar/#{user.avatar}" width=50 height=50)
+            input(type="file" name="avatar")
+
+        .form-group
+          label.col-sm-2.control-label(for="inputCover") 邮箱
+          .col-sm-6
+            input#inputCover.form-control(type="text", name="user[email]", value=user.email, required)
+
+        .form-group
+          .col-sm-offset-2.col-sm-6
+            button.btn.btn-default(type="submit") 提交
+
