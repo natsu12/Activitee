@@ -2,6 +2,7 @@ require! {'express', Activity: '../controllers/data/activity'}
 require! ['../controllers/page/index', '../controllers/page/home', '../controllers/page/detail']
 require! ['../controllers/page/create', '../controllers/page/edit', '../controllers/page/host']
 require! ['../controllers/page/following', '../controllers/page/joining', '../controllers/page/admin']
+require! ['../controllers/page/setting']
 router = express.Router! 
 
 is-authenticated = (req, res, next)-> if req.is-authenticated! then next! else res.redirect '/signin'
@@ -38,6 +39,7 @@ module.exports = (passport)->
   router.get '/admin', (req, res)!-> res.render 'admin', {
     title: '活动审核页'
   }
+  router.get '/setting', is-authenticated, setting
 
   # 数据操作
   router.post '/s-save', is-authenticated, Activity.save
