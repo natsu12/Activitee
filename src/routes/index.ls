@@ -36,6 +36,7 @@ module.exports = (passport)->
   router.get '/setting', is-authenticated, setting
   router.get '/admin', is-authenticated, admin
 
+
   # 数据操作
   router.post '/s-activity-save', is-authenticated, s-activity-save
   router.get '/s-activity-delete', is-authenticated, s-activity-delete
