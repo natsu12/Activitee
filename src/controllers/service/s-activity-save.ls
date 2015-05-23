@@ -2,7 +2,7 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 _ = require 'underscore'
 
 # save an activity
-exports.save = (req, res)!->
+module.exports = (req, res)!->
   id = req.body.activity._id
   activityObj = req.body.activity
   if id isnt undefined     # 已存在，更新字段
@@ -33,13 +33,3 @@ exports.save = (req, res)!->
       if err
         console.log err
       res.redirect '/host'
-
-# delete an activity
-exports.delete = (req, res)!->
-  id = req.query.id
-  if id
-    Activity.remove {_id: id} (err)!->
-      if err
-        console.log err
-      else
-        res.json {success: 1}

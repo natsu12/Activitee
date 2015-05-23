@@ -1,8 +1,9 @@
-require! {'express', Activity: '../controllers/data/activity'}
+require! 'express'
 require! ['../controllers/page/index', '../controllers/page/home', '../controllers/page/detail']
 require! ['../controllers/page/create', '../controllers/page/edit', '../controllers/page/host']
 require! ['../controllers/page/following', '../controllers/page/joining', '../controllers/page/admin']
 require! ['../controllers/page/setting']
+require! ['../controllers/service/s-activity-save', '../controllers/service/s-activity-delete']
 router = express.Router! 
 
 is-authenticated = (req, res, next)-> if req.is-authenticated! then next! else res.redirect '/signin'
@@ -36,8 +37,8 @@ module.exports = (passport)->
   router.get '/admin', is-authenticated, admin
 
   # 数据操作
-  router.post '/s-activity-save', is-authenticated, Activity.save
-  router.get '/s-activity-delete', is-authenticated, Activity.delete
+  router.post '/s-activity-save', is-authenticated, s-activity-save
+  router.get '/s-activity-delete', is-authenticated, s-activity-delete
 
 
 
