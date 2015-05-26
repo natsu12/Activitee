@@ -40,7 +40,7 @@ ActivitySchema.statics = {
   findById: (id, cb)->
     @ .findOne {_id: id} .exec cb
   findByUser: (id, cb)->
-    @ .find {host_id: id} .exec cb
+    @ .find {host: id} .exec cb
 }
 
 module.exports = ActivitySchema

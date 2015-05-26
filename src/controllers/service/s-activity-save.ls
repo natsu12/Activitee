@@ -11,17 +11,16 @@ module.exports = (req, res)!->
         console.log err
       _activity = _.extend activity, activityObj
       _activity.save (err, activity)!->
-        if err
-          console.log err
-        res.redirect '/host'
+         if err
+           console.log err
+         res.redirect '/host'
   else                     # 不存在，新建字段
     _activity = new Activity {
       title: activityObj.title
       summary: activityObj.summary
       time: activityObj.time
       place: activityObj.place
-      host: req.user.username
-      host_id: req.user._id
+      host: req.user._id
       people_num: activityObj.people_num
       tags: activityObj.tags
       images: activityObj.images
@@ -32,4 +31,5 @@ module.exports = (req, res)!->
     _activity.save (err, activity)!->
       if err
         console.log err
+      console.log "success"
       res.redirect '/host'

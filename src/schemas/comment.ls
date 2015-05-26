@@ -36,6 +36,8 @@ CommentSchema.statics = {
     @ .find {} .sort 'meta.updateAt' .exec cb
   findById: (id, cb)->
     @ .findOne {_id: id} .exec cb
+  findByActId: (id, cb)->
+    @ .find {act_id: id} .exec cb
 }
 
 module.exports = CommentSchema
