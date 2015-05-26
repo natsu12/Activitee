@@ -18,4 +18,56 @@ block content
 		dt 图片
 		dd=activity.images
 
+	h2 Comment
+		if comments.length == 0
+			p no comments
+		else
+			each comment in comments
+				ul
+					li comment_id : #{comment._id}
+					li: a(class="btn btn-danger" href="/s-comment-delete?id=#{comment._id}" role="button") 删除
+					li user : #{comment.from}
+					li createAt : #{comment.meta}
+					li content : #{comment.content}
+					li images : #{comment.images}
+					li replies : 
+						each reply in comment.replies
+							ul 
+								li from : #{reply.from} to #{reply.to}
+								li content : #{reply.content}
+								li createAt : #{reply.createAt}
+
+	h2 评论
+	form.form-horizontal(method="post", action="/s-comment-save?type=new")
+		input(type="hidden", name="comment[activity_id]", value="#{activity._id}")
+		.form-group
+			label 内容
+			input.form-control(type="text", name="comment[content]")
+
+		.form-group
+			label 图片
+			input.form-control(type="text", name="comment[images]")
+
+		.form-group
+			button.btn.btn-default(type="submit") 提交
+
+	h2 回复
+	form.form-horizontal(method="post", action="/s-comment-save?type=reply")
+		input(type="hidden", name="reply[activity_id]", value="#{activity._id}")
+		.form-group
+			label com_id
+			input.form-control(type="text", name="reply[com_id]")
+
+		.form-group
+			label to
+			input.form-control(type="text", name="reply[to]")
+
+		.form-group
+			label content
+			input.form-control(type="text", name="reply[content]")
+
+		.form-group
+			button.btn.btn-default(type="submit") 提交
+
+
 	a(href='/home') 返回
