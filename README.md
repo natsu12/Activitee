@@ -26,7 +26,7 @@
 ```
 
 ## 工作流程规范
-1. 后端主要在`/controllers`目录下编写代码，包括所有数据库的读写操作，不需要在`/shemas`中定义公有方法。
+1. 后端主要在`/controllers`目录下编写代码，包括所有数据库的读写操作，不需要在`/schemas`中定义公有方法。
 2. 按照文档，自行设计负责的页面所需要的接口，编写好一个接口后，可以改动`/routes/index.ls`，让前端请求某url时调用到该接口。
 3. 为保持每个人本地仓库中的代码是最新的，请在每天早上（或者编写代码之前）执行`git pull git@github.com:natsu12/Activitee.git`，（如果嫌链接太长，可以执行`git remote add zuzhang git@github.com:natsu12/Activitee.git`，那下次就可以直接`git pull zuzhang`，或者用其他你喜欢的名称代替zuzhang）
 4. 如果在pull的时候发现冲突，请参考[issue](https://github.com/natsu12/Activitee/issues/4)的解决办法。
