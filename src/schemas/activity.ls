@@ -45,7 +45,6 @@ ActivitySchema.statics = {
     @ .find {} .populate({path: 'following_users', select: {_id : 1}, option: {_id : id}}) .exec cb
   findUserJoining: (id, cb)->
     @ .find {} .populate({path: 'joining_users', select: {_id : 1}, option: {_id : id}}) .exec cb
-    
 }
 
 module.exports = ActivitySchema
