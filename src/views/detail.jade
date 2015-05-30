@@ -2,6 +2,29 @@ extends layout
 
 block content
 	h1 #{title}
+	- var flag = 0;
+
+	if user
+		each following_user in activity.following_users
+			if following_user.username == user.username
+				- flag = 1
+
+		if flag == 1
+			button.btn.btn-info(type="button", disabled="disabled") 已关注
+		else
+			button.btn.btn-info(id="follow", type="button", data-id="#{activity._id}") 关注
+		&nbsp
+
+		- flag = 0
+		each join_user in activity.joining_users
+			if join_user.username == user.username
+				- flag = 1
+		if flag == 1
+			button.btn.btn-info(type="button", disabled="disabled") 已参加
+		else
+			button.btn.btn-info(id="join", type="button", data-id="#{activity._id}") 参加
+	br
+	br
 	dl
 		dt 标题
 		dd=activity.title
@@ -15,58 +38,64 @@ block content
 		for each in activity.host
 			dd=each.username
 		dt 发布者信息
-		p #{activity.host_info}
+		p !{activity.host_info}
 		dt 关注人数
-		dd=activity.following_users.length
+		dd: span(id="follows") #{activity.following_users.length}
 		dt 参加人数
-		dd=activity.joining_users.length
+		dd: span(id="joins") #{activity.joining_users.length} 
 		dt 图片
 		dd=activity.images
 		dt Tags
 		for each in activity.tags
 			dd=each.name
+		br
 
-	h2 Comment
+
+	h2 Comments
+	div.row
 	if comments.length == 0
 		p no comments
 	else
 		each comment in comments
 			div
 				p user : #{comment.from.username}
-				p createAt : #{moment(comment.meta.updateAt).format('YYYY年 M月 D日 星期E')}
 				p content : #{comment.content}
-				div.input-group.col-md-2
-					input(id="reply_content", type="text",class="form-control", name="reply[content]", placeholder="回复#{comment.from.username}")
-					input(type="hidden", name="reply[activity_id]", value="#{activity._id}")
-					input(id="reply_to", type="hidden", name="reply[to]", value="#{comment.from._id}")
-					input(type="hidden",name="reply[com_id]", value="#{comment._id}")
-					span.input-group-btn
-						button(class="btn btn-default" type="submit") Go
+				p #{moment(comment.meta.updateAt).format('YYYY年 M月 D日 星期E')}
 				if comment.replies.length != 0
 					p replies : 
 						each reply in comment.replies
 							div.row
-								div.col-md-4
+								div.col-md-4.col-md-offset-1
 									p from #{reply.from.username} to #{reply.to.username}
+										a(class="reply",href="#", style="float:right", data-to="#{reply.from._id}", data-user="#{reply.from.username}",data-comment="#{comment._id}") reply
 									p content : #{reply.content}
 									p createAt : #{moment(reply.createAt).format('YYYY年 M月 D日 星期E')}
-							form.form-horizontal(method="post", action="/s-comment-save?type=reply")
-								div.input-group.col-md-2
-									input(id="reply_content", type="text",class="form-control", name="reply[content]", placeholder="回复#{reply.from.username}")
-									input(type="hidden", name="reply[activity_id]", value="#{activity._id}")
-									input(id="reply_to", type="hidden", name="reply[to]", value="#{reply.from._id}")
-									input(type="hidden",name="reply[com_id]", value="#{comment._id}")
-									span.input-group-btn
-										button(class="btn btn-default" type="submit") Go
-											form.form-horizontal(method="post", action="/s-comment-save?type=reply")
+									hr
+
+			form.form-horizontal(method="post", action="/s-comment-save?type=reply")
+				div.input-group.col-md-2.col-md-offset-1
+					input(id="reply_content#{comment._id}", type="text",class="form-control", name="reply[content]", placeholder="回复楼主")
+					input(type="hidden", name="reply[activity_id]", value="#{activity._id}")
+					input(id="reply_to#{comment._id}", type="hidden", name="reply[to]", value="#{comment.from._id}")
+					input(type="hidden",name="reply[com_id]", value="#{comment._id}")
+					span.input-group-btn
+						button(class="btn btn-default" type="submit") Go
+			hr
 			br
 
-	h2 评论
-	form.form-horizontal(method="post", action="/s-comment-save?type=new")
-		div.input-group.col-md-2
-			input(type="hidden", name="comment[activity_id]", value="#{activity._id}")
-			textarea.form-control(type="text", name="comment[content]")
-			button.btn.btn-default(type="submit") 提交
+	hr
+	h2 Post
+	div.row
+		form.form-horizontal(method="post", action="/s-comment-save?type=new")
+			div.input-group.col-md-2
+				input(type="hidden", name="comment[activity_id]", value="#{activity._id}")
+				textarea.form-control(type="text", name="comment[content]")
+				button.btn.btn-default(type="submit") 提交
 
-	br
-	a(href='/home') 返回
+		br
+
+	div.row
+		a(href='/home') 返回
+
+	script(src="/pages/detail/FollowAndJoin.js")
+	script(src="/pages/detail/reply.js")
