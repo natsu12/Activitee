@@ -12,16 +12,16 @@ block content
         input(type="hidden", name="type", value="basic")
 
         .form-group
-          label.col-sm-2.control-label(for="inputImages") 头像  
+          label.col-sm-2.control-label(for="avatar") 头像  
           .col-sm-6
             if user.avatar
               img(src="/avatar/#{user.avatar}" width=50 height=50)
             input(type="file" name="avatar")
 
         .form-group
-          label.col-sm-2.control-label(for="inputCover") 邮箱
+          label.col-sm-2.control-label(for="email") 邮箱
           .col-sm-6
-            input#inputCover.form-control(type="text", name="user[email]", value=user.email, required)
+            input.form-control(type="text", name="user[email]", value=user.email, required)
 
         .form-group
           .col-sm-offset-2.col-sm-6
@@ -32,19 +32,19 @@ block content
         input(type="hidden", name="type", value="pwd")
 
         .form-group
-          label.col-sm-2.control-label(for="inputCover") 原密码
+          label.col-sm-2.control-label(for="pwdOriginal") 原密码
           .col-sm-6
-            input#inputCover.form-control(type="text", name="user[pwdOriginal]", required)
+            input.form-control(type="text", name="user[pwdOriginal]", required)
 
         .form-group
-          label.col-sm-2.control-label(for="inputCover") 新密码
+          label.col-sm-2.control-label(for="pwdNew") 新密码
           .col-sm-6
-            input#inputCover.form-control(type="text", name="user[pwdNew]", required)
+            input.form-control(type="text", name="user[pwdNew]", required)
 
         .form-group
-          label.col-sm-2.control-label(for="inputCover") 确认密码
+          label.col-sm-2.control-label(for="pwdNewConfirm") 确认密码
           .col-sm-6
-            input#inputCover.form-control(type="text", name="user[pwdNewConfirm]", required)
+            input.form-control(type="text", name="user[pwdNewConfirm]", required)
 
         .form-group
           .col-sm-offset-2.col-sm-6
@@ -53,17 +53,17 @@ block content
 
       form.form-horizontal(method="post", action="/s-user-save") 真实信息
         input(type="hidden", name="user[username]", value=user.username)
-        input(type="hidden", name="type", value="detailInfo")
+        input(type="hidden", name="type", value="realInfo")
 
         .form-group
           label.col-sm-2.control-label(for="real_name") 真实姓名
           .col-sm-6
-            input#inputCover.form-control(type="text", name="user[real_name]", value=user.email, required)
+            input.form-control(type="text", name="user[real_name]", value=user.email, required)
 
         .form-group
           label.col-sm-2.control-label(for="phone_num") 联系方式
           .col-sm-6
-            input#inputCover.form-control(type="text", name="user[phone_num]", value=user.email, required)
+            input.form-control(type="text", name="user[phone_num]", value=user.email, required)
 
         .form-group
           .col-sm-offset-2.col-sm-6
