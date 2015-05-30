@@ -26,7 +26,8 @@
     "passport": "~0.2.0",
     "passport-local": "~1.0.0",
     "static-favicon": "~1.0.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "formidable": "*"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
