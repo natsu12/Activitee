@@ -36,7 +36,7 @@ module.exports = (req, res)!->
         content: replyObj.content
       }
       comment.replies.push(_reply)
-      comment.save (err, activity) !->
+      comment.save (err, comment) !->
         if err
           console.log(err)
         res.redirect '/detail/' + act_id
