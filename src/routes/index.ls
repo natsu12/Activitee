@@ -2,7 +2,7 @@ require! 'express'
 require! ['../controllers/page/index', '../controllers/page/home', '../controllers/page/detail']
 require! ['../controllers/page/create', '../controllers/page/edit', '../controllers/page/host']
 require! ['../controllers/page/following', '../controllers/page/joining', '../controllers/page/admin']
-require! ['../controllers/page/setting']
+require! ['../controllers/page/setting', '../controllers/service/s-user-save']
 require! ['../controllers/service/s-activity-save', '../controllers/service/s-activity-delete']
 require! ['../controllers/service/s-comment-save', '../controllers/service/s-comment-delete']
 require! ['../controllers/service/s-activity-follow', '../controllers/service/s-activity-join']
@@ -44,5 +44,8 @@ module.exports = (passport)->
   router.get '/s-activity-delete', is-authenticated, s-activity-delete
   router.post '/s-comment-save', is-authenticated, s-comment-save
   router.get '/s-comment-delete', is-authenticated, s-comment-delete
+
   router.get '/s-activity-follow', is-authenticated, s-activity-follow
   router.get '/s-activity-join', is-authenticated, s-activity-join
+  router.post '/s-user-save', is-authenticated, s-user-save
+
