@@ -1,0 +1,122 @@
+@main_yellow: #EDAC36;  // 页面中主要的黄色
+@header_height: 72px;   // 网页头部高度
+@main_font: "Microsoft YaHei";  // 主要字体：微软雅黑
+
+#header {
+	width: 100%;
+	height: @header_height;
+	background: @main_yellow;
+	min-width: 1000px;
+
+	.logo {
+		width: 150px;
+		height: @header_height;
+		margin: 0 50px 0 90px;
+		float: left;
+	}
+
+	.nav {
+		float: left;
+		li {
+			float: left;
+			display: block;
+			width: 97px;
+			height: @header_height;
+			line-height: @header_height;
+			a {
+				padding: 0px;
+				color: white;
+				text-align: center;
+				font-size: 17px;
+				font-family: @main_font;
+				&:hover {
+					background: @main_yellow;
+				}
+			}
+		}
+	}
+
+	.search {
+		@search_height: 35px;
+		width: 215px;
+		height: @search_height;
+		background: url('/images/search.jpeg') center no-repeat;
+		float: right;
+		margin-top: 20px;
+		margin-right: 50px;
+		position: relative;
+		border: none;
+		form {
+			padding: 0;
+			background: none;
+			border: none;
+		}
+		.common {
+			position: absolute;
+			top: 0;
+			background: none;
+			border: none;
+		}
+		.text {
+			height: @search_height;
+			outline: none;
+			width: 180px;
+			.common;
+			left: 0;
+			padding-left: 10px;
+		}
+		.button {
+			height: @search_height;
+			width: 35px;
+			border: 0;
+			.common;
+			right: 0;
+		}
+	}
+
+	.align-right {
+		float: right;
+		margin-right: 90px;
+	}
+
+	.profile {
+		li {
+			width: 160px;
+			a:hover {
+				background: @main_yellow;
+			}
+		}
+		
+		.hide {
+			display: none;
+		}
+		.profile-menu {
+			height: 80px;
+			width: 160px;
+			background: @main_yellow;
+			position: absolute;
+			top: @header_height+3;
+			left: 0;
+			
+			@profile_menu_height: 40px;
+			ul {
+				padding: 0;
+				li {
+					height: @profile_menu_height;
+					width: 160px;
+					a {
+						display: block;
+						height: @profile_menu_height;
+						width: 160px;
+						line-height: @profile_menu_height;
+						text-align: center;
+						&:hover {
+							text-decoration: none;
+						}
+					}
+					
+				}
+			}
+		}
+	}
+}
