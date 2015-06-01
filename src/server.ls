@@ -7,6 +7,8 @@ mongoose.connect db.url
 app = express!
 server = http.create-server app
 
+passport = new Passport
+
 app.set 'views', path.join __dirname, 'views'
 app.set 'view engine', 'jade'
 
@@ -15,7 +17,7 @@ app.use logger 'dev'
 app.use bodyParser.json!
 app.use bodyParser.urlencoded!
 app.use cookieParser!
-# app.use (new Passport).auth
+# app.use passport.auth
 app.use express.static path.join __dirname, 'public'
 app.use flash!
 app.locals.moment = require 'moment'
