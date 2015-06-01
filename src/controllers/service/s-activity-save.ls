@@ -5,6 +5,11 @@ _ = require 'underscore'
 
 # save an activity
 module.exports = (req, res)!->
+  req.user = {
+    _id: 123456
+    username: "软件学院学生会"
+  }
+
   id = req.body.activity._id
   activityObj = req.body.activity
   if id isnt undefined     # 已存在，更新字段
@@ -21,26 +26,27 @@ module.exports = (req, res)!->
     form.uploadDir = 'public' + COVER_UPLOAD_FOLDER
     form.keepExtensions = true
 
+    
     form.parse req, (err, fields, files)!->
       if err
         console.log err
         
-      _activity = new Activity {
-        title: activityObj.title
-        summary: activityObj.summary
-        time: activityObj.time
-        place: activityObj.place
-        host: req.user._id
-        people_num: activityObj.people_num
-        tags: activityObj.tags
-        images: activityObj.images
-        cover: activityObj.cover
-        status: 0
-      }
+    _activity = new Activity {
+      title: activityObj.title
+      summary: activityObj.summary
+      time: activityObj.time
+      place: activityObj.place
+      host: req.user._id
+      people_num: activityObj.people_num
+      tags: activityObj.tags
+      images: activityObj.images
+      cover: activityObj.cover
+      status: 0
+    }
 
-      _activity.save (err, activity)!->
-        if err
-          console.log err
-        console.log "success"
-        res.redirect '/host'
+    _activity.save (err, activity)!->
+      if err
+        console.log err
+      console.log "success"
+      res.redirect '/host'
 

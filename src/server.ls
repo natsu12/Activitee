@@ -1,4 +1,4 @@
-require! {express, http, path, 'cookie-parser', 'body-parser', mongoose, 'express-session', './db', './Passport/Passport', routes: './routes/index'}
+require! {express, http, path, 'cookie-parser', 'body-parser', mongoose, 'express-session', './db', './Passport/Passport'}
 logger = require 'morgan'
 flash = require 'connect-flash'
 favicon = require 'static-favicon'
@@ -8,7 +8,6 @@ app = express!
 server = http.create-server app
 
 passport = new Passport
-
 app.set 'views', path.join __dirname, 'views'
 app.set 'view engine', 'jade'
 
@@ -22,7 +21,8 @@ app.use express.static path.join __dirname, 'public'
 app.use flash!
 app.locals.moment = require 'moment'
 
-app.use '/', routes
+routes = (require './routes') passport
+app.use '/', routes 
 
 app.use (req, res, next) ->
   err = new Error 'Not Found'
