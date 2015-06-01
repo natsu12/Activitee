@@ -25,8 +25,6 @@ module.exports = (req, res)!->
       if err
         console.log err
         
-
-
       _activity = new Activity {
         title: activityObj.title
         summary: activityObj.summary
@@ -45,3 +43,4 @@ module.exports = (req, res)!->
           console.log err
         console.log "success"
         res.redirect '/host'
+

@@ -7,10 +7,10 @@ module.exports = (req, res)!->
     Activity.findById id, (err, activity)!->
       if err
         console.log err
-      Comment.findByActId id, (err, comments)!->
-        res.render 'edit', {
-          title: '修改活动信息'
-          user: req.user
-          activity: activity
-          comment: comments
-        }
+
+      res.render 'edit', {
+        title: '修改活动信息'
+        user: req.user
+        activity: activity
+      }
+
