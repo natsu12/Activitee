@@ -1,7 +1,7 @@
 require! {
   '../../Passport/Passport'
-  '../../models/User'
-  '../../mail'
+  User: '../../models/user'
+  '../../mail/mail'
 }
 
 host = 'http://localhost'
