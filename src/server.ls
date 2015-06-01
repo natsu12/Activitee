@@ -1,4 +1,4 @@
-require! {express, http, path, 'cookie-parser', 'body-parser', mongoose, 'express-session', './db', './Passport/Passport'}
+require! {express, http, path, 'cookie-parser', 'body-parser', mongoose, 'express-session', './db', './Passport/Passport', routes: './routes/index'}
 logger = require 'morgan'
 flash = require 'connect-flash'
 favicon = require 'static-favicon'
@@ -15,7 +15,7 @@ app.use logger 'dev'
 app.use bodyParser.json!
 app.use bodyParser.urlencoded!
 app.use cookieParser!
-app.use (new Passport).auth
+# app.use (new Passport).auth
 app.use express.static path.join __dirname, 'public'
 app.use flash!
 app.locals.moment = require 'moment'
