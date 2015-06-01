@@ -1,28 +1,102 @@
 extends layout
 
 block content
-  h1 #{title}
-  .container
-      .row
-          table.table.table-hover.table-bordered
-              tread
-                  tr
-                      th 活动名称
-                      th 时间
-                      th 封面
-                      th 发起人
-              tbody
-                  each item in activities
-                      tr(class="item-id-#{item._id}")
-                          td 
-                            a(href='/detail/#{item._id}') #{item.title}
-                          td #{moment(item.time).format('YYYY/MM/DD')}
-                          //- td #{item.tags}
-                          td #{item.cover}
-                          td #{item.host}
+  #home_wrap
+    #myCarousel.carousel.slide
+      ol.carousel-indicators
+        li.active(data-target="#myCarousel", data-slide-to="0")
+        li(data-target="#myCarousel", data-slide-to="1")
+        li(data-target="#myCarousel", data-slide-to="2")
+      
+      .carousel-inner
+        .item.active
+          img(src="images/slide1.png")
+          .carousel-caption
+            h4 hehe
+        .item
+          img(src="images/slide2.png")
+          .carousel-caption
+            h4 hehe
+        .item
+          img(src="images/slide3.png")
+          .carousel-caption
+            h4 hehe
+      a.carousel-control.left(href="#myCarousel", data-slide="prev")
+        &lsaquo;
+      a.carousel-control.right(href="#myCarousel", data-slide="next")
+        &rsaquo;
+
+    #act_area
+      ul#myTab.nav.nav-tabs
+        li.active
+          a(href="#future") 即将进行
+        li
+          a(href="#past") 往期回顾
+        li
+          a(href="#all") 所有活动
+      .tab-content
+        #future.tab-pane.active.fade.in
+          .tag_area
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+          .sort_area
+            ul
+              li
+                a.active.sort(href="#") 按开始时间排序
+              li
+                a.sort(href="#") 按关注人数排序
+              li
+                a.sort(href="#") 按参加人数排序
+
+          each item in activities
+            .acts
+              a(href="detail/#{item._id}")
+                img(src="#{item.cover}", alt="活动封面")
+                .acts_info
+                  p #{item.title}
+                  p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                  p #{item.host.username}
+        #past.tab-pane.fade
+          .tag_area
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+          .sort_area
+            ul
+              li
+                a.active.sort(href="#") 按开始时间排序
+              li
+                a.sort(href="#") 按关注人数排序
+              li
+                a.sort(href="#") 按参加人数排序
+        #all.tab-pane.fade
+          .tag_area
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+          .sort_area
+            ul
+              li
+                a.active.sort(href="#") 按开始时间排序
+              li
+                a.sort(href="#") 按关注人数排序
+              li
+                a.sort(href="#") 按参加人数排序
 
 
   a(href='/create', class='text-center new-account') create an activity
   a(href='/host', class='text-center new-account') my activities
   a(href='/following', class='text-center new-account') my following activities
   a(href='/joining', class='text-center new-account') my joining activities
+
+  script(src="livescript/home.js")

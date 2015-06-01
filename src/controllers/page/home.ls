@@ -2,7 +2,7 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 
 # home page
 module.exports = (req, res)!->
-  Activity.fetch (err, activities)!->
+  Activity .find {} .sort 'time' .populate 'host' .exec (err, activities)!->
     if err
       console.log err
     res.render 'home', {
