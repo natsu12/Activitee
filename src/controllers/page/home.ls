@@ -2,6 +2,7 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 
 # home page
 module.exports = (req, res)!->
+<<<<<<< HEAD
   # populate 扩展测试
   # Activity .findOne {place: '逸夫楼200'} .populate 'host' .exec (error, activity)->
   #   console.log activity
@@ -61,3 +62,13 @@ module.exports = (req, res)!->
 tagCmp = (tag1, tag2)->
   return tag1.users.length < tag2.users.length # 符号可调整
 
+=======
+  Activity .find {} .sort 'time' .populate 'host' .exec (err, activities)!->
+    if err
+      console.log err
+    res.render 'home', {
+      title: '活动主页'
+      user: req.user
+      activities: activities
+    }
+>>>>>>> f16212c81b3c511e58a2cea2f907eba887dce0ac

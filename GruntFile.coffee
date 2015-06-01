@@ -39,7 +39,7 @@ module.exports = (grunt) ->
     copy:
       appCode:
         files: [
-          src: ["**/*.*", "!**/**.{ls,sass}"]
+          src: ["**/*.*", "!**/**.{ls,less}"]
           dest: "bin/"
           cwd: "src/"
           expand: true
@@ -67,12 +67,10 @@ module.exports = (grunt) ->
         dest: "bin/"
         ext: ".js"
 
-    sass:
-      options:
-        includePaths: require('node-bourbon').with('src/common/sass')
-      build:
+    less:
+      development:
         files: [
-          src: ["**/*.sass"]
+          src: ["**/*.less"]
           dest: "bin/"
           cwd: "src/"
           expand: true
@@ -100,12 +98,12 @@ module.exports = (grunt) ->
         files: ["src/**/*.ls"]
         tasks: ["newer:livescript"]
 
-      sass:
-        files: ["src/**/*.sass"]
-        tasks: ["newer:sass", "concat"]
+      less:
+        files: ["src/**/*.less"]
+        tasks: ["newer:less", "concat"]
 
       appCode:
-        files: ["src/**/*.*", "!src/**/**.{ls,sass}"]
+        files: ["src/**/*.*", "!src/**/**.{ls,less}"]
         tasks: ["newer:copy:appCode"]
 
       grunt:
@@ -131,7 +129,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask "build", [
     "livescript"
-    "sass"
+    "less"
     "copy"
   ]
 

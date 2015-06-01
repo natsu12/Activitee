@@ -6,194 +6,29 @@
 3. npm install
 4. grunt watch
 
-## 数据模型
-数据模式定义在`/schemas`目录下，数据模型定义在`/models`目录下
+## 文件目录结构
+```
+.
+├── UI      存放UI设计图
+├── doc     存放项目需求、分工等文档
+└── src     项目的代码
+    ├── controllers       页面后端的逻辑控制（后端主要在此目录下编写代码）
+        ├── page          处理各个页面需要渲染的数据
+        └── service       从前端发送来的各种请求的接口
+    ├── models            存放MongoDB模型
+    ├── passport          登陆注册的第三包（待改）
+    ├── public            项目静态文件（图片、前端各种框架插件、less、livescript）
+    ├── routes            存放路由控制文件
+        └── index.ls      定义了各个url应调用controller中的哪个接口
+    ├── schemas           定义了项目的数据模型，注释中标明了每个模型具有的属性的含义，原则上不要改动
+    └── views             存放网页前端视图模板
+    
+```
 
-1. activity
-2. user
-3. tag
-4. comment
-
-关于每个模型具有的属性的含义，请参考`/schemas`目录中各个模式中的注释。注：meta属性包含的是字段的创建时间和更新时间。
-
-## 各个页面
-各页面视图定义在`/views`目录下，各路由定义在`/routes/index.ls`中
-
-1. 首页：index （暂时不用做）
-2. 活动主页：home
-  * 用到的数据：
-  ```
-    {
-      user: {
-        username,
-        avatar
-      },
-      activities: [{   // status为1的活动
-        id,
-        title,
-        cover,
-        time,
-        host
-      }],
-      past_activities: [{  // 过期的活动
-        id,
-        title,
-        cover,
-        time,
-        host
-      }],
-      tags: [{
-        name
-      }]
-    }
-  ```
-  * 需求：
-    1. 每个活动呈现的信息：标题，封面，活动时间，发布人
-    2. 用户呈现的信息：头像，用户名
-    3. 默认根据活动时间排序（暂时不弄评分）
-    4. 未登录时默认呈现所有活动，登陆后呈现用户订阅的tag下的所有活动
-    5. 点击tag进行筛选
-    6. 分页查看
-    7. 两个tab，一个tab显示未过期活动，一个tab显示过期活动
-    8. 点击活动后，跳转到`/detail/:id`，进入相应的活动详情页
-3. 活动详情页：detail
-  * 用到的数据：
-  ```
-    {
-      user: {
-        username,
-        avatar
-      },
-      activity: {
-        id,
-        title,
-        summary,
-        time,
-        place,
-        host,
-        people_num,
-        tags,
-        images,
-      },
-      comments: [{
-        avatar,
-        username,
-        content,
-        createAt,
-        replies: [{
-          avatar,
-          username,
-          content,
-          createAt,
-          replying_to    // 回复给谁，null代表回复层主
-        }]
-      }]
-    }
-  ```
-  * 需求
-    1. 需要呈现活动的：标题，简介，活动时间，活动地点，发布人，活动人数，标记的tag，图片
-    2. 需要呈现属于这个活动的所有评论
-    3. 登陆用户可以发表评论，可以回复他人评论，回复他人的评论时用引用回复对象的评论
-    4. 登陆用户可以关注该活动，参与该活动
-4. 发布活动信息：create （登陆后才可以进入）
-  * 用到的数据：
-  ```
-    {
-      user: {
-        username,
-        avatar
-      }
-    }
-  ```
-5. 我关注的活动：following （登陆后才可以进入）
-  * 用到的数据：
-  ```
-    {
-      user: {
-        username,
-        avatar
-      },
-      activities: [{
-        id,
-        title,
-        cover,
-        time,
-        host
-      }],
-    }
-  ```
-6. 我参与的活动：joining （登陆后才可以进入）
-  * 用到的数据：
-  ```
-    {
-      user: {
-        username,
-        avatar
-      },
-      activities: [{
-        id,
-        title,
-        cover,
-        time,
-        host
-      }],
-    }
-  ```
-7. 我发布的活动：host （登陆后才可以进入）
- * 用到的数据：
-  ```
-    {
-      user: {
-        username,
-        avatar
-      },
-      activities: [{
-        id,
-        title,
-        cover,
-        time,
-        host,
-        status   // 0为未审核，1为已审核
-      }],
-    }
-  ```
-8. 修改活动信息：edit （登陆后才可以进入）
-  * 用到的数据：
-  ```
-    {
-      user: {
-        username,
-        avatar
-      },
-      activities: [{
-        id,
-        title,
-        summary,
-        time,
-        place,
-        host,
-        people_num,
-        tags,
-        images,
-      }]
-    }
-  ```
-9. 活动审核页：admin （管理员才可以进入）
-  * 用到的数据：
-  ```
-    {
-      user: {
-        username,
-        avatar
-      },
-      activities: [{  //status为0的活动
-        id,
-        title,
-        cover,
-        time,
-        host
-      }],
-    }
-  ```
-10. 登录页：signin
-11. 注册页：register
+## 工作流程规范
+1. 后端主要在`/controllers`目录下编写代码，包括所有数据库的读写操作，不需要在`/schemas`中定义公有方法。
+2. 按照文档，自行设计负责的页面所需要的接口，编写好一个接口后，可以改动`/routes/index.ls`，让前端请求某url时调用到该接口。
+3. 为保持每个人本地仓库中的代码是最新的，请在每天早上（或者编写代码之前）执行`git pull git@github.com:natsu12/Activitee.git`，（如果嫌链接太长，可以执行`git remote add zuzhang git@github.com:natsu12/Activitee.git`，那下次就可以直接`git pull zuzhang`，或者用其他你喜欢的名称代替zuzhang）
+4. 如果在pull的时候发现冲突，请参考[issue](https://github.com/natsu12/Activitee/issues/4)的解决办法。
+5. 建议每天晚上12点前（或者编写完代码之后）至少给我pull request一次，让我好掌握每个人的进度。
+6. 所有跟项目直接相关的讨论都需要在github上进行。有相关的第三方文档资料或博客请发issue，有问题请发issue或者在commit中添加评论，方便之后对前面工作的审查。尽量不要在Q群上讨论，Q群只用来通知。

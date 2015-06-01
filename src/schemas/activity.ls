@@ -5,7 +5,7 @@ ActivitySchema = new mongoose.Schema {
   title: String,                                           #标题
   time: Date,                                              #活动时间
   place: String,                                           #活动地点
-  host: [{type: ObjectId, ref: 'User'}],                   #发布人
+  host: {type: ObjectId, ref: 'User'},                     #发布人
   host_info: String,                                       #发布人自愿提供的信息，如：微博、微信公众号
   following_users: [{type: ObjectId, ref: 'User'}],        #已关注的用户
   joining_users: [{type: ObjectId, ref: 'User'}],          #已报名的用户
@@ -45,7 +45,6 @@ ActivitySchema.statics = {
     @ .find {} .populate({path: 'following_users', select: {_id : 1}, option: {_id : id}}) .exec cb
   findUserJoining: (id, cb)->
     @ .find {} .populate({path: 'joining_users', select: {_id : 1}, option: {_id : id}}) .exec cb
-    
 }
 
 module.exports = ActivitySchema

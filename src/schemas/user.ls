@@ -2,6 +2,8 @@ require! ['mongoose']
 ObjectId = mongoose.Schema.Types.ObjectId
 
 UserSchema = new mongoose.Schema {
+  authenticated: Number                                 #验证状态, 1表示已验证
+  auth_code: String                                     #验证码
   email: String,                                        #邮箱
   password: String,                                     #密码
   username: String,                                     #用户名

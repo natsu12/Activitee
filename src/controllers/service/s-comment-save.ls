@@ -2,7 +2,7 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 _ = require 'underscore'
 
 module.exports = (req, res)!->
-  type = req.param 'type'                 # reply or new
+  type = req.query.type                 # reply or new
   if type == 'new'
     act_id = req.body.comment.activity_id
     if act_id == null
@@ -36,7 +36,7 @@ module.exports = (req, res)!->
         content: replyObj.content
       }
       comment.replies.push(_reply)
-      comment.save (err, activity) !->
+      comment.save (err, comment) !->
         if err
           console.log(err)
         res.redirect '/detail/' + act_id

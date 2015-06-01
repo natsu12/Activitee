@@ -1,0 +1,126 @@
+@import 'layout.less';
+
+#home_wrap {
+  width: 90%;
+  margin: 0 auto;
+  min-width: 1100px;
+}
+
+#myCarousel {
+  width: 800px;
+  margin: 50px;
+
+  .carousel-control {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+    font-size: 60px;
+    font-weight: 100;
+    line-height: 25px;
+    color: #ffffff;
+    text-align: center;
+    background: #222222;
+    border: 3px solid #ffffff;
+    -webkit-border-radius: 23px;
+    -moz-border-radius: 23px;
+    border-radius: 23px;
+    opacity: 0.5;
+
+    &:hover {
+      color: #ffffff;
+      text-decoration: none;
+      opacity: 0.9;
+      filter: alpha(opacity=90);
+    }
+  }
+  .carousel-control.right {
+    left: auto;
+    right: 15px;
+  }
+
+  .carousel-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 15px;
+      background: #333333;
+      height: 80px;
+  }
+  .carousel-indicators {
+    bottom: 0;
+  }
+}
+
+#act_area {
+  @act_area_width: 870px;
+  width: @act_area_width;
+  margin: 50px;
+  overflow: hidden;
+  .tab-content {
+    border-right: 1px solid #e8e8e8;
+    border-left: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 20px;
+    overflow: hidden;
+    .tag_area {
+      width: @act_area_width;
+      padding: 10px;
+      .tag {
+        margin: 10px;
+      }
+    }
+    .sort_area {
+      height: 40px;
+      width: @act_area_width;
+      border-bottom: 1px solid #e8e8e8;
+      border-top: 1px solid #e8e8e8;
+      overflow: hidden;
+      ul {
+        list-style-type: none;
+        li {
+          float: left;
+          height: 40px;
+          width: 120px;
+          margin-right: 20px;
+          a {
+            display: block;
+            height: 40px;
+            width: 120px;
+            line-height: 40px;
+            font-family: @main_font;
+            text-align: center;
+            &:hover {
+              text-decoration: none;
+            }
+          }
+          a.active {
+            background: #eee;
+          }
+        }
+      }
+    }
+    .acts {
+      float: left;
+      margin: 20px 0 0 30px;
+      width: 180px;
+      height: 320px;
+      border: 1px solid #e8e8e8;
+      img {
+        height: 180px;
+        width: 180px;
+      }
+      .acts_info {
+        background: #eee;
+        height: 140px;
+        p {
+          text-align: center;
+          font-family: @main_font;
+        }
+      }
+    }
+  }
+}

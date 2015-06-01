@@ -3,11 +3,48 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
     link(rel='stylesheet', href='/datetimepicker/jquery.datetimepicker.css')
+    link(rel='stylesheet', href='/stylesheets/layout.css')
+    link(rel='stylesheet', href='/stylesheets/home.css')
   body
     script(src="/jquery/jquery.min.js")
+    script(src="/bootstrap/js/bootstrap.min.js")
+    #header
+      .wrap
+        img.logo(src="/images/logo.png", alt="logo")
+        ul.nav
+          li
+            a(href="/home") 发现活动
+          li
+            a(href="/host") 我的活动
+        
+        unless user
+          ul.nav.align-right
+            li
+              a(href="/signin") 登陆
+            li
+              a(href="/signup") 注册
+          
+        if user
+          .profile
+              p #{user.username}
+              .profile-menu.hide
+                ul
+                  li
+                    a(href="/setting") 设置
+                  li
+                    a(href="/signout") 退出
+
+        .search
+          form
+            input.text(type="text")
+            input.button(type="submit", value="")
+        
+        
+
     block content
     
+    script(src="/livescript/layout.js")
     script(type="application/javascript", src="http://localhost:35729/livereload.js")
     script(src="/datetimepicker/jquery.datetimepicker.js")

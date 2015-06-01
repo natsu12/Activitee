@@ -2,72 +2,104 @@ extends layout
 
 block content
 	h1 #{title}
+	- var flag = 0;
+
+	if user
+		each following_user in activity.following_users
+			if following_user.username == user.username
+				- flag = 1
+
+		if flag == 1
+			button.btn.btn-info(type="button", disabled="disabled") 已关注
+		else
+			button.btn.btn-info(id="follow", type="button", data-id="#{activity._id}") 关注
+		&nbsp
+
+		- flag = 0
+		each join_user in activity.joining_users
+			if join_user.username == user.username
+				- flag = 1
+		if flag == 1
+			button.btn.btn-info(type="button", disabled="disabled") 已参加
+		else
+			button.btn.btn-info(id="join", type="button", data-id="#{activity._id}") 参加
+	br
+	br
 	dl
 		dt 标题
 		dd=activity.title
 		dt 简介
 		dd=activity.summary
 		dt 时间
-		dd #{moment(activity.time).format('YYYY/MM/DD')}
+		dd #{moment(activity.time).format('YYYY年 M月 D日 星期E')}
 		dt 地点
 		dd=activity.place
 		dt 发布人
-		dd=activity.host
-		dt 人数
-		dd=activity.people_num
+		for each in activity.host
+			dd=each.username
+		dt 发布者信息
+		p !{activity.host_info}
+		dt 关注人数
+		dd: span(id="follows") #{activity.following_users.length}
+		dt 参加人数
+		dd: span(id="joins") #{activity.joining_users.length} 
 		dt 图片
 		dd=activity.images
+		dt Tags
+		for each in activity.tags
+			dd=each.name
+		br
 
-	h2 Comment
-		if comments.length == 0
-			p no comments
-		else
-			each comment in comments
-				ul
-					li comment_id : #{comment._id}
-					li: a(class="btn btn-danger" href="/s-comment-delete?id=#{comment._id}" role="button") 删除
-					li user : #{comment.from}
-					li createAt : #{comment.meta}
-					li content : #{comment.content}
-					li images : #{comment.images}
-					li replies : 
+
+	h2 Comments
+	div.row
+	if comments.length == 0
+		p no comments
+	else
+		each comment in comments
+			div
+				p user : #{comment.from.username}
+				p content : #{comment.content}
+				p #{moment(comment.meta.updateAt).format('YYYY年 M月 D日 星期E')}
+				if comment.replies.length != 0
+					p replies : 
 						each reply in comment.replies
-							ul 
-								li from : #{reply.from} to #{reply.to}
-								li content : #{reply.content}
-								li createAt : #{reply.createAt}
+							div.row
+								div.col-md-4.col-md-offset-1
+									p from #{reply.from.username} to #{reply.to.username}
+										a(class="reply",href="#", style="float:right", data-to="#{reply.from._id}", data-user="#{reply.from.username}",data-comment="#{comment._id}") reply
+									p content : #{reply.content}
+									p createAt : #{moment(reply.createAt).format('YYYY年 M月 D日 星期E')}
+									hr
 
-	h2 评论
-	form.form-horizontal(method="post", action="/s-comment-save?type=new")
-		input(type="hidden", name="comment[activity_id]", value="#{activity._id}")
-		.form-group
-			label 内容
-			input.form-control(type="text", name="comment[content]")
+			form.form-horizontal(method="post", action="/s-comment-save?type=reply")
+				div.input-group.col-md-2.col-md-offset-1
+					input(id="reply_content#{comment._id}", type="text",class="form-control", name="reply[content]", placeholder="回复楼主")
+					input(type="hidden", name="reply[activity_id]", value="#{activity._id}")
+					input(id="reply_to#{comment._id}", type="hidden", name="reply[to]", value="#{comment.from._id}")
+					input(type="hidden",name="reply[com_id]", value="#{comment._id}")
+					span.input-group-btn
+						button(class="btn btn-default" type="submit") Go
+			hr
+			br
 
-		.form-group
-			label 图片
-			input.form-control(type="text", name="comment[images]")
+	hr
+	h2 Post
+	div.row
+		form.form-horizontal(method="post", action="/s-comment-save?type=new")
+			div.input-group.col-md-2
+				input(type="hidden", name="comment[activity_id]", value="#{activity._id}")
+				textarea.form-control(type="text", name="comment[content]")
+				button.btn.btn-default(type="submit") 提交
 
-		.form-group
-			button.btn.btn-default(type="submit") 提交
+		br
 
-	h2 回复
-	form.form-horizontal(method="post", action="/s-comment-save?type=reply")
-		input(type="hidden", name="reply[activity_id]", value="#{activity._id}")
-		.form-group
-			label com_id
-			input.form-control(type="text", name="reply[com_id]")
+	div.row
+		a(href='/home') 返回
 
-		.form-group
-			label to
-			input.form-control(type="text", name="reply[to]")
-
-		.form-group
-			label content
-			input.form-control(type="text", name="reply[content]")
-
-		.form-group
-			button.btn.btn-default(type="submit") 提交
-
-
+<<<<<<< HEAD
 	a(href='/home') 返回
+=======
+	script(src="/pages/detail/FollowAndJoin.js")
+	script(src="/pages/detail/reply.js")
+>>>>>>> f16212c81b3c511e58a2cea2f907eba887dce0ac
