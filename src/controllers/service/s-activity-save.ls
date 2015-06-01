@@ -31,5 +31,5 @@ module.exports = (req, res)!->
     _activity.save (err, activity)!->
       if err
         console.log err
-      console.log "success"
+
       res.redirect '/host'
