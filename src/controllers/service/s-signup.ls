@@ -1,5 +1,10 @@
-require! {'../../Passport/Passport'}
-require! {'../../models/User'}
+require! {
+  '../../Passport/Passport'
+  '../../models/User'
+  '../../mail'
+}
+
+host = 'http://localhost'
 
 module.exports = (req, res)!->
   # x inputs from body
@@ -18,14 +23,19 @@ module.exports = (req, res)!->
         res.end 'username exists'
       # ok
       else
+        authCode = Math.random!toString!
         User.create {
           username: username
           password: password
           email: email
           tags: tags
           role: 0
+          authenticated: 0
+          authCode: authCode
         }, (err)!->
           if err
             'handle error'
           else
+            # send auth mail
+            mail.send email, 'auth mail', "<a href='#{host}/s-auth/#{authCode}'></a>"
             res.end 'ok'
