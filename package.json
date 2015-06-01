@@ -12,6 +12,7 @@
     "url": "https://github.com/Thinking-Oriented-Programming/my-homework.git"
   },
   "dependencies": {
+    "MD5": "^1.2.2",
     "bcrypt-nodejs": "*",
     "body-parser": "~1.0.0",
     "connect-flash": "*",
