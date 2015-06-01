@@ -5,32 +5,28 @@ block content
   p 用户：#{user.username}
   .container
       .row
-          form.form-horizontal(method="post", action="/s-activity-save",enctype='multipart/form-data',role="form")
+          form.form-horizontal(method="post", action="/s-activity-save")
               .form-group
                   label.col-sm-2.control-label(for="inputTitle") 活动名称
                   .col-sm-10
-                      input#inputTitle.form-control(type="text", name="activity[title]")
+                      input#inputTitle.form-control(type="text", name="activity[title]", required)
               .form-group
-                  label.col-sm-2.control-label(for="inputSummary") 活动简介
+                  label.col-sm-2.control-label(for="inputDetail") 活动详情
                   .col-sm-10
-                      textarea#inputSummary.form-control(rows=10, name="activity[summary]")
+                      textarea#inputDetail.form-control(rows=10, name="activity[detail]", required)
               .form-group
                   label.col-sm-2.control-label(for="inputTime") 时间
                   .col-sm-10
-                      input#inputTime.form-control(type="text", name="activity[time]")
+                      input#inputTime.form-control(type="text", name="activity[time]", required)
               .form-group
                   label.col-sm-2.control-label(for="inputPlace") 地点
                   .col-sm-10
-                      input#inputPlace.form-control(type="text", name="activity[place]")
+                      input#inputPlace.form-control(type="text", name="activity[place]", required)
               .form-group
-                  label.col-sm-2.control-label(for="inputImages") 图片
+                  label.col-sm-2.control-label(for="inputPlace") 主办方其他信息
                   .col-sm-10
-                      input#inputImages.form-control(type="text", name="activity[images]")
-              .form-group
-                  label.col-sm-2.control-label(for="inputCover") 封面
-                  .col-sm-10
-                      input#inputCoverFile.form-control(type="file", name="cover")
-                      input#inputCover.form-control(type="hidden", name="activity[cover]")
+                      textarea#inputHost.form-control(rows=5, name="activity[host_info]", required)
+
               .form-group
                   label.col-sm-2.control-label(for="inputCover") 是否需要真实信息
                   label.checkbox-inline

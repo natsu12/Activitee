@@ -35,8 +35,7 @@ block content
 		dt 地点
 		dd=activity.place
 		dt 发布人
-		for each in activity.host
-			dd=each.username
+		dd=activity.host.username
 		dt 发布者信息
 		p !{activity.host_info}
 		dt 关注人数

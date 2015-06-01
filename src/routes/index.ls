@@ -2,13 +2,15 @@ require! 'express'
 require! ['../controllers/page/index', '../controllers/page/home', '../controllers/page/detail']
 require! ['../controllers/page/create', '../controllers/page/edit', '../controllers/page/host']
 require! ['../controllers/page/following', '../controllers/page/joining', '../controllers/page/admin']
-require! ['../controllers/page/setting', '../controllers/service/s-user-save']
-require! ['../controllers/service/s-activity-save', '../controllers/service/s-activity-delete']
+require! ['../controllers/page/setting', '../controllers/page/upload_img']
+require! ['../controllers/page/signup', '../controllers/page/signin']
+
+require! ['../controllers/service/s-activity-save', '../controllers/service/s-activity-delete', '../controllers/service/s-user-save']
 require! ['../controllers/service/s-comment-save', '../controllers/service/s-comment-delete']
 require! ['../controllers/service/s-activity-follow', '../controllers/service/s-activity-join']
-require! ['../controllers/page/signup', '../controllers/page/signin']
 require! ['../controllers/service/s-signin', '../controllers/service/s-signup', '../controllers/service/s-signout']
 require! ['../controllers/service/s-activity-save', '../controllers/service/s-activity-delete', '../controllers/service/s-auth']
+require! ['../controllers/service/s-upload-img']
 router = express.Router! 
 
 # is-authenticated = (req, res, next)-> if req.is-authenticated! then next! else res.redirect '/signin'
@@ -26,6 +28,7 @@ module.exports = (passport)->
   router.get '/home', home
   router.get '/detail/:id', detail
   router.get '/create', create
+  router.get '/upload_img/:id', upload_img
   router.get '/edit/:id', edit
   router.get '/host', host
   router.get '/following', following
@@ -45,4 +48,6 @@ module.exports = (passport)->
   router.post '/s-user-save', s-user-save
 
   router.get '/s-auth/:authCode', s-auth
+
+  router.post '/s-upload-img/:id', s-upload-img
 
