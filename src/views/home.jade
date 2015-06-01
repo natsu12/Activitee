@@ -14,15 +14,20 @@ block content
               tbody
                   each item in activities
                       tr(class="item-id-#{item._id}")
-                          td 
+                          td
                             a(href='/detail/#{item._id}') #{item.title}
                           td #{moment(item.time).format('YYYY/MM/DD')}
                           //- td #{item.tags}
                           td #{item.cover}
                           td #{item.host}
 
-
   a(href='/create', class='text-center new-account') create an activity
   a(href='/host', class='text-center new-account') my activities
   a(href='/following', class='text-center new-account') my following activities
   a(href='/joining', class='text-center new-account') my joining activities
+
+  br
+  hr
+  br
+  h1 #{topFiveTags}
+
