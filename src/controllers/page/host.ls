@@ -2,7 +2,7 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 _ = require 'underscore'
 
 findUserHost = (id, cb)->
-   Activity .find {} .populate({path: 'host', select: {_id : 1}}) .find {host : id} .exec cb
+   Activity .find {} .populate({path: 'host', select: {_id : 1}}) .find {host : id} .sort 'time' .exec cb
 
 findUserHost_test = (id, cb)->
    Activity .find {} .populate('host') .find {} .sort 'time' .exec cb
