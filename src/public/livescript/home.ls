@@ -9,3 +9,9 @@ $ !->
     e.preventDefault!
     $ '.sort_area .sort' .removeClass 'active'
     $ this .addClass 'active'
+
+  $ '.active' .click (e)!->
+    alert 'active'
+
+  $ '.sort' .click (e)!->
+    alert 'sort'

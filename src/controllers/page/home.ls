@@ -2,43 +2,30 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 
 # home page
 module.exports = (req, res)!->
-<<<<<<< HEAD
-  # populate 扩展测试
-  # Activity .findOne {place: '逸夫楼200'} .populate 'host' .exec (error, activity)->
-  #   console.log activity
-  
-  # 添加标签数据
-  # (error, users) <- User .find {}
-  # for i from 6 to 10
-  #   tag = new Tag!
-  #   tag.name = "tag" + i
-  #   for j from 1 to 1
-  #     tag.users.push users[0]
-  #     tag.save!
-  # 提交测试
-  # res.render 'home', {
-  #   title: '活动主页'
-  #   user: req.user
-  #   activities: activities
-  # }
 
-  (error, users) <- User .find {}
-  console.log users.length
-  (error, activities) <- Activity .find {}
   # 获取热门标签及其活动
-  # 后期：取出Tag的同时排序并且取前五
+  (error, activities) <- Activity .find {}
+  # 获取当前时间
+  now = new Date!
+  # 默认在界面显示的活动
+  default-activities = []
+  # 循环遍历活动获取符合时间规定的活动
+  for activity in activities       # 缺点: 每次遍历全部活动，效率低
+    console.log '**********'
+    if activity.time > now
+      console.log activity.title, activity.time
+      default-activities.push activity
+  # 对活动进行排序
+  default-activities .sort activityCmp
+
   # 获取所有tags
-  (error, tags) <- Tag .find {}
-  # tags[0].users.push users[0]
-  # tags[0].users.push users[1]
-  # tags[1].users.push users[0]
-  console.log '-------'
-  for tag in tags
-    console.log tag.name, tag.users.length
+  (error, tags) <- Tag .find {} .populate 'users' .exec
   # 对tags进行排序(降序)
   tags = tags .sort tagCmp
+  # 输出测试
   console.log '--------'
-  for tag in tags
+  for tag in tags            # 缺点: 每次遍历全部的tag，效率低
+    continue if tag.users == null
     console.log tag.name, tag.users.length
   
   # 取前五个tags
@@ -49,26 +36,23 @@ module.exports = (req, res)!->
   res.render 'home', {
     title: '活动主页'
     user: req.user
-    activities: activities
+    activities: default-activities
     top-five-tags: top-five-tags
   }
-
-  # 获取热门活动
-
+  
   # 获取 我的tag ... 登录
 
 
 # 比较函数-辅助
 tagCmp = (tag1, tag2)->
-  return tag1.users.length < tag2.users.length # 符号可调整
+  return 1 if tag1.users == null    # populate处理后，会产生空对象
+  return -1 if tag2.users == null
+  return 1 if tag1.users.length < tag2.users.length # 符号可调整
+  return -1 if tag1.users.length > tag2.users.length
+  return 0
 
-=======
-  Activity .find {} .sort 'time' .populate 'host' .exec (err, activities)!->
-    if err
-      console.log err
-    res.render 'home', {
-      title: '活动主页'
-      user: req.user
-      activities: activities
-    }
->>>>>>> f16212c81b3c511e58a2cea2f907eba887dce0ac
+# 比较函数-辅助
+activityCmp = (activity1, activity2)->
+  return -1 if activity1.time < activity2.time
+  return 1 if activity1.time > activity2.time
+  return 0
