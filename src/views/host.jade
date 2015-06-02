@@ -9,11 +9,11 @@ block content
               tread
                   tr
                       th 活动名称
-                      th 活动简介
+                      th 活动详情
                       th 时间
                       th 地点
-                      th 人数
-                      th 图片
+                      //- th 标签
+                      //- th 图片
                       th 封面
                       th 状态
                       th 查看
@@ -23,12 +23,11 @@ block content
                   each item in activities
                       tr(class="item-id-#{item._id}")
                           td #{item.title}
-                          td #{item.summary}
+                          td #{item.detail}
                           td #{moment(item.time).format('YYYY/MM/DD')}
                           td #{item.place}
-                          td #{item.people_num}
                           //- td #{item.tags}
-                          td #{item.images}
+                          //- td #{item.images}
                           td #{item.cover}
                           td #{item.status}
                           td: a(target="_blank", href="/detail/#{item._id}") 查看

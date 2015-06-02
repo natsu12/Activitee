@@ -1,6 +1,6 @@
 require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment'}
 
-# create page
+# upload image page
 module.exports = (req, res)!->
   require! 'mongoose'                     # 为了写死登陆用户
   ObjectId = mongoose.Types.ObjectId('555842ce961d450f1f17307d')
@@ -8,7 +8,9 @@ module.exports = (req, res)!->
     _id: ObjectId
     username: 'test12'
   }
-  res.render 'create', {
-    title: '发布活动信息'
+  id = req.params.id
+  res.render 'upload_img', {
+    title: '上传封面'
     user: req.user
+    act_id: id
   }
