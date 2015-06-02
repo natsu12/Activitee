@@ -10,7 +10,7 @@ ActivitySchema = new mongoose.Schema {
   following_users: [{type: ObjectId, ref: 'User'}],        #已关注的用户
   joining_users: [{type: ObjectId, ref: 'User'}],          #已报名的用户
   tags: [{type: ObjectId, ref: 'Tag'}],                    #标记的tag
-  summary: String                                          #活动详情
+  detail: String                                           #活动详情
   images: [String],                                        #图片
   cover: String,                                           #封面
   need_info: Number,                                       #报名是否需要真实信息，0为不需要，1为需要
