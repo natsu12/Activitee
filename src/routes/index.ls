@@ -51,3 +51,4 @@ module.exports = (passport)->
 
   router.post '/s-upload-img/:id', s-upload-img
 
+

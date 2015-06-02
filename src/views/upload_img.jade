@@ -2,7 +2,6 @@ extends layout
 
 block content
   h1 #{title}
-  p 用户：#{user.username}
   .container
       .row
         form.form-signin(role="form",method="post",enctype='multipart/form-data',action='/s-upload-img/#{act_id}')
