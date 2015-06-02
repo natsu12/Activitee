@@ -30,7 +30,8 @@ module.exports = (req, res)!->
         tags.push tagObj._id
       activity = new Activity {
         title: activityObj.title
-        summary: activityObj.summary
+        tags: tags
+        detail: activityObj.detail
         time: activityObj.time
         place: activityObj.place
         host: req.user._id
