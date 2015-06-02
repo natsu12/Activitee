@@ -11,7 +11,7 @@ require! ['../controllers/service/s-signin', '../controllers/service/s-signup', 
 require! ['../controllers/service/s-activity-save', '../controllers/service/s-activity-delete', '../controllers/service/s-auth']
 router = express.Router! 
 
-is-authenticated = (req, res, next)-> if req.is-authenticated! then next! else res.redirect '/signin'
+# is-authenticated = (req, res, next)-> if req.is-authenticated! then next! else res.redirect '/signin'
 
 module.exports = (passport)->
   # 登陆、注册、登出
@@ -25,24 +25,24 @@ module.exports = (passport)->
   router.get '/', index
   router.get '/home', home
   router.get '/detail/:id', detail
-  router.get '/create', is-authenticated, create
-  router.get '/edit/:id', is-authenticated, edit
-  router.get '/host', is-authenticated, host
-  router.get '/following', is-authenticated, following
-  router.get '/joining', is-authenticated, joining
-  router.get '/setting', is-authenticated, setting
-  router.get '/admin', is-authenticated, admin
+  router.get '/create', create
+  router.get '/edit/:id', edit
+  router.get '/host', host
+  router.get '/following', following
+  router.get '/joining', joining
+  router.get '/setting', setting
+  router.get '/admin', admin
 
   # 数据操作
-  router.post '/s-activity-save', is-authenticated, s-activity-save
-  router.get '/s-activity-delete', is-authenticated, s-activity-delete
+  router.post '/s-activity-save', s-activity-save
+  router.get '/s-activity-delete', s-activity-delete
 
-  router.post '/s-comment-save', is-authenticated, s-comment-save
-  router.get '/s-comment-delete', is-authenticated, s-comment-delete
+  router.post '/s-comment-save', s-comment-save
+  router.get '/s-comment-delete', s-comment-delete
 
-  router.get '/s-activity-follow', is-authenticated, s-activity-follow
-  router.get '/s-activity-join', is-authenticated, s-activity-join
-  router.post '/s-user-save', is-authenticated, s-user-save
+  router.get '/s-activity-follow', s-activity-follow
+  router.get '/s-activity-join', s-activity-join
+  router.post '/s-user-save', s-user-save
 
   router.get '/s-auth/:authCode', s-auth
 
