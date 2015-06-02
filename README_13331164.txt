@@ -1,0 +1,9 @@
+我修改了
+src\controllers\page\host.ls
+src\controllers\page\following.ls
+src\controllers\page\joining.ls
+src\views\host.jade
+src\views\following.jade
+src\views\joining.jade
+
+上次修改src\models\activity.ls的部分，可以还原
