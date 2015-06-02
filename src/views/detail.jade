@@ -29,7 +29,7 @@ block content
 		dt 标题
 		dd=activity.title
 		dt 简介
-		dd=activity.summary
+		dd=activity.detail
 		dt 时间
 		dd #{moment(activity.time).format('YYYY年 M月 D日 星期E')}
 		dt 地点
@@ -96,9 +96,5 @@ block content
 	div.row
 		a(href='/home') 返回
 
-<<<<<<< HEAD
-	a(href='/home') 返回
-=======
 	script(src="/pages/detail/FollowAndJoin.js")
 	script(src="/pages/detail/reply.js")
->>>>>>> f16212c81b3c511e58a2cea2f907eba887dce0ac

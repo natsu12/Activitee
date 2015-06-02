@@ -10,8 +10,24 @@ $ !->
     $ '.sort_area .sort' .removeClass 'active'
     $ this .addClass 'active'
 
-  $ '.active' .click (e)!->
-    alert 'active'
 
-  $ '.sort' .click (e)!->
-    alert 'sort'
+  $ '.tag' .click (e)!->
+    e.preventDefault!
+    # 刷新
+    s-homepage-update "all",[],"time",1
+
+  # @time-bucket type:String 表示即将进行的(future)、已过期的(past)或者是所有的(all)
+  # @tags type:list 表示处于active状态的标签集合
+  # @order-by type:String 表示排序的依据,包括 时间(time),关注度(attention),参与度(participation)
+  # @page-num type:integer 表示返回的页码
+  s-homepage-update = (time-bucket, tags, order-by, page-num)!->
+    option = {
+      time-bucket: time-bucket
+      tags: tags
+      order-by: order-by
+      page-num: page-num
+    }
+    console.log 'begin ajax'
+    (data) <-! $.get 's-homepage-update', option
+    # 界面渲染
+    console.log data

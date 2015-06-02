@@ -4,16 +4,16 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 module.exports = (req, res)!->
 
   # 获取热门标签及其活动
-  (error, activities) <- Activity .find {}
+  (error, activities) <- Activity .find {} .populate 'host' .exec
   # 获取当前时间
   now = new Date!
   # 默认在界面显示的活动
   default-activities = []
   # 循环遍历活动获取符合时间规定的活动
   for activity in activities       # 缺点: 每次遍历全部活动，效率低
-    console.log '**********'
+    # console.log '**********'
     if activity.time > now
-      console.log activity.title, activity.time
+      # console.log activity.title, activity.time
       default-activities.push activity
   # 对活动进行排序
   default-activities .sort activityCmp
@@ -23,14 +23,14 @@ module.exports = (req, res)!->
   # 对tags进行排序(降序)
   tags = tags .sort tagCmp
   # 输出测试
-  console.log '--------'
-  for tag in tags            # 缺点: 每次遍历全部的tag，效率低
-    continue if tag.users == null
-    console.log tag.name, tag.users.length
+  # console.log '--------'
+  # for tag in tags            
+  #   continue if tag.users == null
+  #   console.log tag.name, tag.users.length
   
   # 取前五个tags
   top-five-tags = new Array!
-  for tag, index in tags when index < 5
+  for tag, index in tags when index < 5   # 缺点: 每次遍历全部的tag，效率低
     top-five-tags.push tag
 
   res.render 'home', {

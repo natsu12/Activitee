@@ -35,12 +35,14 @@ block content
       .tab-content
         #future.tab-pane.active.fade.in
           .tag_area
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
+            each item in topFiveTags
+              .btn.btn-primary.tag(data-toggle="button") #{item.name}
+              input(type="hidden", value="#{item._id}")
+            //- .btn.btn-primary.tag(data-toggle="button") tag
+            //- .btn.btn-primary.tag(data-toggle="button") tag
+            //- .btn.btn-primary.tag(data-toggle="button") tag
+            //- .btn.btn-primary.tag(data-toggle="button") tag
+            //- .btn.btn-primary.tag(data-toggle="button") tag
           .sort_area
             ul
               li
@@ -57,7 +59,8 @@ block content
                 .acts_info
                   p #{item.title}
                   p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
-                  p #{item.host.username}
+                  each host in item.host
+                    p #{host.username}
         #past.tab-pane.fade
           .tag_area
             .btn.btn-primary.tag(data-toggle="button") tag
@@ -95,13 +98,4 @@ block content
   a(href='/following', class='text-center new-account') my following activities
   a(href='/joining', class='text-center new-account') my joining activities
 
-<<<<<<< HEAD
-  br
-  hr
-  br
-  h1 #{topFiveTags}
-
-  script(src="livescript/home.js")
-=======
   script(src="pages/home/home.js")
->>>>>>> e8977db387e226cdba238f6573ab2d8eb19ee59b
