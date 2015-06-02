@@ -9,32 +9,24 @@ block content
               tread
                   tr
                       th 活动名称
-                      th 活动简介
                       th 时间
                       th 地点
-                      th 人数
-                      th 图片
+                      th 参与人数
+                      th 关注人数
                       th 封面
                       th 状态
                       th 查看
-                      th 修改
-                      th 删除
               tbody
                   each item in activities
                       tr(class="item-id-#{item._id}")
                           td #{item.title}
-                          td #{item.summary}
                           td #{moment(item.time).format('YYYY/MM/DD')}
                           td #{item.place}
-                          td #{item.people_num}
-                          //- td #{item.tags}
-                          td #{item.images}
+                          td #{item.joining_users.length}
+                          td #{item.following_users.length}
                           td #{item.cover}
                           td #{item.status}
                           td: a(target="_blank", href="/detail/#{item._id}") 查看
-                          td: a(target="_blank", href="/edit/#{item._id}") 修改
-                          td
-                              button.btn.btn-danger.del(type="button", data-id="#{item._id}") 删除
     a(href='/home', class='text-center new-account') 回到主页
 
   script(src="/livescript/host.js")

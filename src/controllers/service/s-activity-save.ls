@@ -1,8 +1,16 @@
-require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment'}
+require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment', User: '../../models/user'}
 _ = require 'underscore'
+
 
 # save an activity
 module.exports = (req, res)!->
+  require! 'mongoose'                     # 为了写死登陆用户
+  ObjectId = mongoose.Types.ObjectId('555842ce961d450f1f17307d')
+  req.user = {
+    _id: ObjectId
+    username: 'test12'
+  }
+
   id = req.body.activity._id
   activityObj = req.body.activity
   if id isnt undefined     # 已存在，更新字段
@@ -20,24 +28,22 @@ module.exports = (req, res)!->
       tags = []
       for tagObj in tagObjs
         tags.push tagObj._id
-      _activity = new Activity {
+      activity = new Activity {
         title: activityObj.title
         summary: activityObj.summary
         time: activityObj.time
         place: activityObj.place
         host: req.user._id
-        people_num: activityObj.people_num
-        tags: tags
-        images: activityObj.images
-        cover: activityObj.cover
+        host_info: activityObj.host_info
         status: 0
       }
       for tagObj in tagObjs
-        tagObj.activities.push _activity._id
+        tagObj.activities.push activity._id
         tagObj.save!
 
-      _activity.save (err, activity)!->
+      activity.save (err, activity)!->
         if err
           console.log err
         console.log "success"
-        res.redirect '/host'
+
+      res.redirect '/upload_img/' + activity._id

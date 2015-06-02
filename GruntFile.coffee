@@ -34,6 +34,9 @@ module.exports = (grunt) ->
           src: [
             "bin/*"
             ".temp"
+            "!bin/public"
+            "bin/public/*"
+            "!bin/public/upload"
           ]
 
     copy:

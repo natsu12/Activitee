@@ -1,10 +1,13 @@
 require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment'}
 _ = require 'underscore'
 
+findUserFollowing = (id, cb)->
+  Activity .find {} .populate({path: 'following_users', select: {_id : 1}}) .find {following_users : id} .sort 'time' .exec cb
+
 # following page
 module.exports = (req, res)!->
   user_id = req.user._id
-  Activity.findUserFollowing user_id, (err, activities)!->
+  findUserFollowing user_id, (err, activities)!->
     if err
       console.log err
     res.render 'following', {
