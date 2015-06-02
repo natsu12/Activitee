@@ -32,7 +32,10 @@ module.exports = (req, res)!->
       host_info: activityObj.host_info
       status: 0
     }
-
+    #_activity.following_users.push req.user._id
+    #_activity.following_users.push req.user._id
+    #_activity.host.push req.user._id
+    #_activity.host.push "556ac5c641a9b22c022a9585"
     _activity.save (err, activity)!->
       if err
         console.log err

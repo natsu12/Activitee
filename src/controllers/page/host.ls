@@ -1,6 +1,12 @@
 require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment'}
 _ = require 'underscore'
 
+findUserHost = (id, cb)->
+   Activity .find {} .populate({path: 'host', select: {_id : 1}}) .find {host : id} .sort 'time' .exec cb
+
+findUserHost_test = (id, cb)->
+   Activity .find {} .populate('host') .find {} .sort 'time' .exec cb
+
 # host page
 module.exports = (req, res)!->
   require! 'mongoose'                     # 为了写死登陆用户
@@ -10,7 +16,7 @@ module.exports = (req, res)!->
     username: 'test12'
   }
   user_id = req.user._id
-  Activity.findByUser user_id, (err, activities)!->
+  findUserHost user_id, (err, activities)!->
     if err
       console.log err
     res.render 'host', {

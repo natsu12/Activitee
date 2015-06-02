@@ -7,7 +7,7 @@ module.exports = (req, res)!->
     Activity.findById id, (err, activity)!->
       if err
         console.log err
-
+        
       res.render 'edit', {
         title: '修改活动信息'
         user: req.user
