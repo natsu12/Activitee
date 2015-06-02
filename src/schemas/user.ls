@@ -2,12 +2,13 @@ require! ['mongoose']
 ObjectId = mongoose.Schema.Types.ObjectId
 
 UserSchema = new mongoose.Schema {
-  id: String,
   email: String,                                        #邮箱
   password: String,                                     #密码
   username: String,                                     #用户名
-  role: String,                                         #角色
+  role: Number,                                         #角色，0为普通用户，1为管理员
   avatar: String,                                       #头像
+  real_name: String,                                    #真实姓名
+  phone_num: String,                                    #联系方式
   host_acts: [{type: ObjectId, ref:'Activity'}],        #已发布的活动
   following_acts: [{type: ObjectId, ref: 'Activity'}],  #已关注的活动
   joining_acts: [{type: ObjectId, ref: 'Activity'}],    #已报名的活动

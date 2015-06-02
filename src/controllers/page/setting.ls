@@ -1,8 +1,8 @@
 require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment'}
 
-# admin page
+# setting page
 module.exports = (req, res)!->
-  res.render 'admin', {
-    title: '审核活动'
+  res.render 'setting', {
+    title: '个人设置'
     user: req.user
   }

@@ -40,11 +40,7 @@ ActivitySchema.statics = {
   findById: (id, cb)->
     @ .findOne {_id: id} .exec cb
   findByUser: (id, cb)->
-    @ .find {host_id: id} .exec cb
-  findUserFollowing: (id, cb)->
-    @ .find {} .populate({path: 'following_users', select: {_id : 1}, option: {_id : id}}) .exec cb
-  findUserJoining: (id, cb)->
-    @ .find {} .populate({path: 'joining_users', select: {_id : 1}, option: {_id : id}}) .exec cb
+    @ .find {host: id} .exec cb
 }
 
 module.exports = ActivitySchema
