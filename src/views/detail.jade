@@ -1,7 +1,32 @@
 extends layout
 
 block content
-	h1 #{title}
+	#detail_wrap
+		.left_wrap
+			.act_header
+				img.act_cover(src="#{activity.cover}",alt="活动封面")
+				.act_info
+					h2.act_title #{activity.title}
+					p.act_time 开始时间：#{moment(activity.time).format('YYYY年M月DD日 星期E HH:MM')}
+					p.act_time 地点：#{activity.place}
+					p.act_host 发起者：#{activity.host.username}
+					p.act_follow
+						span 0人关注
+						span 0人参加
+					button.left 关注活动
+					button 我要参加
+			.act_main
+				h1 活动详情
+				p #{activity.detail}
+		.right_wrap
+			.act_tags
+				h3 该活动的标签
+			.act_map
+				h3 活动地图
+			.host_info
+				h3 发起者信息
+
+
 	- var flag = 0;
 
 	if user
