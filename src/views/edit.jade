@@ -25,20 +25,17 @@ block content
             .col-sm-10
                 input#inputPlace.form-control(type="text", name="activity[place]", value=activity.place, required)
         .form-group
-            label.col-sm-2.control-label(for="inputNumber") 人数
-            .col-sm-10
-                input#inputNumber.form-control(type="text", name="activity[people_num]", value=activity.people_num, required)
-        .form-group
             label.col-sm-2.control-label(for="inputImages") 图片
             .col-sm-10
-                input#inputImages.form-control(type="text", name="activity[images]", value=activity.images, required)
+                input#inputImages.form-control(type="text", name="activity[images]", value=activity.images)
         .form-group
             label.col-sm-2.control-label(for="inputCover") 封面
             .col-sm-10
-                input#inputCover.form-control(type="text", name="activity[cover]", value=activity.cover, required)
+                input#inputCover.form-control(type="text", name="activity[cover]", value=activity.cover)
 
         .form-group
             .col-sm-offset-2.col-sm-10
             button.btn.btn-default(type="submit") 提交
 
+  script(src="/livescript/edit.js")
 

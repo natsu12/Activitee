@@ -15,21 +15,29 @@ module.exports = (req, res)!->
            console.log err
          res.redirect '/host'
   else                     # 不存在，新建字段
-    _activity = new Activity {
-      title: activityObj.title
-      summary: activityObj.summary
-      time: activityObj.time
-      place: activityObj.place
-      host: req.user._id
-      people_num: activityObj.people_num
-      tags: activityObj.tags
-      images: activityObj.images
-      cover: activityObj.cover
-      status: 0
-    }
+    tagNames = activityObj.tags.split ","
+    Tag .find { name: { $in: tagNames } } (err, tagObjs)->
+      tags = []
+      for tagObj in tagObjs
+        tags.push tagObj._id
+      _activity = new Activity {
+        title: activityObj.title
+        summary: activityObj.summary
+        time: activityObj.time
+        place: activityObj.place
+        host: req.user._id
+        people_num: activityObj.people_num
+        tags: tags
+        images: activityObj.images
+        cover: activityObj.cover
+        status: 0
+      }
+      for tagObj in tagObjs
+        tagObj.activities.push _activity._id
+        tagObj.save!
 
-    _activity.save (err, activity)!->
-      if err
-        console.log err
-      console.log "success"
-      res.redirect '/host'
+      _activity.save (err, activity)!->
+        if err
+          console.log err
+        console.log "success"
+        res.redirect '/host'
