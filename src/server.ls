@@ -17,7 +17,10 @@ app.use bodyParser.json!
 app.use bodyParser.urlencoded!
 app.use cookieParser!
 # app.use passport.auth
+anotherPath = __dirname.replace '/bin', ''
 app.use express.static path.join __dirname, 'public'
+app.use express.static path.join anotherPath, 'upload'
+
 app.use flash!
 app.locals.moment = require 'moment'
 

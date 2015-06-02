@@ -9,3 +9,6 @@ $ !->
     e.preventDefault!
     $ '.sort_area .sort' .removeClass 'active'
     $ this .addClass 'active'
+
+  $ ".tag" .click (e)!->
+    console.log e.target
