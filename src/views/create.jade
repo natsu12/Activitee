@@ -2,7 +2,6 @@ extends layout
 
 block content
   h1 #{title}
-  p 用户：#{user.username}
   .container
       .row
           form.form-horizontal(method="post", action="/s-activity-save")
@@ -39,5 +38,5 @@ block content
                   .col-sm-offset-2.col-sm-10
                     button.btn.btn-default(type="submit") 提交
 
-  script(src="/livescript/create.js")
+  script(src="/pages/create/create.js")
 
