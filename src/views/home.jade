@@ -35,12 +35,14 @@ block content
       .tab-content
         #future.tab-pane.active.fade.in
           .tag_area
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
+            each item in topFiveTags
+              .btn.btn-primary.tag(data-toggle="button") #{item.name}
+              input(type="hidden", value="#{item._id}")
+            //- .btn.btn-primary.tag(data-toggle="button") tag
+            //- .btn.btn-primary.tag(data-toggle="button") tag
+            //- .btn.btn-primary.tag(data-toggle="button") tag
+            //- .btn.btn-primary.tag(data-toggle="button") tag
+            //- .btn.btn-primary.tag(data-toggle="button") tag
           .sort_area
             ul
               li
@@ -57,7 +59,7 @@ block content
                 .acts_info
                   p #{item.title}
                   p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
-                  //- p #{item.host.username}
+                  p #{item.host.username}
         #past.tab-pane.fade
           .tag_area
             .btn.btn-primary.tag(data-toggle="button") tag
@@ -90,8 +92,6 @@ block content
                 a.sort(href="#") 按关注人数排序
               li
                 a.sort(href="#") 按参加人数排序
-
-
   a(href='/create', class='text-center new-account') create an activity
   a(href='/host', class='text-center new-account') my activities
   a(href='/following', class='text-center new-account') my following activities
