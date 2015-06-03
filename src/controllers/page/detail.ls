@@ -2,6 +2,12 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 
 # detail page
 module.exports = (req, res)!->
+  require! 'mongoose'                     # 为了写死登陆用户
+  ObjectId = new mongoose.Types.ObjectId('555842ce961d450f1f17307d')
+  req.user = {
+    _id: ObjectId
+    username: 'test12'
+  }
   id = req.params.id
   Activity .findOne {_id: id} .populate({path:'host following_users joining_users tags'}) .exec (err, activity)!->
     if err

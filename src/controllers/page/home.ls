@@ -2,6 +2,12 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 
 # home page
 module.exports = (req, res)!->
+  require! 'mongoose'                     # 为了写死登陆用户
+  ObjectId = new mongoose.Types.ObjectId('555842ce961d450f1f17307d')
+  req.user = {
+    _id: ObjectId
+    username: 'test12'
+  }
 
   # 获取热门标签及其活动
   (error, activities) <- Activity .find {} .populate 'host' .exec
