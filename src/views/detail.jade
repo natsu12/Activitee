@@ -7,7 +7,7 @@ block content
 				img.act_cover(src="#{activity.cover}",alt="活动封面")
 				.act_info
 					h2.act_title #{activity.title}
-					p.act_time 开始时间：#{moment(activity.time).format('YYYY年M月DD日 星期E HH:MM')}
+					p.act_time 开始时间：#{moment(activity.time).format('YYYY年M月DD日 HH:MM')}
 					p.act_time 地点：#{activity.place}
 					p.act_host 发起者：#{activity.host.username}
 					p.act_follow
@@ -21,58 +21,62 @@ block content
 		.right_wrap
 			.act_tags
 				h3 该活动的标签
+				each item in activity.tags
+					.btn.btn-primary.tag(data-toggle="button") #{item.name}
+
 			.act_map
 				h3 活动地图
 			.host_info
 				h3 发起者信息
+				pre.act_host_info #{activity.host_info}
 
 
-	- var flag = 0;
+	//- - var flag = 0;
 
-	if user
-		each following_user in activity.following_users
-			if following_user.username == user.username
-				- flag = 1
+	//- if user
+	//- 	each following_user in activity.following_users
+	//- 		if following_user.username == user.username
+	//- 			- flag = 1
 
-		if flag == 1
-			button.btn.btn-info(type="button", disabled="disabled") 已关注
-		else
-			button.btn.btn-info(id="follow", type="button", data-id="#{activity._id}") 关注
-		&nbsp
+	//- 	if flag == 1
+	//- 		button.btn.btn-info(type="button", disabled="disabled") 已关注
+	//- 	else
+	//- 		button.btn.btn-info(id="follow", type="button", data-id="#{activity._id}") 关注
+	//- 	&nbsp
 
-		- flag = 0
-		each join_user in activity.joining_users
-			if join_user.username == user.username
-				- flag = 1
-		if flag == 1
-			button.btn.btn-info(type="button", disabled="disabled") 已参加
-		else
-			button.btn.btn-info(id="join", type="button", data-id="#{activity._id}") 参加
-	br
-	br
-	dl
-		dt 标题
-		dd=activity.title
-		dt 简介
-		dd=activity.detail
-		dt 时间
-		dd #{moment(activity.time).format('YYYY年 M月 D日 星期E')}
-		dt 地点
-		dd=activity.place
-		dt 发布人
-		dd=activity.host.username
-		dt 发布者信息
-		p !{activity.host_info}
-		dt 关注人数
-		dd: span(id="follows") #{activity.following_users.length}
-		dt 参加人数
-		dd: span(id="joins") #{activity.joining_users.length} 
-		dt 图片
-		dd=activity.images
-		dt Tags
-		for each in activity.tags
-			dd=each.name
-		br
+	//- 	- flag = 0
+	//- 	each join_user in activity.joining_users
+	//- 		if join_user.username == user.username
+	//- 			- flag = 1
+	//- 	if flag == 1
+	//- 		button.btn.btn-info(type="button", disabled="disabled") 已参加
+	//- 	else
+	//- 		button.btn.btn-info(id="join", type="button", data-id="#{activity._id}") 参加
+	//- br
+	//- br
+	//- dl
+	//- 	dt 标题
+	//- 	dd=activity.title
+	//- 	dt 简介
+	//- 	dd=activity.detail
+	//- 	dt 时间
+	//- 	dd #{moment(activity.time).format('YYYY年 M月 D日 星期E')}
+	//- 	dt 地点
+	//- 	dd=activity.place
+	//- 	dt 发布人
+	//- 	dd=activity.host.username
+	//- 	dt 发布者信息
+	//- 	p !{activity.host_info}
+	//- 	dt 关注人数
+	//- 	dd: span(id="follows") #{activity.following_users.length}
+	//- 	dt 参加人数
+	//- 	dd: span(id="joins") #{activity.joining_users.length} 
+	//- 	dt 图片
+	//- 	dd=activity.images
+	//- 	dt Tags
+	//- 	for each in activity.tags
+	//- 		dd=each.name
+	//- 	br
 
 
 	h2 Comments
