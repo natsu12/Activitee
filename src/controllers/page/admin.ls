@@ -1,7 +1,7 @@
 require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment'}
 
 findUserHost = (id, cb)->
-   Activity .find {} .populate({path: 'host', select: {_id : 1}}) .find {host : id} .sort 'time' .exec cb
+   Activity .find {} .populate({path: 'host', select: {_id : 1}}) .find {host : id, status : 0} .sort 'meta' .exec cb
 
 # admin page
 module.exports = (req, res)!->
@@ -10,6 +10,7 @@ module.exports = (req, res)!->
   req.user = {
     _id: ObjectId
     username: 'test12'
+    role: 1
   }
   user_id = req.user._id
   findUserHost user_id, (err, activities)!->

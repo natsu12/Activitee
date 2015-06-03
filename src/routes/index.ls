@@ -12,6 +12,7 @@ require! ['../controllers/service/s-signin', '../controllers/service/s-signup', 
 require! ['../controllers/service/s-activity-save', '../controllers/service/s-activity-delete', '../controllers/service/s-auth']
 require! ['../controllers/service/s-upload-img']
 require! ['../controllers/service/s-homepage-update']
+require! ['../controllers/service/s-activity-admin-update']
 router = express.Router! 
 
 # is-authenticated = (req, res, next)-> if req.is-authenticated! then next! else res.redirect '/signin'
@@ -43,6 +44,9 @@ module.exports = (passport)->
   # 数据操作
   router.post '/s-activity-save', s-activity-save
   router.get '/s-activity-delete', s-activity-delete
+
+  router.get '/s-activity-admin-update', s-activity-admin-update
+  # 活动审核的更新路由
 
   router.post '/s-comment-save', s-comment-save
   router.get '/s-comment-delete', s-comment-delete

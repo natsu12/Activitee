@@ -48,6 +48,6 @@ module.exports = (req, res)!->
         activity.save (err, activity)!->
            if err
              console.log err
-        res.redirect '/home'
+        res.redirect '/host'
   else
     console.log 'failed'

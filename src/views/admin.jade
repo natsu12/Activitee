@@ -25,7 +25,10 @@ block content
                           td #{item.detail}
                           td #{moment(item.time).format('YYYY/MM/DD')}
                           td #{item.place}
-                          td #{item.images}
+                          td
+                            .acts
+                              a(href="detail/#{item._id}")
+                              img(src="/images#{item.cover}", alt="活动封面")
                           td #{item.cover}
                           td #{item.status}
                           td: button.btn.btn-default(class = "accept_button", data-id="#{item._id}") 通过
