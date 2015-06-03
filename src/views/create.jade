@@ -27,8 +27,11 @@ block content
               .form-group
                   label.col-sm-2.control-label(for="inputCover") 标签
                   .col-sm-10
-                      - tagNames = tagNames.join(",")
-                      input#inputTags.form-control(type="text", name="activity[tags]", data-role="tagsinput", value="#{tagNames}")
+                      - tagList = tagNames.join(",")
+                      input#inputTags.form-control(type="text", name="activity[tags]", data-role="tagsinput")
+                      br
+                      - for (var i = 0; i < tagNames.length; ++i)
+                        button.btn-addTag.btn.btn-default(type="button") #{tagNames[i]}
               .form-group
                   label.col-sm-2.control-label(for="inputPlace") 主办方其他信息
                   .col-sm-10
