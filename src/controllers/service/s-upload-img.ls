@@ -1,6 +1,6 @@
 require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment', User: '../../models/user'}
 require! ['formidable', 'fs']
-COVER_UPLOAD_FOLDER = 'cover/'
+COVER_UPLOAD_FOLDER = '/cover/'
 
 # save a cover of an activity
 module.exports = (req, res)!->
@@ -17,7 +17,7 @@ module.exports = (req, res)!->
       if err
         console.log err
       form = new formidable.IncomingForm!
-      form.uploadDir = "upload/" + COVER_UPLOAD_FOLDER
+      form.uploadDir = "upload" + COVER_UPLOAD_FOLDER
       form.keepExtensions = true
       newPath = ""
 
