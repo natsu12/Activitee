@@ -1,7 +1,6 @@
 extends layout
 
 block content
-  link(rel='stylesheet', href='/stylesheets/home.css')
   #home_wrap
     #myCarousel.carousel.slide
       ol.carousel-indicators
@@ -36,8 +35,12 @@ block content
       .tab-content
         #future.tab-pane.active.fade.in
           .tag_area
-            each item in topFiveTags
-              .btn.btn-primary.tag(data-toggle="button",data-id="#{item._id}") #{item.name}
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
           .sort_area
             ul
               li
@@ -46,20 +49,23 @@ block content
                 a.sort(href="#") 按关注人数排序
               li
                 a.sort(href="#") 按参加人数排序
-          #activities-template
-            each item in activities
-              .acts
-                a(href="detail/#{item._id}")
-                  img(src="#{item.cover}", alt="活动封面")
-                  .acts_info
-                    p #{item.title}
-                    p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
-                    p #{item.host.username}
+
+          each item in activities
+            .acts
+              a(href="detail/#{item._id}")
+                img(src="#{item.cover}", alt="活动封面")
+                .acts_info
+                  p #{item.title}
+                  p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                  p #{item.host.username}
         #past.tab-pane.fade
           .tag_area
-            each item in topFiveTags
-              .btn.btn-primary.tag(data-toggle="button") #{item.name}
-              input(type="hidden", value="#{item._id}")
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
           .sort_area
             ul
               li
@@ -70,9 +76,12 @@ block content
                 a.sort(href="#") 按参加人数排序
         #all.tab-pane.fade
           .tag_area
-            each item in topFiveTags
-              .btn.btn-primary.tag(data-toggle="button") #{item.name}
-              input(type="hidden", value="#{item._id}")
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
+            .btn.btn-primary.tag(data-toggle="button") tag
           .sort_area
             ul
               li
@@ -81,6 +90,8 @@ block content
                 a.sort(href="#") 按关注人数排序
               li
                 a.sort(href="#") 按参加人数排序
+
+
   a(href='/create', class='text-center new-account') create an activity
   a(href='/host', class='text-center new-account') my activities
   a(href='/following', class='text-center new-account') my following activities

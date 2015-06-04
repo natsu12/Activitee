@@ -1,5 +1,5 @@
 require! {
-  '../../Passport/Passport'
+  '../../passport/passport'
   User: '../../models/user'
   '../../mail/mail'
 }
@@ -26,7 +26,7 @@ module.exports = (req, res)!->
         authCode = Math.random!toString!
         User.create {
           username: username
-          password: password
+          password: passport.hash password
           email: email
           tags: tags
           role: 0
@@ -37,5 +37,5 @@ module.exports = (req, res)!->
             'handle error'
           else
             # send auth mail
-            mail.send email, 'auth mail', "<a href='#{host}/s-auth/#{authCode}'></a>"
+            mail.send email, 'auth mail', "<a href='#{host}/s-auth/#{authCode}'>#{authCode}</a>"
             res.end 'ok'

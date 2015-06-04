@@ -1,9 +1,6 @@
 extends layout
 
 block content
-  style(type="text/css")
-    include ../public/bootstrap/css/bootstrap-tagsinput.css
-
   h1 #{title}
   .container
       .row
@@ -11,7 +8,7 @@ block content
               .form-group
                   label.col-sm-2.control-label(for="inputTitle") 活动名称
                   .col-sm-10
-                      input#inputTitle.form-control(type="text", name="activity[title]", required)
+                      input#inputTitle.form-control(type="text", name="activity[title]")
               .form-group
                   label.col-sm-2.control-label(for="inputDetail") 活动详情
                   .col-sm-10
@@ -19,19 +16,11 @@ block content
               .form-group
                   label.col-sm-2.control-label(for="inputTime") 时间
                   .col-sm-10
-                      input#inputTime.form-control(type="text", name="activity[time]", required)
+                      input#inputTime.form-control(type="text", name="activity[time]")
               .form-group
                   label.col-sm-2.control-label(for="inputPlace") 地点
                   .col-sm-10
                       input#inputPlace.form-control(type="text", name="activity[place]")
-              .form-group
-                  label.col-sm-2.control-label(for="inputCover") 标签
-                  .col-sm-10
-                      - tagList = tagNames.join(",")
-                      input#inputTags.form-control(type="text", name="activity[tags]", data-role="tagsinput")
-                      br
-                      - for (var i = 0; i < tagNames.length; ++i)
-                        button.btn-addTag.btn.btn-default(type="button") #{tagNames[i]}
               .form-group
                   label.col-sm-2.control-label(for="inputPlace") 主办方其他信息
                   .col-sm-10
@@ -49,4 +38,4 @@ block content
                     button.btn.btn-default(type="submit") 提交
 
   script(src="/pages/create/create.js")
-  script(src="/bootstrap/js/bootstrap-tagsinput.js")
+
