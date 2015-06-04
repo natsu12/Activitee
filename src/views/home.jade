@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  link(rel='stylesheet', href='/stylesheets/home.css')
   #home_wrap
     #myCarousel.carousel.slide
       ol.carousel-indicators
@@ -38,11 +39,6 @@ block content
             each item in topFiveTags
               .btn.btn-primary.tag(data-toggle="button") #{item.name}
               input(type="hidden", value="#{item._id}")
-            //- .btn.btn-primary.tag(data-toggle="button") tag
-            //- .btn.btn-primary.tag(data-toggle="button") tag
-            //- .btn.btn-primary.tag(data-toggle="button") tag
-            //- .btn.btn-primary.tag(data-toggle="button") tag
-            //- .btn.btn-primary.tag(data-toggle="button") tag
           .sort_area
             ul
               li
@@ -62,12 +58,9 @@ block content
                   p #{item.host.username}
         #past.tab-pane.fade
           .tag_area
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
+            each item in topFiveTags
+              .btn.btn-primary.tag(data-toggle="button") #{item.name}
+              input(type="hidden", value="#{item._id}")
           .sort_area
             ul
               li
@@ -78,12 +71,9 @@ block content
                 a.sort(href="#") 按参加人数排序
         #all.tab-pane.fade
           .tag_area
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
-            .btn.btn-primary.tag(data-toggle="button") tag
+            each item in topFiveTags
+              .btn.btn-primary.tag(data-toggle="button") #{item.name}
+              input(type="hidden", value="#{item._id}")
           .sort_area
             ul
               li

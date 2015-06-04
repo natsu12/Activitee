@@ -1,2 +1,0 @@
-$ !->
-  $ '#inputTime' .datetimepicker!

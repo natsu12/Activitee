@@ -2,3 +2,33 @@ extends layout
 
 block content
   h1 #{title}
+  p 用户：#{user.username}
+  .container
+      .row
+          table.table.table-hover.table-bordered
+              tread
+                  tr
+                      th 发布时间
+                      th 活动名称
+                      th 活动简介
+                      th 时间
+                      th 地点
+                      th 图片
+                      th 封面
+                      th 状态
+                      th 
+              tbody
+                  each item in activities
+                      tr(class="item-id-#{item._id}")
+                          td #{moment(item.meta[createAt]).format('YYYY/MM/DD')}
+                          td #{item.title}
+                          td #{item.detail}
+                          td #{moment(item.time).format('YYYY/MM/DD')}
+                          td #{item.place}
+                          td #{item.images}
+                          td #{item.cover}
+                          td #{item.status}
+                          td: button.btn.btn-default(class = "accept_button", data-id="#{item._id}") 通过
+
+  script(src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js")
+  script(src="/pages/admin/admin.js")
