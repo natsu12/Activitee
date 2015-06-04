@@ -20,3 +20,7 @@
 {"_id":{"$oid":"55653998c02e60212cea4532"},"email":"William@sina.com","host_acts":["5565dba1c02e60212cea453a"],"password":"William","username":"William"}
 {"_id":{"$oid":"55653998c02e60212cea4533"},"email":"Benjamin@sina.com","password":"Benjamin","username":"Benjamin"}
 {"_id":{"$oid":"55653998c02e60212cea4534"},"email":"Gavin@sina.com","host_acts":["5565e00dc02e60212cea453c"],"password":"Gavin","username":"Gavin"}
+<<<<<<< HEAD
+=======
+{ "_id" : {"$oid":"555842ce961d450f1f17307d"}, "username" : "test12", "password" : "$2a$10$9YdsjSwDVaNl6Oo.IBnNiuMTEG.cPmU43Z399hrRrvAMB5.0O0oKG", "email" : "aa@123.com", "tags" : [ ], "joining_acts" : [ ], "following_acts" : [ ] }
+>>>>>>> 591d26a4f95755424e34de567b6e9908b449298a

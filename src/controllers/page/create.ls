@@ -8,7 +8,14 @@ module.exports = (req, res)!->
     _id: ObjectId
     username: 'test12'
   }
-  res.render 'create', {
-    title: '发布活动信息'
-    user: req.user
-  }
+  Tag.find {}, (err, tags)->
+    if err
+      console.log err
+    tagNames = []
+    for tag in tags
+      tagNames.push tag.name
+    res.render 'create', {
+      title: '发布活动信息'
+      user: req.user
+      tagNames: tagNames
+    }

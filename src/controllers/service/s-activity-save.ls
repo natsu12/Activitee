@@ -23,22 +23,28 @@ module.exports = (req, res)!->
            console.log err
          res.redirect '/host'
   else                     # 不存在，新建字段
-    _activity = new Activity {
-      title: activityObj.title
-      detail: activityObj.detail
-      time: activityObj.time
-      place: activityObj.place
-      host: req.user._id
-      host_info: activityObj.host_info
-      status: 0
-    }
-    #_activity.following_users.push req.user._id
-    #_activity.following_users.push req.user._id
-    #_activity.host.push req.user._id
-    #_activity.host.push "556ac5c641a9b22c022a9585"
-    _activity.save (err, activity)!->
-      if err
-        console.log err
+    tagNames = activityObj.tags.split ","
+    Tag .find { name: { $in: tagNames } } (err, tagObjs)->
+      tags = []
+      for tagObj in tagObjs
+        tags.push tagObj._id
+      activity = new Activity {
+        title: activityObj.title
+        tags: tags
+        detail: activityObj.detail
+        time: activityObj.time
+        place: activityObj.place
+        host: req.user._id
+        host_info: activityObj.host_info
+        status: 0
+      }
+      for tagObj in tagObjs
+        tagObj.activities.push activity._id
+        tagObj.save!
+
+      activity.save (err, activity)!->
+        if err
+          console.log err
+        console.log "success"
 
       res.redirect '/upload_img/' + activity._id
-

@@ -1,0 +1,8 @@
+each item in activities
+  .acts
+    a(href="detail/#{item._id}")
+      img(src="#{item.cover}", alt="活动封面")
+      .acts_info
+        p #{item.title}
+        p #{item.time}
+        p #{item.host.username}

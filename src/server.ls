@@ -15,8 +15,15 @@ app.use logger 'dev'
 app.use bodyParser.json!
 app.use bodyParser.urlencoded!
 app.use cookieParser!
+<<<<<<< HEAD
 app.use passport.auth
+=======
+# app.use passport.auth
+anotherPath = path.join __dirname, '..'
+>>>>>>> 591d26a4f95755424e34de567b6e9908b449298a
 app.use express.static path.join __dirname, 'public'
+app.use express.static path.join anotherPath, 'upload'
+
 app.use flash!
 app.locals.moment = require 'moment'
 
