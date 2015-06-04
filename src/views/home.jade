@@ -47,15 +47,15 @@ block content
                 a.sort(href="#") 按关注人数排序
               li
                 a.sort(href="#") 按参加人数排序
-
-          each item in activities
-            .acts
-              a(href="detail/#{item._id}")
-                img(src="#{item.cover}", alt="活动封面")
-                .acts_info
-                  p #{item.title}
-                  p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
-                  p #{item.host.username}
+          #activities-template
+            each item in activities
+              .acts
+                a(href="detail/#{item._id}")
+                  img(src="#{item.cover}", alt="活动封面")
+                  .acts_info
+                    p #{item.title}
+                    p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                    p #{item.host.username}
         #past.tab-pane.fade
           .tag_area
             each item in topFiveTags

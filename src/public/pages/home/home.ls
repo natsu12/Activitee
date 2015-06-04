@@ -13,7 +13,7 @@ $ !->
   $ '.tag' .click (e)!->
     e.preventDefault!
     # 刷新
-    s-homepage-update "future",[],"time",1
+    s-homepage-update "future",[],"attention",1
 
   # @time-bucket type:String 表示即将进行的(future)、已过期的(past)或者是所有的(all)
   # @tags type:list 表示处于active状态的标签集合
@@ -30,5 +30,6 @@ $ !->
     (data) <-! $.get '/s-homepage-update', option
     # 界面渲染
     # 渲染代码
+    $ '#activities-template' .html(data.activities-template)
     console.log data
 
