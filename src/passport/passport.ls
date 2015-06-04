@@ -41,14 +41,12 @@ module.exports = do ->
           session = docs[0]
           if session
             username = session.username
-            console.log "username: #{username}"
             User.find username: username, (err, docs)!->
               if err
                 console.log err
               else
                 user = docs[0]
                 if user
-                  console.log "user: #{user}"
                   req.user = {
                     _id: user._id
                     username: user.username

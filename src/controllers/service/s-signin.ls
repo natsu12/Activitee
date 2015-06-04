@@ -5,5 +5,5 @@ module.exports = (req, res)!->
   username = req.body.username
   password = req.body.password
   # sign in
-  passport.signin username, password, (msg)!->
-    res.end msg
+  passport.signin username, password, res, (msg)!->
+    res.redirect '/home'

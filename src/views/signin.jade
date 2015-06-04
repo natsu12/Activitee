@@ -1,4 +1,10 @@
 extends layout
 
 block content
-  h1 #{msg}
+  div#signin-container
+    form#signin-form(action='/s-signin' method='POST')
+      label 用户名
+      input(type='text' name='username')
+      label 密码
+      input(type='password' name='password')
+      button(type='submit') 登录
