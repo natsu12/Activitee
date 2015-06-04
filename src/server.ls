@@ -17,7 +17,7 @@ app.use bodyParser.json!
 app.use bodyParser.urlencoded!
 app.use cookieParser!
 # app.use passport.auth
-anotherPath = __dirname.replace '/bin', ''
+anotherPath = path.join __dirname, '..'
 app.use express.static path.join __dirname, 'public'
 app.use express.static path.join anotherPath, 'upload'
 
