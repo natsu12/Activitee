@@ -9,12 +9,6 @@ findUserHost_test = (id, cb)->
 
 # host page
 module.exports = (req, res)!->
-  require! 'mongoose'                     # 为了写死登陆用户
-  ObjectId = new mongoose.Types.ObjectId('555842ce961d450f1f17307d')
-  req.user = {
-    _id: ObjectId
-    username: 'test12'
-  }
   user_id = req.user._id
   findUserHost user_id, (err, activities)!->
     if err

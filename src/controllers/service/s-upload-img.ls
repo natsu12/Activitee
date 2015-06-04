@@ -4,12 +4,6 @@ COVER_UPLOAD_FOLDER = '/cover/'
 
 # save a cover of an activity
 module.exports = (req, res)!->
-  # require! 'mongoose'                     # 为了写死登陆用户
-  # ObjectId = mongoose.Types.ObjectId('555842ce961d450f1f17307d')
-  # req.user = {
-  #   _id: ObjectId
-  #   username: 'test12'
-  # }
 
   id = req.params.id
   if id isnt undefined     # 上传图片

@@ -7,3 +7,4 @@ module.exports = (req, res)!->
   # sign in
   passport.signin username, password, res, (msg)!->
     res.redirect '/home'
+
