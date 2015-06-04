@@ -1,6 +1,4 @@
-require! '../../Passport/Passport'
-
-passport = new Passport
+require! '../../passport/passport'
 
 module.exports = (req, res)!->
   # x inputs from body

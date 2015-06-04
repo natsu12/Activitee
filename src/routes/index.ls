@@ -11,11 +11,15 @@ require! ['../controllers/service/s-activity-follow', '../controllers/service/s-
 require! ['../controllers/service/s-signin', '../controllers/service/s-signup', '../controllers/service/s-signout']
 require! ['../controllers/service/s-activity-save', '../controllers/service/s-activity-delete', '../controllers/service/s-auth']
 require! ['../controllers/service/s-upload-img']
+require! ['../controllers/page/test']
 router = express.Router! 
 
 # is-authenticated = (req, res, next)-> if req.is-authenticated! then next! else res.redirect '/signin'
 
 module.exports = (passport)->
+  # 测试
+  router.get '/test', test
+  
   # 登陆、注册、登出
   router.post '/s-signin', s-signin
   router.post '/s-signup', s-signup

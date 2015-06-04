@@ -1,7 +1,5 @@
-require! {'../../Passport/Passport'}
-
-passport = new Passport
+require! {'../../passport/passport'}
 
 module.exports = (req, res)!->
-  passport.signout !->
-    'ok'
+  passport.signout res, !->
+    res.end 'ok'
