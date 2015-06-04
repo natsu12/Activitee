@@ -36,8 +36,8 @@ module.exports = (req, res)!->
           | 'image/png'    =>  extName = 'png'
           | 'image/x-png'  =>  extName = 'png'
 
-        # 图片保存到本地的名字
-        coverName = Math.random! + '.'+ extName
+        # 图片保存到本地的名字(活动id+时间戳 ==> 保证名字不冲突)
+        coverName = id + (new Date!).getTime! + '.'+ extName
         # 图片保存到本地的完整路径
         newPath = form.uploadDir + coverName
         # 

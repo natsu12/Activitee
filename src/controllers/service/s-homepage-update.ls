@@ -1,7 +1,9 @@
 require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment'}
+Jade = require 'jade'
 
 module.exports = (req, res)!->
-  console.log req.query
+
+  # 获取活动
   option = req.query
   time-bucket = option.time-bucket
   tags = option.tags
@@ -38,8 +40,16 @@ module.exports = (req, res)!->
     break if result-activities[index] is undefined
     page-result-activities.push result-activities[index]
 
+
+  # 制造活动模板
+  (error, activities-template)<-! Jade.renderFile './src/views/activities-template.jade', { activities: page-result-activities }
+  console.log error if error
+
   # 返回结果到homepage
-  res.json {activities: page-result-activities}
+  res.json {
+    activities-template: activities-template
+    activities: page-result-activities
+  }
 
 activity-cmp-by-time-if-future-or-all = (activity1, activity2)->
   return 1 if activity1.time > activity2.time
