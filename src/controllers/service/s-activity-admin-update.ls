@@ -5,7 +5,12 @@ _ = require 'underscore'
 module.exports = (req, res)!->
   id = req.query.id
   if id
-    Activity.remove {_id: id} (err)!->
+    conditions = {_id: id}
+    update = {
+      status: 1
+    }
+    options = {upsert:false}
+    Activity.update conditions, update, options, (err)!->
       if err
         console.log err
       else

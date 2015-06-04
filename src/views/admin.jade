@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  link(rel='stylesheet', href='/stylesheets/admin.css')
   h1 #{title}
   p 用户：#{user.username}
   .container
@@ -13,7 +14,6 @@ block content
                       th 活动简介
                       th 时间
                       th 地点
-                      th 图片
                       th 封面
                       th 状态
                       th 
@@ -25,10 +25,11 @@ block content
                           td #{item.detail}
                           td #{moment(item.time).format('YYYY/MM/DD')}
                           td #{item.place}
-                          td #{item.images}
-                          td #{item.cover}
+                          td
+                            .acts
+                              a(href="detail/#{item._id}")
+                              img(src="#{item.cover}", alt="活动封面")
                           td #{item.status}
                           td: button.btn.btn-default(class = "accept_button", data-id="#{item._id}") 通过
 
-  script(src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js")
   script(src="/pages/admin/admin.js")
