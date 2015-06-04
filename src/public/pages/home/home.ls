@@ -12,6 +12,16 @@ $ !->
 
   $ '.tag' .click (e)!->
     e.preventDefault!
+    target = $ e.target
+    for tag in $ '.tag'
+      # console.log '========'
+      # console.log tag
+      # console.log '========'
+      # if ($ tag .attr('aria-pressed'))
+      if ($ tag .hasClass 'active')
+        console.log tag
+    id = target.data 'id'
+    console.log id
     # 刷新
     s-homepage-update "future",[],"attention",1
 
@@ -26,10 +36,11 @@ $ !->
       order-by: order-by
       page-num: page-num
     }
-    console.log 'begin ajax'
+    # console.log 'begin ajax'
     (data) <-! $.get '/s-homepage-update', option
     # 界面渲染
     # 渲染代码
     $ '#activities-template' .html(data.activities-template)
-    console.log data
+    # console.log data
+
 

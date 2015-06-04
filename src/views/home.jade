@@ -37,8 +37,7 @@ block content
         #future.tab-pane.active.fade.in
           .tag_area
             each item in topFiveTags
-              .btn.btn-primary.tag(data-toggle="button") #{item.name}
-              input(type="hidden", value="#{item._id}")
+              .btn.btn-primary.tag(data-toggle="button",data-id="#{item._id}") #{item.name}
           .sort_area
             ul
               li
