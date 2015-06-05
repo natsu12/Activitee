@@ -1,5 +1,6 @@
 require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment'}
 Jade = require 'jade'
+_ = require 'underscore'
 
 module.exports = (req, res)!->
 
@@ -21,7 +22,7 @@ module.exports = (req, res)!->
       result-activities.push activity
     else
       for tag in activity.tags
-        if (tags.index-of tag) != -1
+        if _.index-of(tags, tag.toString!) isnt -1
           result-activities.push activity
           break
 

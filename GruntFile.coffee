@@ -45,17 +45,6 @@ module.exports = (grunt) ->
           expand: true
         ]
 
-    concat:
-      build_css:
-        src: [
-          "bin/**/*.css"
-          "!bin/<%= pkg.name %>*.css"
-          "!bin/vendor/**/*.css"
-          "!bin/tests/**/*.css"
-          "!bin/**/debug.css"
-        ]
-        dest: "bin/<%= pkg.name %>-<%= pkg.version %>.css"
-
     livescript:
       options:
         bare: false
@@ -100,7 +89,7 @@ module.exports = (grunt) ->
 
       less:
         files: ["src/**/*.less"]
-        tasks: ["newer:less", "concat"]
+        tasks: ["newer:less"]
 
       appCode:
         files: ["src/**/*.*", "!src/**/**.{ls,less}"]

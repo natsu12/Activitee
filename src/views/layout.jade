@@ -11,12 +11,12 @@ html
     script(src="/bootstrap/js/bootstrap.min.js")
     #header
       .wrap
-        img.logo(src="/images/logo.png", alt="logo")
+        img.logo(src="/images/Activitee-logo-S.png", alt="logo")
         ul.nav
           li
-            a(href="/home") 发现活动
+            a.home(href="/home") 发现活动
           li
-            a(href="/host") 我的活动
+            a.host(href="/host") 我的活动
         
         unless user
           ul.nav.align-right
@@ -31,9 +31,9 @@ html
               .profile-menu.hide
                 ul
                   li
-                    a(href="/setting") 设置
+                    a.setting(href="/setting") 设置
                   li
-                    a(href="/s-signout") 退出
+                    a.signout(href="/s-signout") 退出
 
         .search
           form
@@ -44,6 +44,8 @@ html
 
     block content
     
+    #footer
+        p.copyright © 2015 Activitee, all rights reserved
     script(src="/pages/layout.js")
     script(type="application/javascript", src="http://localhost:35729/livereload.js")
     script(src="/datetimepicker/jquery.datetimepicker.js")

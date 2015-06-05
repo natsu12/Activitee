@@ -1,15 +1,15 @@
 {
-  "author": "王青",
-  "name": "MyHomework",
+  "author": "下午班第三组",
+  "name": "Activitee",
   "version": "0.0.1",
   "homepage": "",
   "licenses": {
     "type": "MIT"
   },
-  "bugs": "https://github.com/Thinking-Oriented-Programming/my-homework/issues",
+  "bugs": "https://github.com/natsu12/Activitee/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Thinking-Oriented-Programming/my-homework.git"
+    "url": "https://github.com/natsu12/Activitee"
   },
   "dependencies": {
     "MD5": "^1.2.2",

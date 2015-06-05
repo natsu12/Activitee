@@ -12,18 +12,17 @@ $ !->
 
   $ '.tag' .click (e)!->
     e.preventDefault!
+    tags = []
     target = $ e.target
-    for tag in $ '.tag'
-      # console.log '========'
-      # console.log tag
-      # console.log '========'
-      # if ($ tag .attr('aria-pressed'))
-      if ($ tag .hasClass 'active')
-        console.log tag
+    if (target .attr 'aria-pressed') is undefined or (target .attr 'aria-pressed') is "false"
+      tags.push (target.data 'id')
+    for tag in $ '.tag' when tag isnt e.target
+      if ($ tag .attr 'aria-pressed') is 'true' and ($ tag) isnt target
+        tags.push ($ tag .data 'id')
     id = target.data 'id'
-    console.log id
+    console.log tags
     # 刷新
-    s-homepage-update "future",[],"attention",1
+    s-homepage-update "future", tags, "attention", 1
 
   # @time-bucket type:String 表示即将进行的(future)、已过期的(past)或者是所有的(all)
   # @tags type:list 表示处于active状态的标签集合
