@@ -10,7 +10,14 @@ module.exports = (req, res)!->
     User.find-by-id id, (err, user)!->
       console.log err if err
 
-      res.render 'setting', {
-        title: '个人设置'
-        user: user
-      }
+      # 获取所有可选的tags
+      Tag.find {}, (err, tags)->
+        console.log 'query available tags failed!' if err
+
+        tagNames = [tag.name for tag in tags]
+
+        res.render 'setting', {
+          title: '个人设置'
+          user: user
+          tagNames: tagNames
+        }

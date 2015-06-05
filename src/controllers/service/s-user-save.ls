@@ -11,11 +11,15 @@ module.exports = (req, res)!->
 
   if req.body.type == "basic"
     console.log "updating basic info..."
+    tags = String(req.body.user.tags).split ','
+
     User.findById uid, (err, user)!->
       if err
         console.log err
       else
         user.email = req.body.user.email
+        # TODO
+        user.tags[0] = tags[0]
         user.save (err, user) !-> if err then console.log err
 
     #TODO save avatar to file if user upload a new icon
