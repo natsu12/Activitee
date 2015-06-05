@@ -50,3 +50,4 @@ module.exports = (req, res)!->
         user.phone_num = req.body.user.phone_num
         user.save (err, user) !-> if err then console.log err
 
+    res.redirect '/setting'
