@@ -1,11 +1,11 @@
-require! {User:'../../models/user', Tag: '../../models/tag', 'bcrypt-nodejs', 'passport-local'}
+require! {User:'../../models/user', Tag: '../../models/tag', passport: '../../passport/passport'}
 
-is-valid-password = (user, password)-> bcrypt-nodejs.compare-sync password, user.password
-hash = (password)-> bcrypt-nodejs.hash-sync password, (bcrypt-nodejs.gen-salt-sync 10), null
+# use the hash funtion in passport
+# the encrypt algorithm is MD5 indeed
+hash = passport.hash
 
 # save user information
 module.exports = (req, res)!->
-
   uid = req.user._id
   userObj = req.user
 
@@ -33,21 +33,25 @@ module.exports = (req, res)!->
 
   if req.body.type == "pwd"
     console.log "updating user password..."
-    if is-valid-password req.user, req.body.user.pwdOriginal
-      console.log "original password valid"
 
-      User.findById uid, (err, user)!->
-        if err
-          console.log err
-        else if req.body.user.pwdNew == req.body.user.pwdNewConfirm
-          user.password = hash req.body.user.pwdNew
-          user.save (err, user) !-> if err then console.log err
-          console.log "update password success!"
-        else
-          console.log "two new password not match!"
+    User.findOne {username: req.user.username, password: hash req.body.user.pwdOriginal}, (err, user_)!->
+      if user_ isnt null
+        console.log "original password valid"
 
-    else
-      console.log "original password invalid"
+        User.findById uid, (err, user)!->
+          if err
+            console.log err
+          else if req.body.user.pwdNew == req.body.user.pwdNewConfirm
+            user.password = hash req.body.user.pwdNew
+            user.save (err, user) !-> if err then console.log err
+            console.log "update password success!"
+          else
+            console.log "two new password not match!"
+
+      else
+        console.log "original password invalid"
+
+      res.redirect '/setting'
 
   if req.body.type == "realInfo"
     console.log "updating real info..."
@@ -58,6 +62,6 @@ module.exports = (req, res)!->
       else
         user.real_name = req.body.user.real_name
         user.phone_num = req.body.user.phone_num
-        user.save (err, user) !-> if err then console.log err
+        user.save (err, user) !-> if err then console.log err else console.log 'user real info updated!'
 
     res.redirect '/setting'
