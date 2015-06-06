@@ -1,4 +1,4 @@
-require! {User:'../../models/user', 'bcrypt-nodejs', 'passport-local'}
+require! {User:'../../models/user', Tag: '../../models/tag', 'bcrypt-nodejs', 'passport-local'}
 
 is-valid-password = (user, password)-> bcrypt-nodejs.compare-sync password, user.password
 hash = (password)-> bcrypt-nodejs.hash-sync password, (bcrypt-nodejs.gen-salt-sync 10), null
@@ -11,16 +11,22 @@ module.exports = (req, res)!->
 
   if req.body.type == "basic"
     console.log "updating basic info..."
-    tags = String(req.body.user.tags).split ','
 
+    # 更新用户订阅标签
+    tags = String(req.body.user.tags).split ','
     User.findById uid, (err, user)!->
       if err
         console.log err
       else
-        user.email = req.body.user.email
-        # TODO
-        user.tags[0] = tags[0]
-        user.save (err, user) !-> if err then console.log err
+        # 1. clean all tags in the original user.tags
+        # 2. push the tags in req.body.tag
+        user.tags = []
+        Tag.find {$or: [{name: tagName} for tagName in tags]}, (err, tags_)!->
+          for tag_ in tags_
+            user.tags.push tag_._id
+          user.save (err, user) !-> if err then console.log err else console.log 'user tags updated!'
+
+          res.redirect '/setting'
 
     #TODO save avatar to file if user upload a new icon
 
