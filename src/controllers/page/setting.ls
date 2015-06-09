@@ -16,14 +16,21 @@ module.exports = (req, res)!->
 
         tagNames = [tag.name for tag in tags]
 
+        if user.tags.length
         # 获取用户订阅的标签的名称列表
-        Tag.find {$or: [{_id: id} for id in user.tags]}, (err, tags)!->
-
-          bookedTagNames = [tag.name for tag in tags]
-
+          Tag.find {$or: [{_id: id} for id in user.tags]}, (err, tags)!->
+            bookedTagNames = [tag.name for tag in tags]
+            res.render 'setting', {
+              title: '个人设置'
+              user: user
+              tagNames: tagNames
+              bookedTagNames: bookedTagNames
+            }
+        else
           res.render 'setting', {
             title: '个人设置'
             user: user
             tagNames: tagNames
-            bookedTagNames: bookedTagNames
+            bookedTagNames: []
           }
+

@@ -26,9 +26,8 @@ block content
         .form-group
           label.col-sm-2.control-label(for="inputCover") 我的订阅
           .col-sm-10
-            - tagList = tagNames.join(",")
-              input#inputTags.form-control(type="text", value=bookedTagNames, name="user[tags]", data-role="tagsinput")
-              br
+            input#inputTags.form-control(type="text", value=bookedTagNames, name="user[tags]", data-role="tagsinput")
+            br
             - for (var i = 0; i < tagNames.length; ++i)
                 button.btn-addTag.btn.btn-default(type="button") #{tagNames[i]}
 
