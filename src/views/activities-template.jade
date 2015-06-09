@@ -4,6 +4,5 @@ each item in activities
       img(src="#{item.cover}", alt="活动封面")
       .acts_info
         p #{item.title}
-        //- p #{item.time}
-        p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+        p #{item.timeFormat}
         p #{item.host.username}

@@ -10,9 +10,7 @@ module.exports = (req, res)!->
   default-activities = []
   # 循环遍历活动获取符合时间规定的活动
   for activity in activities       # 缺点: 每次遍历全部活动，效率低
-    # console.log '**********'
     if activity.time > now
-      # console.log activity.title, activity.time
       default-activities.push activity
   # 对活动进行排序
   default-activities .sort activityCmp
@@ -21,25 +19,22 @@ module.exports = (req, res)!->
   (error, tags) <- Tag .find {} .populate 'users' .exec
   # 对tags进行排序(降序)
   tags = tags .sort tagCmp
-  # 输出测试
-  # console.log '--------'
-  # for tag in tags            
-  #   continue if tag.users == null
-  #   console.log tag.name, tag.users.length
   
   # 取前五个tags
   top-five-tags = new Array!
   for tag, index in tags when index < 5   # 缺点: 每次遍历全部的tag，效率低
     top-five-tags.push tag
 
+  (error, user) <- User .find-one { _id : req.user._id } .populate 'tags' .exec
+  # 获取 我的tags ... 登录
+  my-tags = user.tags
   res.render 'home', {
     title: '活动主页'
     user: req.user
     activities: default-activities
     top-five-tags: top-five-tags
+    my-tags: my-tags
   }
-  
-  # 获取 我的tag ... 登录
 
 
 # 比较函数-辅助

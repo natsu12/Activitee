@@ -1,7 +1,7 @@
 require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment'}
 
 findUserHost = (id, cb)->
-   Activity .find {} .populate({path: 'host', select: {_id : 1}}) .find {host : id, status: 0} .sort 'time' .exec cb
+   Activity .find {status : 0} .sort 'time' .exec cb
 
 # admin page
 module.exports = (req, res)!->

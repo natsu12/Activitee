@@ -41,10 +41,10 @@ block content
             .tag_area_main
               .my_tag
                 span.title 我订阅的标签：
-                //- each item in user.tags
-                //-   .tag
-                //-     .tag_item(data-id="#{item._id}")
-                //-       span(data-id="#{item._id}") #{item.name}
+                each item in myTags
+                  .tag
+                    .tag_item(data-id="#{item._id}")
+                      span(data-id="#{item._id}") #{item.name}
               .hot_tag
                 span.title 热门标签：
                 each item in topFiveTags
