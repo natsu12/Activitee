@@ -1,5 +1,6 @@
 require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment'}
 Jade = require 'jade'
+Moment = require 'moment'
 _ = require 'underscore'
 
 module.exports = (req, res)!->
@@ -39,8 +40,8 @@ module.exports = (req, res)!->
   to-index = page-num * num-each-page - 1
   for index from from-index to to-index
     break if result-activities[index] is undefined
+    result-activities[index].time-format = Moment(result-activities[index].time).format 'YYYY/MM/DD HH:MM'
     page-result-activities.push result-activities[index]
-
 
   # 制造活动模板
   (error, activities-template)<-! Jade.renderFile './src/views/activities-template.jade', { activities: page-result-activities }
