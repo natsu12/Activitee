@@ -8,10 +8,9 @@ module.exports = do ->
 
   # async func for signin
   signin = (username, password, res, cb)!->
-    console.log hash password
     User.find {username: username, password: hash password}, (err, docs)!->
       if err
-        console.log err
+        cb err
       else
         # true username&password
         if docs[0]
@@ -19,12 +18,12 @@ module.exports = do ->
           res.cookie 'sid', sid
           Session.create {sid: sid, username: username}, (err)!->
             if err
-              console.log err
+              cb err
             else
-              cb 'ok'
+              cb null, 'ok'
         # bad username/password
         else
-          cb 'bad username/password'
+          cb null, 'bad username/password'
           
   # async func for signout
   signout = (res, cb)!->
@@ -38,6 +37,7 @@ module.exports = do ->
       Session.find sid: sid, (err, docs)!->
         if err
           console.log err
+          res.status 500 .end!
         else
           session = docs[0]
           if session
@@ -45,6 +45,7 @@ module.exports = do ->
             User.find username: username, (err, docs)!->
               if err
                 console.log err
+                res.status 500 .end!
               else
                 user = docs[0]
                 if user
@@ -53,7 +54,9 @@ module.exports = do ->
                     username: user.username
                     role: user.role
                   }
-                  next!
+                next!
+          else
+            next!
     else
       next!
   
