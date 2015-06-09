@@ -9,7 +9,7 @@ $ !->
     target = e.srcElement || e.target
     profile = ($ '.profile')[0]
 
-    while target isnt document and target isnt profile
+    while target and target isnt document and target isnt profile
       target = target.parentNode
     if target is document
       $ '.profile-menu' .addClass 'hide'

@@ -65,15 +65,72 @@
     border-right: 1px solid #e8e8e8;
     border-left: 1px solid #e8e8e8;
     border-bottom: 1px solid #e8e8e8;
-    padding-bottom: 20px;
     overflow: hidden;
     background: white;
     .tag_area {
-      width: @act_area_width;
-      padding: 10px;
-      .tag {
-        margin: 10px;
+      width: @act_area_width - 80px;
+      border: 1px solid #e8e8e8;
+      margin: 20px auto;
+      .tag_chosen {
+        width: 100%;
+        background: #EEEEEE;
+        padding: 7px 0 0 10px;
+        overflow: hidden;
+        .title {
+          float: left;
+          width: 80px;
+          margin-top: 3px;
+          margin-bottom: 10px;
+        }
+        .tag_selected {
+          float: left;
+          background: white;
+          padding: 3px;
+          margin-right: 10px;
+          margin-bottom: 7px;
+          .name {
+            margin-right: 10px;
+            cursor: default;
+          }
+          .tag_close {
+            height: 12px;
+            width: 12px;
+            margin-bottom: 2px;
+            cursor: pointer;
+          }
+        }
       }
+
+      .tag_area_main {
+        padding-bottom: 20px;
+        .my_tag, .hot_tag {
+          overflow: hidden;
+          padding: 20px 0 0 10px;
+          .title {
+            float: left;
+            width: 110px;
+          }
+          .tag {
+            width: 130px;
+            float: left;
+            .tag_item {
+              padding-left: 15px;
+              background: url('/images/checkbox.gif') no-repeat 0 50%;
+              color: @main_yellow;
+              float: left;
+              cursor: pointer;
+              &.chosen {
+                background: url('/images/checked.png') no-repeat 0 50%;
+              }
+              &:hover {
+                opacity: 0.7;
+              }
+            }
+
+          }
+        }
+      }
+      
     }
     .sort_area {
       height: 40px;
@@ -88,42 +145,62 @@
           height: 40px;
           width: 120px;
           margin-right: 20px;
-          a {
+          cursor: pointer;
+          .sort {
             display: block;
             height: 40px;
             width: 120px;
             line-height: 40px;
-            font-family: @main_font;
+            color: @main_yellow;
             text-align: center;
             &:hover {
-              text-decoration: none;
+              opacity: 0.7;
             }
           }
-          a.active {
-            background: #eee;
+          .sort.active {
+            background: @main_yellow;
+            color: white;
           }
         }
       }
     }
-    .acts {
-      float: left;
-      margin: 20px 0 0 30px;
-      width: 180px;
-      height: 290px;
-      border: 1px solid #e8e8e8;
-      img {
-        height: 180px;
+
+    .activities-template {
+      overflow: hidden;
+      .acts {
+        float: left;
+        margin: 20px 0 0 30px;
         width: 180px;
-      }
-      .acts_info {
-        padding: 5px;
-        background: #eee;
-        height: 110px;
-        p {
-          text-align: center;
-          font-family: @main_font;
-          color: black;
+        height: 290px;
+        border: 1px solid #e8e8e8;
+        img {
+          height: 180px;
+          width: 180px;
         }
+        .acts_info {
+          padding: 5px;
+          background: #eee;
+          height: 110px;
+          p {
+            text-align: center;
+            font-family: @main_font;
+            color: black;
+          }
+        }
+      }
+    
+    }
+
+    .pagination {
+      float: right;
+      margin-right: 20px;
+      a {
+        color: @main_yellow;
+      }
+      .active a {
+        background: @main_yellow;
+        border: 1px solid @main_yellow;
+        color: white;
       }
     }
   }
