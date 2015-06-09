@@ -10,6 +10,7 @@ module.exports = (req, res)!->
       if err
         console.log (err)
       # activity.host_info =  activity.host_info.replace(/\n/g, "<br>");
+      console.log comments
       res.render 'detail', {
         title: activity.title + '详情'
         user: req.user

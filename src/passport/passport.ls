@@ -8,6 +8,7 @@ module.exports = do ->
 
   # async func for signin
   signin = (username, password, res, cb)!->
+    console.log hash password
     User.find {username: username, password: hash password}, (err, docs)!->
       if err
         console.log err

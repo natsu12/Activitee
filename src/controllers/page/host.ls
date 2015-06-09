@@ -9,7 +9,7 @@ findUserHost_test = (id, cb)->
 
 # host page
 module.exports = (req, res)!->
-  user_id = req.user._id
+  user_id = req.cookies.sid
   findUserHost user_id, (err, activities)!->
     if err
       console.log err
