@@ -1,4 +1,4 @@
-@import 'variable.less';
+@import '../variable.less';
 
 #home_wrap {
   width: 90%;
@@ -61,6 +61,11 @@
   width: @act_area_width;
   margin: 50px;
   overflow: hidden;
+  #myTab {
+    .active a {
+      color: @main_yellow;
+    }
+  }
   .tab-content {
     border-right: 1px solid #e8e8e8;
     border-left: 1px solid #e8e8e8;
