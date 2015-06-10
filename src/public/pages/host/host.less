@@ -1,0 +1,67 @@
+@import '../variable.less';
+
+#host_wrap {
+  width: 90%;
+  margin: 0 auto;
+  min-width: 1100px;
+}
+
+#act_area {
+  @act_area_width: 870px;
+  width: @act_area_width;
+  margin: 50px;
+  overflow: hidden;
+  #myTab {
+    .active a {
+      color: @main_yellow;
+    }
+  }
+  .tab-content {
+    .activities-template {
+      overflow: hidden;
+      .acts {
+        float: left;
+        margin: 0 0 0 0;
+        width:  860px;
+        height: 270px;
+        border: 1px solid #e8e8e8;
+        .acts_img {
+          margin: 60px 0 0 60px;
+          float:left;
+          img {
+            height: 180px;
+            width: 180px;
+          }
+        }
+        .acts_info {
+          float:left;
+          margin: 60px 0 0 60px;
+          background: white;
+          width:  550px;
+          height: 180px;
+          p {
+            text-align: left;
+            font-family: @main_font;
+            color: black;
+          }
+          .act_title {
+            font-size: 20pt;
+            padding: 0 0 10px 0;
+          }
+        }
+      }
+    }
+    .pagination {
+      float: right;
+      margin-right: 20px;
+      a {
+        color: @main_yellow;
+      }
+      .active a {
+        background: @main_yellow;
+        border: 1px solid @main_yellow;
+        color: white;
+      }
+    }
+  }
+}
