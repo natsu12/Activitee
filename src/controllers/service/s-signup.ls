@@ -1,10 +1,14 @@
 require! {
-  '../../passport/passport'
+  '../../passport'
   User: '../../models/user'
   '../../mail/mail'
+  multer
+  '../../imageCropper'
+  path
 }
 
 host = 'http://localhost:5000'
+avatarPath = path.join __dirname, '..', '..', '..', 'upload', 'avatars'
 
 module.exports = (req, res)!->
   # x inputs from body
@@ -12,7 +16,6 @@ module.exports = (req, res)!->
   password = req.body.password
   email = req.body.email
   # tags = req.body.tags
-
   # signup
   # check if username exists
   User.find username: username, (err, docs)!->
@@ -32,21 +35,22 @@ module.exports = (req, res)!->
             res.end 'email exists'
           # ok
           else
-            console.log 'ok'
-            authCode = Math.random!toString!
-            password := passport.hash password
-            User.create {
-              username: username
-              password: password
-              email: email
-              # tags: tags
-              role: 0
-              authenticated: 0
-              auth_code: authCode
-            }, (err)!->
-              if err
-                res.status 500 .end!
-              else
-                # send auth mail
-                mail.send email, 'Activitee注册验证邮件', "请点击<a href='#{host}/s-auth/#{authCode}'>此链接</a>完成注册验证"
-                res.end 'ok'
+            imageCropper.save req, 'avatar', avatarPath, username, (path_)!->
+              authCode = Math.random!toString!
+              password := passport.hash password
+              User.create {
+                username: username
+                password: password
+                email: email
+                # tags: tags
+                role: 0
+                authenticated: 0
+                auth_code: authCode
+                avatar: path_
+              }, (err)!->
+                if err
+                  res.status 500 .end!
+                else
+                  # send auth mail
+                  mail.send email, 'Activitee注册验证邮件', "请点击<a href='#{host}/s-auth/#{authCode}'>此链接</a>完成注册验证"
+                  res.end 'ok'

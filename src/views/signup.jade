@@ -4,13 +4,18 @@ block content
   link(rel='stylesheet' type='text/css' href='/pages/signup/signup.css')
 
   div#signup-container
-    form#signup-form
+    form#signup-form(enctype='multipart/form-data' method='POST' action='/s-signup')
       label 邮箱
       input(type='email' name='email' required)
       label 用户名
       input(type='text' name='username' required)
       label 密码
       input(type='password' name='password' required)
+      label 头像
+      input#avatar-input(type='file' name='avatar')
+      image-cropper(input='#avatar-input' preview='#avatar-preview')
+        include image-cropper
+      div#avatar-preview
       button(type='submit') 注册
 
   script(src='/pages/signup/signup.js')
