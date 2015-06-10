@@ -7,3 +7,7 @@ $ !->
       if results.success is 1
         if tr.length > 0
           tr.remove!
+
+  $ '#myTab a' .click (e)!->
+    e.preventDefault!
+    $ @ .tab 'show'

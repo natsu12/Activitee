@@ -1,8 +1,121 @@
 extends layout
 
 block content
+  link(rel='stylesheet', href='/pages/host/host.css')
   #host_wrap
-  h1 #{title}
+    #user_message
+      p fuck
+    #act_area
+      ul#myTab.nav.nav-tabs
+        li.act_type.active(data-id="future")
+          a(href="#future") 我关注的 #{following_act.length}
+        li.act_type(data-id="past")
+          a(href="#past") 我参加的 #{joining_act.length}
+        li.act_type(data-id="all")
+          a(href="#all") 我发起的 #{host_act.length}
+      .tab-content
+        #future.tab-pane.active.fade.in
+          .activities-template
+            each item in following_act
+              .acts
+                a(href="detail/#{item._id}")
+                  .acts_img
+                    img(src="#{item.cover}", alt="活动封面")
+                  .acts_info
+                    p.act_title #{item.title}
+                    p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                    p #{item.place}
+                    p #{item.host.username}
+                    p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
+          ul.pagination
+            li
+              a.paging(href="#",data-id='0') &laquo;
+            li.active
+              a.paging(href="#",data-id='1') 1
+            li
+              a.paging(href="#",data-id='2') 2
+            li
+              a.paging(href="#",data-id='3') 3
+            li
+              a.paging(href="#",data-id='4') 4
+            li
+              a.paging(href="#",data-id='5') 5
+            li
+              a.paging(href="#",data-id='-1') &raquo;
+
+        #past.tab-pane.fade
+          .activities-template
+            each item in joining_act
+              .acts
+                a(href="detail/#{item._id}")
+                  .acts_img
+                    img(src="#{item.cover}", alt="活动封面")
+                  .acts_info
+                    p.act_title #{item.title}
+                    p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                    p #{item.place}
+                    p #{item.host.username}
+                    p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
+          ul.pagination
+            li
+              a.paging(href="#",data-id='0') &laquo;
+            li.active
+              a.paging(href="#",data-id='1') 1
+            li
+              a.paging(href="#",data-id='2') 2
+            li
+              a.paging(href="#",data-id='3') 3
+            li
+              a.paging(href="#",data-id='4') 4
+            li
+              a.paging(href="#",data-id='5') 5
+            li
+              a.paging(href="#",data-id='-1') &raquo;
+
+        #all.tab-pane.fade
+          .activities-template
+            each item in host_act
+              .acts
+                a(href="detail/#{item._id}")
+                  .acts_img
+                    img(src="#{item.cover}", alt="活动封面")
+                  .acts_info
+                    p.act_title #{item.title}
+                    p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                    p #{item.place}
+                    p #{item.host.username}
+                    p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
+          ul.pagination
+            li
+              a.paging(href="#",data-id='0') &laquo;
+            li.active
+              a.paging(href="#",data-id='1') 1
+            li
+              a.paging(href="#",data-id='2') 2
+            li
+              a.paging(href="#",data-id='3') 3
+            li
+              a.paging(href="#",data-id='4') 4
+            li
+              a.paging(href="#",data-id='5') 5
+            li
+              a.paging(href="#",data-id='-1') &raquo;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   p 用户：#{user.username}
   p 头像：#{user.avatar}
   .container
@@ -22,7 +135,7 @@ block content
                       th 修改
                       th 删除
               tbody
-                  each item in activities
+                  each item in host_act
                       tr(class="item-id-#{item._id}")
                           td #{item.title}
                           td #{item.detail}

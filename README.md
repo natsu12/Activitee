@@ -9,7 +9,6 @@
 ## 文件目录结构
 ```
 .
-├── UI      存放UI设计图
 ├── doc     存放项目需求、分工等文档
 ├── upload  用户上传的图片，包括avatar（头像），images（活动图片），cover（活动封面）
 ├── data    存放伪造数据的json文件
@@ -20,8 +19,7 @@
     ├── models            存放MongoDB模型
     ├── Passport          登陆注册的模块
     ├── public            项目静态文件（图片、用户上传的图片、前端各种框架插件、样式文件less、客户端livescript）
-        ├── stylesheets   样式文件less（前端主要在此目录下编写代码）
-        └── pages         客户端livescript（前端主要在此目录下编写代码）
+        └── pages         存放样式文件less和客户端livescript（前端主要在此目录下编写代码）
     ├── routes            存放路由控制文件
         └── index.ls      定义了各个url应调用controller中的哪个接口
     ├── schemas           定义了项目的数据模型，注释中标明了每个模型具有的属性的含义，原则上不要改动

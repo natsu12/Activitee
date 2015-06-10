@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  link(rel='stylesheet', href='/stylesheets/home.css')
+  link(rel='stylesheet', href='/pages/home/home.css')
   #home_wrap
     #myCarousel.carousel.slide
       ol.carousel-indicators
@@ -27,26 +27,40 @@ block content
 
     #act_area
       ul#myTab.nav.nav-tabs
-        li.active
+        li.timing.active(data-id="future")
           a(href="#future") 即将进行
-        li
+        li.timing(data-id="past")
           a(href="#past") 往期回顾
-        li
+        li.timing(data-id="all")
           a(href="#all") 所有活动
       .tab-content
         #future.tab-pane.active.fade.in
           .tag_area
-            each item in topFiveTags
-              .btn.btn-primary.tag(data-toggle="button",data-id="#{item._id}") #{item.name}
+            .tag_chosen
+              span.title 已选标签：
+            .tag_area_main
+              .my_tag
+                span.title 我订阅的标签：
+                each item in myTags
+                  .tag
+                    .tag_item(data-id="#{item._id}")
+                      span(data-id="#{item._id}") #{item.name}
+              .hot_tag
+                span.title 热门标签：
+                each item in topFiveTags
+                  .tag
+                    .tag_item(data-id="#{item._id}")
+                      span(data-id="#{item._id}") #{item.name}
+            
           .sort_area
             ul
               li
-                a.active.sort(href="#") 按开始时间排序
+                span.time.active.sort(data-id="time") 按开始时间排序 ↓
               li
-                a.sort(href="#") 按关注人数排序
+                span.sort(data-id="attention") 按关注人数排序 ↓
               li
-                a.sort(href="#") 按参加人数排序
-          #activities-template
+                span.sort(data-id="participation") 按参加人数排序 ↓
+          .activities-template
             each item in activities
               .acts
                 a(href="detail/#{item._id}")
@@ -55,32 +69,92 @@ block content
                     p #{item.title}
                     p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
                     p #{item.host.username}
+          ul.pagination
+            li
+              a.paging(href="#",data-id='0') &laquo;
+            li.active
+              a.paging(href="#",data-id='1') 1
+            li
+              a.paging(href="#",data-id='2') 2
+            li
+              a.paging(href="#",data-id='3') 3
+            li
+              a.paging(href="#",data-id='4') 4
+            li
+              a.paging(href="#",data-id='5') 5
+            li
+              a.paging(href="#",data-id='-1') &raquo;
+
         #past.tab-pane.fade
           .tag_area
-            each item in topFiveTags
-              .btn.btn-primary.tag(data-toggle="button") #{item.name}
-              input(type="hidden", value="#{item._id}")
+            .tag_chosen
+              span.title 已选标签：
+            .tag_area_main
+              .my_tag
+                span.title 我订阅的标签：
+                //- each item in user.tags
+                //-   .tag
+                //-     .tag_item(data-id="#{item._id}")
+                //-       span(data-id="#{item._id}") #{item.name}
+              .hot_tag
+                span.title 热门标签：
+                each item in topFiveTags
+                  .tag
+                    .tag_item(data-id="#{item._id}")
+                      span(data-id="#{item._id}") #{item.name}
           .sort_area
             ul
               li
-                a.active.sort(href="#") 按开始时间排序
+                span.time.active.sort(data-id="time") 按开始时间排序 ↓
               li
-                a.sort(href="#") 按关注人数排序
+                span.sort(data-id="attention") 按关注人数排序 ↓
               li
-                a.sort(href="#") 按参加人数排序
+                span.sort(data-id="participation") 按参加人数排序 ↓
+          .activities-template
+            each item in activities
+              .acts
+                a(href="detail/#{item._id}")
+                  img(src="#{item.cover}", alt="活动封面")
+                  .acts_info
+                    p #{item.title}
+                    p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                    p #{item.host.username}
+
         #all.tab-pane.fade
           .tag_area
-            each item in topFiveTags
-              .btn.btn-primary.tag(data-toggle="button") #{item.name}
-              input(type="hidden", value="#{item._id}")
+            .tag_chosen
+              span.title 已选标签：
+            .tag_area_main
+              .my_tag
+                span.title 我订阅的标签：
+                //- each item in user.tags
+                //-   .tag
+                //-     .tag_item(data-id="#{item._id}")
+                //-       span(data-id="#{item._id}") #{item.name}
+              .hot_tag
+                span.title 热门标签：
+                each item in topFiveTags
+                  .tag
+                    .tag_item(data-id="#{item._id}")
+                      span(data-id="#{item._id}") #{item.name}
           .sort_area
             ul
               li
-                a.active.sort(href="#") 按开始时间排序
+                span.time.active.sort(data-id="time") 按开始时间排序 ↓
               li
-                a.sort(href="#") 按关注人数排序
+                span.sort(data-id="attention") 按关注人数排序 ↓
               li
-                a.sort(href="#") 按参加人数排序
+                span.sort(data-id="participation") 按参加人数排序 ↓
+          .activities-template
+            each item in activities
+              .acts
+                a(href="detail/#{item._id}")
+                  img(src="#{item.cover}", alt="活动封面")
+                  .acts_info
+                    p #{item.title}
+                    p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                    p #{item.host.username}
+
   a(href='/create', class='text-center new-account') create an activity
   a(href='/host', class='text-center new-account') my activities
   a(href='/following', class='text-center new-account') my following activities
