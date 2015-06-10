@@ -1,4 +1,4 @@
-require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment'}
+require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment', User:'../../models/user'}
 _ = require 'underscore'
 
 module.exports = (req, res)!->
@@ -40,4 +40,13 @@ module.exports = (req, res)!->
       comment.save (err, comment) !->
         if err
           console.log(err)
-        res.redirect '/detail/' + act_id
+
+        User.findById req.user._id, (err, fromUser)!->
+          _reply.from = fromUser
+
+          User.findById replyObj.to, (err, toUser)!->
+            _reply.to = toUser
+            res.render 'reply', {
+              reply: _reply
+              comment: comment
+            }
