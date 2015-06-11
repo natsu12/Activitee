@@ -43,6 +43,9 @@ module.exports = (req, res)!->
     result-activities[index].time-format = Moment(result-activities[index].time).format 'YYYY/MM/DD HH:MM'
     page-result-activities.push result-activities[index]
 
+  # 计算符合要求的活动的页数
+  num-of-pages = parseInt ((result-activities.length - 1) / num-each-page) + 1
+  
   # 制造活动模板
   (error, activities-template)<-! Jade.renderFile './src/views/activities-template.jade', { activities: page-result-activities }
   console.log error if error
@@ -51,6 +54,7 @@ module.exports = (req, res)!->
   res.json {
     activities-template: activities-template
     activities: page-result-activities
+    num-of-pages: num-of-pages
   }
 
 activity-cmp-by-time-if-future-or-all = (activity1, activity2)->

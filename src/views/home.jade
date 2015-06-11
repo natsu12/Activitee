@@ -10,18 +10,17 @@ block content
         li(data-target="#myCarousel", data-slide-to="2")
       
       .carousel-inner
-        .item.active
-          img(src="images/slide1.png")
-          .carousel-caption
-            h4 hehe
-        .item
-          img(src="images/slide2.png")
-          .carousel-caption
-            h4 hehe
-        .item
-          img(src="images/slide3.png")
-          .carousel-caption
-            h4 hehe
+        each item,index in hotActivities
+          if index == 0
+            .item.active
+              img(src="#{item.cover}", alt="封面")
+              .carousel-caption
+                h4 #{item.title}
+          else
+            .item
+              img(src="#{item.cover}", alt="封面")
+              .carousel-caption
+                h4 #{item.title}
       a.carousel-control.left(href="#myCarousel", data-slide="prev") &lsaquo;
       a.carousel-control.right(href="#myCarousel", data-slide="next") &rsaquo;
 
