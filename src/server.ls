@@ -1,4 +1,4 @@
-require! {express, http, path, 'cookie-parser', 'body-parser', mongoose, './db', './passport/passport'}
+require! {express, http, path, 'cookie-parser', 'body-parser', mongoose, './db', './passport/passport', multer}
 logger = require 'morgan'
 flash = require 'connect-flash'
 favicon = require 'static-favicon'
@@ -14,6 +14,7 @@ app.use favicon!
 app.use logger 'dev'
 app.use bodyParser.json!
 app.use bodyParser.urlencoded!
+app.use multer({dest: '../upload/tmp'})
 app.use cookieParser!
 app.use passport.auth
 anotherPath = path.join __dirname, '..'
