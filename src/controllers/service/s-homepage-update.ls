@@ -12,7 +12,7 @@ module.exports = (req, res)!->
   order-by = option.order-by
   page-num = parse-int option.page-num
   now = new Date!
-
+  
   (error, activities) <-! Activity .find {}
   # 根据option的条件筛选
   result-activities = []
