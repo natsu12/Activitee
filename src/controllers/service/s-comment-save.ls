@@ -21,7 +21,14 @@ module.exports = (req, res)!->
     _comment.save (err, comment)!->
       if err
         console.log err
-      res.redirect '/detail/' + act_id
+
+      res.redirect '/detail/'+act_id
+      
+    #  User.findById req.user._id, (err, fromUser)!->
+    #  _comment.from = fromUser
+    #    res.render 'comment', {
+    #      comment : _comment
+    #    }
 
   else if type == 'reply'
     act_id = req.body.reply.activity_id

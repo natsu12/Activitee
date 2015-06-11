@@ -66,9 +66,25 @@
       }
     }
 
+    .comment_and_detail_tag {
+      margin-top: 50px;
+      font-size: 15pt;
+      a:focus {
+        outline: none;
+        text-decoration: none;
+      }   
+    }
+
+    .pagination {
+        .active {
+          a {
+            color: white;
+          }
+        }
+    }
+
     .act_main {
       width: 100%;
-      margin-top: 40px;
       padding: 40px;
       background: white;
       a:focus {
@@ -76,6 +92,7 @@
 	text-decoration: none;
        } 
       .act_detail{
+        adding: 20px;
         background: none;
         border: none;
       }
@@ -88,7 +105,7 @@
         }
         .areply{
           min-height: 95px;
-          border-bottom: 1px dashed gray;
+          border-bottom: 1px dashed #EEEEEE;
           margin-bottom: 10px;
         }
         #reply_letter {
@@ -103,9 +120,7 @@
           }
         }
         .comment_content {
-          #floor{
-            color: #767676;
-          }
+          margin-top: 20px;
         }
         .reply_content {
           padding: 10px;
