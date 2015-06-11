@@ -40,18 +40,70 @@ block content
 					else
 						button.left(id="not_login_button", type="button") 关注
 						button(id="not_login_button", type="button") 参加
-
-					
-
-					
+	
 			.act_main
 				h1 活动详情
 				pre.act_detail #{activity.detail}
 			.act_main
-				.act_comment
+				.act_comments
 					h1 评论
 					if comments.length == 0
-						p 还没有评论哦！你发一条吧！			
+						p 还没有评论哦！你发一条吧！	
+						br
+					else
+						- var i = 1
+						each comment in comments
+							.row.comment
+								.comment_userinfo.col-md-2
+									span: img(class="avatar", src="/avatar/test.jpeg",alt="avatar", with="80", height="80")
+									span#username #{comment.from.username}
+								.comment_content.col-md-6
+									span#floor #{i}楼：
+									br
+									- i++
+									span #{comment.content}
+
+								.row.comment_time.col-md-4
+										span#time #{moment(comment.meta.updateAt).format('YYYY.M.DD HH:MM')} &nbsp
+											a(class="reply_master",href="#",data-comment="#{comment._id}") 回复 &nbsp
+											a(class="fold_comment",href="#",data-comment="#{comment._id}") 展开/收起(
+												span(id="reply_number#{comment._id}") #{comment.replies.length}
+												span )
+							br
+							.row.replies(id="replies#{comment._id}", style="display:none")
+									if comment.replies.length != 0
+											each reply in comment.replies
+												div.row.areply.col-md-offset-1.col-md-10
+														.comment_userinfo.col-md-2
+															span: img(class="avatar", src="/avatar/test2.jpeg",alt="avatar", with="60", height="60")
+															span#username #{reply.from.username}
+														.reply_content.col-md-9
+															p#reply_letter 回复#{reply.to.username} 
+															p #{reply.content}
+												.row.comment_time.col-md-4
+													span#time_reply #{moment(reply.createAt).format('YYYY.M.DD HH:MM')}
+														&nbsp
+														a(class="reply",href="#", data-to="#{reply.from._id}", data-user="#{reply.from.username}",data-comment="#{comment._id}") 回复
+
+
+														
+							.row
+								form.form-horizontal.post_reply(id="post_reply#{comment._id}", data-comment="#{comment._id}")
+									div.col-md-6.col-md-offset-2.reply_form(id="reply_form#{comment._id}", data-comment="#{comment._id}")
+										input(id="reply_content#{comment._id}", type="text",class="form-control", name="reply[content]", placeholder="回复楼主", required)
+										input(type="hidden", name="reply[activity_id]", value="#{activity._id}")
+										input(id="reply_to#{comment._id}", type="hidden", name="reply[to]", value="#{comment.from._id}")
+										input(type="hidden",name="reply[com_id]", value="#{comment._id}")
+
+							hr
+							br
+					h2 发表评论
+					div.row.post_comment
+						form.form-horizontal(method="post", action="/s-comment-save?type=new")
+							div.input-group.col-md-8
+								input(type="hidden", name="comment[activity_id]", value="#{activity._id}")
+								textarea.form-control(type="text", name="comment[content]", required)
+								button(type="submit") 评论
 
 		.right_wrap
 			.act_tags
@@ -66,51 +118,7 @@ block content
 				pre.act_host_info #{activity.host_info}
 
 
-	h2 Comments
-	div.row
-	if comments.length == 0
-		p no comments
-	else
-		each comment in comments
-			div
-				p user : #{comment.from.username}
-				p content : #{comment.content}
-				p #{moment(comment.meta.updateAt).format('YYYY年 M月 D日 星期E')}
-				if comment.replies.length != 0
-					p replies : 
-						each reply in comment.replies
-							div.row
-								div.col-md-4.col-md-offset-1
-									p from #{reply.from.username} to #{reply.to.username}
-										a(class="reply",href="#", style="float:right", data-to="#{reply.from._id}", data-user="#{reply.from.username}",data-comment="#{comment._id}") reply
-									p content : #{reply.content}
-									p createAt : #{moment(reply.createAt).format('YYYY年 M月 D日 星期E')}
-									hr
-
-			form.form-horizontal(method="post", action="/s-comment-save?type=reply")
-				div.input-group.col-md-2.col-md-offset-1
-					input(id="reply_content#{comment._id}", type="text",class="form-control", name="reply[content]", placeholder="回复楼主")
-					input(type="hidden", name="reply[activity_id]", value="#{activity._id}")
-					input(id="reply_to#{comment._id}", type="hidden", name="reply[to]", value="#{comment.from._id}")
-					input(type="hidden",name="reply[com_id]", value="#{comment._id}")
-					span.input-group-btn
-						button(class="btn btn-default" type="submit") Go
-			hr
-			br
-
-	hr
-	h2 Post
-	div.row
-		form.form-horizontal(method="post", action="/s-comment-save?type=new")
-			div.input-group.col-md-2
-				input(type="hidden", name="comment[activity_id]", value="#{activity._id}")
-				textarea.form-control(type="text", name="comment[content]")
-				button.btn.btn-default(type="submit") 提交
-
-		br
-
-	div.row
-		a(href='/home') 返回
-
+	script(src="/pages/detail/jquery.scrollTo.min.js")
 	script(src="/pages/detail/FollowAndJoin.js")
 	script(src="/pages/detail/reply.js")
+
