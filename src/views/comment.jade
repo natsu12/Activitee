@@ -1,0 +1,40 @@
+
+block comment
+.comment_area(page="", style="")
+	.row.comment
+		.comment_userinfo.col-md-2
+			span: img(class="avatar", src="/avatar/default.jpeg",alt="avatar", with="80", height="80")
+			span#username #{comment.from.username}
+		.comment_content.col-md-6
+			span #{comment.content}
+		.row.comment_time.col-md-4
+				span#time #{moment(comment.meta.updateAt).format('YYYY.M.DD HH:MM')} &nbsp
+					a(class="reply_master",href="#",data-comment="#{comment._id}") 回复 &nbsp
+					a(class="fold_comment",href="#",data-comment="#{comment._id}") 展开/收起(
+						span(id="reply_number#{comment._id}") #{comment.replies.length}
+						span )
+	br
+	.row.replies(id="replies#{comment._id}", style="display:none")
+			if comment.replies.length != 0
+					each reply in comment.replies
+						div.row.areply.col-md-offset-1.col-md-10
+								.comment_userinfo.col-md-2
+									span: img(class="avatar", src="/avatar/test2.jpeg",alt="avatar", with="60", height="60")
+									span#username #{reply.from.username}
+								.reply_content.col-md-9
+									p#reply_letter 回复#{reply.to.username} 
+									p #{reply.content}
+						.row.comment_time.col-md-4
+							span#time_reply #{moment(reply.createAt).format('YYYY.M.DD HH:MM')} &nbsp
+								a(class="reply",href="#", data-to="#{reply.from._id}", data-user="#{reply.from.username}",data-comment="#{comment._id}") 回复
+
+	.row
+		form.form-horizontal.post_reply(id="post_reply#{comment._id}", data-comment="#{comment._id}")
+			div.col-md-6.col-md-offset-2.reply_form(id="reply_form#{comment._id}", data-comment="#{comment._id}")
+				input(id="reply_content#{comment._id}", type="text",class="form-control", name="reply[content]", placeholder="回复楼主", required)
+				input(type="hidden", name="reply[activity_id]", value="#{comment.act_id}")
+				input(id="reply_to#{comment._id}", type="hidden", name="reply[to]", value="#{comment.from._id}")
+				input(type="hidden",name="reply[com_id]", value="#{comment._id}")
+
+	hr
+	br

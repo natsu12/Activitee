@@ -1,15 +1,18 @@
 $ !->
-  $ "body" .on "click"," .reply_master" (e)!->
+  $ "body" .on "click", " .reply_master" (e)!->
     target = $ e.target
     comment = target.data 'comment'
     $ '#reply_form'+comment .show 250
     $ '#reply_to'+comment
     $ '#reply_content'+comment .attr 'placeholder' '回复楼主'
-    $ .scrollTo('#reply_content'+comment, 1000)
+    $ 'body' .scrollTo '#post_reply'+comment, {
+      offset: -300
+      duration: 'slow'
+    }
     $ '#reply_content'+comment .focus()
     return false
 
-  $ "body" .on "click"," .reply" (e)!->
+  $ "body" .on "click", " .reply" (e)!->
     target = $ e.target
     id = target.data 'to'
     username = target.data 'user'
@@ -18,11 +21,14 @@ $ !->
     $ '#reply_to'+comment .attr 'value' id
     $ '#reply_content'+comment .attr 'placeholder' '回复'+username
     $ '#reply_to'+comment
-    $ .scrollTo('#reply_content'+comment, 1000)
+    $ 'body' .scrollTo '#post_reply'+comment, {
+      offset: -300
+      duration: 'slow'
+    }
     $ '#reply_content'+comment .focus()
     return false
   
-  $ '.fold_comment' .click (e)!->
+  $ "body" .on "click", ".fold_comment" (e)!->
     target = $ e.target
     comment = target.data 'comment'
     $ '#replies'+comment .toggle 500
@@ -40,6 +46,9 @@ $ !->
       $ '#reply_number'+comment .text reply_number
       $ '#replies'+comment .append new_data
       $ '#reply_content'+comment .val ''
-      $.scrollTo('#reply_form'+comment, 500); 
+      $ 'body' .scrollTo '#post_comment'+comment, {
+      offset: -300
+      duration: 'slow'
+      }
       new_data .slideDown()
     return false
