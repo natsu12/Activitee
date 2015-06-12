@@ -1,4 +1,5 @@
 require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment', User:'../../models/user'}
+
 # home page
 module.exports = (req, res)!->
   # 获取热门标签及其活动
@@ -11,8 +12,18 @@ module.exports = (req, res)!->
   for activity in activities       # 缺点: 每次遍历全部活动，效率低
     if activity.time > now
       default-activities.push activity
+  # 获取三个最热门的活动 50%关注人数+40%报名人数+10%标签 没人关注的时候用标签比较
+  hot-activities = default-activities .sort hotest-activity-cmp .slice 0, 3
+
   # 对活动进行排序
   default-activities .sort activity-cmp
+
+  # 计算[符合要求](时间: future)的活动数量的页数
+  num-each-page = 12
+  num-of-pages = parseInt ((default-activities.length - 1) / num-each-page) + 1
+  
+  # 呈现第一页的活动
+  first-page-activities = default-activities.slice 0, num-each-page
 
   # 获取所有tags
   (error, tags) <- Tag .find {} .populate 'users' .exec
@@ -47,13 +58,15 @@ module.exports = (req, res)!->
         break if count >= hot-tags-num
   else  # 未登录
     hot-tags = tags.slice 0, hot-tags-num
-
+  
   res.render 'home', {
     title: '活动主页'
     user: req.user
-    activities: default-activities
+    activities: first-page-activities
     hot-tags: hot-tags
+    num-of-pages: num-of-pages
     my-tags: my-tags
+    hot-activities: hot-activities
   }
 
 
@@ -69,4 +82,15 @@ tag-cmp = (tag1, tag2)->
 activity-cmp = (activity1, activity2)->
   return -1 if activity1.time < activity2.time
   return 1 if activity1.time > activity2.time
+  return 0
+
+# 比较函数-辅助
+hotest-activity-cmp = (activity1,activity2)->
+  follow-ratio = 0.5
+  join-ratio = 0.4
+  tag-ratio = 0.1
+  level1 = follow-ratio * activity1.following_users.length + join-ratio * activity1.joining_users.length + tag-ratio * activity1.tags.length;
+  level2 = follow-ratio * activity2.following_users.length + join-ratio * activity2.joining_users.length + tag-ratio * activity2.tags.length;
+  return 1 if level1 < level2
+  return -1 if level1 > level2
   return 0
