@@ -62,39 +62,49 @@ block content
 							.act_comments
 								.act_comments_main
 									h1 评论
-									nav.pagination
-										li.disabled#Previous_comment_page(current="1")
-											a(href="#", aria-label="Previous")
-												span(aria-hidden="true") &laquo;
-
-										- var j = 1
-
-										each comment in comments
-											- j++
-											if j % 5 == 0
-												if j/5 == 1
-													li.active
-														a(id="comment_page_nav#{j/5}", class="comment_page_nav", page="#{j/5}", href="#") #{j/5}
-
-												else
-													li
-														a(id="comment_page_nav#{j/5}", class="comment_page_nav", page="#{j/5}", href="#") #{j/5}
-										
-										if j % 5 != 0
-											li
-												a(id="comment_page_nav#{Math.ceil(j/5)}", class="comment_page_nav", page="#{j/5+1}", href="#") #{Math.ceil(j/5)}
-										
-										lable(id="max_comment_page", style="display:none") #{Math.ceil(j/5)}
-										lable(id="max_comments", style="display:none") #{j-1}
-
-										li#Next_comment_page(current="1")
-											a(href="#", aria-label="Next")
-												span(aria-hidden="true") &raquo;
 
 									if comments.length == 0
 										p 还没有评论哦！你发一条吧！	
-										br
+										lable(id="max_comment_page", style="display:none") #{0}
+										lable(id="max_comments", style="display:none") #{0}
+										nav.pagination(style="display:none")
+											li.disabled#Previous_comment_page(current="1")
+												a(href="javascript:void(0)", aria-label="Previous")
+													span(aria-hidden="true") &laquo;
+
+											li.disabled#Next_comment_page(current="1")
+												a(href="javascript:void(0)", aria-label="Next")
+													span(aria-hidden="true") &raquo;
 									else
+										nav.pagination
+											li.disabled#Previous_comment_page(current="1")
+												a(href="javascript:void(0)", aria-label="Previous")
+													span(aria-hidden="true") &laquo;
+
+											- var j = 1
+											each comment in comments
+												- j++
+												if j % 5 == 0
+													if j/5 == 1
+														li.active
+															a(id="comment_page_nav#{j/5}", class="comment_page_nav", page="#{j/5}", href="javascript:void(0)") #{j/5}
+													else
+														li
+															a(id="comment_page_nav#{j/5}", class="comment_page_nav", page="#{j/5}", href="javascript:void(0)") #{j/5}
+											if j % 5 != 0
+												li
+													a(id="comment_page_nav#{Math.ceil(j/5)}", class="comment_page_nav", page="#{Math.ceil(j/5)}", href="javascript:void(0)") #{Math.ceil(j/5)}
+										
+											- var is_one_page = ''
+											if comments.length == 1
+												- is_one_page = 'disabled'
+
+											li#Next_comment_page(current="1", class="#{is_one_page}")
+												a(href="javascript:void(0)", aria-label="Next")
+													span(aria-hidden="true") &raquo;
+										lable(id="max_comment_page", style="display:none") #{Math.ceil(j/5)}
+										lable(id="max_comments", style="display:none") #{j-1}
+
 										- var i = 0
 										- var display = 'block'
 										each comment in comments
@@ -112,8 +122,8 @@ block content
 
 													.row.comment_time.col-md-4
 															span#time #{moment(comment.meta.updateAt).format('YYYY.M.DD HH:MM')} &nbsp
-																a(class="reply_master",href="#",data-comment="#{comment._id}") 回复 &nbsp
-																a(class="fold_comment",href="#",data-comment="#{comment._id}") 展开/收起(
+																a(class="reply_master",href="javascript:void(0)",data-comment="#{comment._id}") 回复 &nbsp
+																a(class="fold_comment",href="javascript:void(0)",data-comment="#{comment._id}") 展开/收起(
 																	span(id="reply_number#{comment._id}") #{comment.replies.length}
 																	span )
 												br
@@ -130,7 +140,7 @@ block content
 																	.row.comment_time.col-md-4
 																		span#time_reply #{moment(reply.createAt).format('YYYY.M.DD HH:MM')}
 																			&nbsp
-																			a(class="reply",href="#", data-to="#{reply.from._id}", data-user="#{reply.from.username}",data-comment="#{comment._id}") 回复
+																			a(class="reply",href="javascript:void(0)", data-to="#{reply.from._id}", data-user="#{reply.from.username}",data-comment="#{comment._id}") 回复
 
 
 																			
@@ -147,7 +157,7 @@ block content
 
 								h2 发表评论
 								div.row
-									form.form-horizontal.post_comment(method="post", action="/s-comment-save?type=new")
+									form.form-horizontal.post_comment
 										div.input-group.col-md-8
 											input(type="hidden", name="comment[activity_id]", value="#{activity._id}")
 											textarea.form-control(id="comment_content", type="text", name="comment[content]", required)
@@ -171,4 +181,4 @@ block content
 	script(src="/pages/detail/reply.js")
 	script(src="/pages/detail/tab.js")
 	script(src="/pages/detail/paging.js")
-
+	script(src="/pages/detail/comment.js")
