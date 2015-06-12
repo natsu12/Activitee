@@ -7,18 +7,19 @@ crop = (src, dest, cropX, cropY, cropWidth, cropHeight, cb)!->
   .crop cropWidth, cropHeight, cropX, cropY
   .write dest, cb
 
-save = (req, fieldname, path_, name, cb)!->
+save = (req, fieldname, uploadAbsoluteDir, relativeDir, name, cb)!->
   cropX = req.body["image-cropper-#{fieldname}-crop-x"]
   cropY = req.body["image-cropper-#{fieldname}-crop-y"]
   cropWidth = req.body["image-cropper-#{fieldname}-crop-width"]
   cropHeight = req.body["image-cropper-#{fieldname}-crop-height"]
   file = req.files[fieldname]
   filename = name + '.' + file.extension
-  dest = path.join(path_, filename)
+  relativePath = path.join(relativeDir, filename)
+  dest = path.join(uploadAbsoluteDir, relativePath)
   crop req.files[fieldname].path, dest, cropX, cropY, cropWidth, cropHeight, (err)!->
     if err
       console.log err
     else
-      cb dest, filename
+      cb relativePath, filename
 
 module.exports = save: save

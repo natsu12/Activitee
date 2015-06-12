@@ -8,7 +8,8 @@ require! {
 }
 
 host = 'http://localhost:5000'
-avatarPath = path.join __dirname, '..', '..', '..', 'upload', 'avatars'
+uploadAbsoluteDir = path.join __dirname, '..', '..', '..', 'upload'
+avatarRelativeDir = 'avatars'
 
 module.exports = (req, res)!->
   # x inputs from body
@@ -35,7 +36,7 @@ module.exports = (req, res)!->
             res.end 'email exists'
           # ok
           else
-            imageCropper.save req, 'avatar', avatarPath, username, (path_)!->
+            imageCropper.save req, 'avatar', uploadAbsoluteDir, avatarRelativeDir, username, (relativePath)!->
               authCode = Math.random!toString!
               password := passport.hash password
               User.create {
@@ -46,7 +47,7 @@ module.exports = (req, res)!->
                 role: 0
                 authenticated: 0
                 auth_code: authCode
-                avatar: path_
+                avatar: relativePath
               }, (err)!->
                 if err
                   res.status 500 .end!
