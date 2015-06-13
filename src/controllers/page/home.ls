@@ -1,7 +1,7 @@
 require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment', User:'../../models/user'}
 
 # home page
-module.exports = (req, res)!->
+module.exports = (req, res)!->  
   # 获取热门标签及其活动
   (error, activities) <- Activity .find {} .populate 'host' .exec
   # 获取当前时间
@@ -58,13 +58,17 @@ module.exports = (req, res)!->
         break if count >= hot-tags-num
   else  # 未登录
     hot-tags = tags.slice 0, hot-tags-num
-  
+ 
+  page-list = []
+  for i from 1 to num-of-pages
+    page-list .push i
+
   res.render 'home', {
     title: '活动主页'
     user: req.user
     activities: first-page-activities
     hot-tags: hot-tags
-    num-of-pages: num-of-pages
+    page-list: page-list
     my-tags: my-tags
     hot-activities: hot-activities
   }

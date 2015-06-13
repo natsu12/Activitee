@@ -24,6 +24,8 @@ block content
             h4 hehe
       a.carousel-control.left(href="#myCarousel", data-slide="prev")
       a.carousel-control.right(href="#myCarousel", data-slide="next")
+    
+    button.back_to_top 回到顶部
 
     #act_area
       ul#myTab.nav.nav-tabs
@@ -76,16 +78,19 @@ block content
           ul.pagination
             li
               a.paging(href="#",data-id='0') &laquo;
-            li.active
-              a.paging(href="#",data-id='1') 1
-            li
-              a.paging(href="#",data-id='2') 2
-            li
-              a.paging(href="#",data-id='3') 3
-            li
-              a.paging(href="#",data-id='4') 4
-            li
-              a.paging(href="#",data-id='5') 5
+            each value in pageList
+              if value == 1
+                li.active
+                  a.paging(href="#",data-id='#{value}') #{value}
+              else
+                li
+                  a.paging(href="#",data-id='#{value}') #{value}
+            //- li
+            //-   a.paging(href="#",data-id='3') 3
+            //- li
+            //-   a.paging(href="#",data-id='4') 4
+            //- li
+            //-   a.paging(href="#",data-id='5') 5
             li
               a.paging(href="#",data-id='-1') &raquo;
 
