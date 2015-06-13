@@ -5,7 +5,46 @@ $ !->
 
   $ '.carousel' .carousel!
 
-  $ '.sort_area .sort' .click (e)!->
+  my-tag-num = $ '.active .my_tag .tag' .length
+  if my-tag-num <= 5
+    $ '.my_tag .slide_toggle' .hide!
+  else
+    for i from 5 to my-tag-num - 1
+      $ ($ '#future .my_tag .tag')[i] .add-class 'slide_tag'
+    for i from 5 to my-tag-num - 1
+      $ ($ '#past .my_tag .tag')[i] .add-class 'slide_tag'
+    for i from 5 to my-tag-num - 1
+      $ ($ '#all .my_tag .tag')[i] .add-class 'slide_tag'
+
+  hot-tag-num = $ '.active .hot_tag .tag' .length
+  if hot-tag-num <= 5
+    $ '.hot_tag .slide_toggle' .hide!
+  else
+    for i from 5 to hot-tag-num - 1
+      $ ($ '#future .hot_tag .tag')[i] .add-class 'slide_tag'
+    for i from 5 to hot-tag-num - 1
+      $ ($ '#past .hot_tag .tag')[i] .add-class 'slide_tag'
+    for i from 5 to hot-tag-num - 1
+      $ ($ '#all .hot_tag .tag')[i] .add-class 'slide_tag'
+
+  $ '.my_tag .slide_toggle' .click !->
+    $ '.active .my_tag .slide_tag' .slide-toggle 'fast'
+    if $ @ .text! is '展开'
+      $ @ .text '收起'
+    else
+      $ @ .text '展开'
+
+  $ '.hot_tag .slide_toggle' .click !->
+    $ '.active .hot_tag .slide_tag' .slide-toggle 'fast'
+    if $ @ .text! is '展开'
+      $ @ .text '收起'
+    else
+      $ @ .text '展开'
+
+
+
+
+  $ '.sort_area .sort' .click !->
     $ '.sort_area .sort' .removeClass 'active'
     $ @ .addClass 'active'
 

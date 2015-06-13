@@ -10,19 +10,20 @@ block content
         li(data-target="#myCarousel", data-slide-to="2")
       
       .carousel-inner
-        each item,index in hotActivities
-          if index == 0
-            .item.active
-              img(src="#{item.cover}", alt="封面")
-              .carousel-caption
-                h4 #{item.title}
-          else
-            .item
-              img(src="#{item.cover}", alt="封面")
-              .carousel-caption
-                h4 #{item.title}
-      a.carousel-control.left(href="#myCarousel", data-slide="prev") &lsaquo;
-      a.carousel-control.right(href="#myCarousel", data-slide="next") &rsaquo;
+        .item.active
+          img(src="images/slide1.png")
+          .carousel-caption
+            h4 hehe
+        .item
+          img(src="images/slide2.png")
+          .carousel-caption
+            h4 hehe
+        .item
+          img(src="images/slide3.png")
+          .carousel-caption
+            h4 hehe
+      a.carousel-control.left(href="#myCarousel", data-slide="prev")
+      a.carousel-control.right(href="#myCarousel", data-slide="next")
 
     #act_area
       ul#myTab.nav.nav-tabs
@@ -40,16 +41,20 @@ block content
             .tag_area_main
               .my_tag
                 span.title 我订阅的标签：
-                each item in myTags
-                  .tag
-                    .tag_item(data-id="#{item._id}")
-                      span(data-id="#{item._id}") #{item.name}
+                .tag_area_main_wrap
+                  span.slide_toggle 展开
+                  each item in myTags
+                    .tag
+                      .tag_item(data-id="#{item._id}")
+                        span(data-id="#{item._id}") #{item.name}
               .hot_tag
                 span.title 热门标签：
-                each item in hotTags
-                  .tag
-                    .tag_item(data-id="#{item._id}")
-                      span(data-id="#{item._id}") #{item.name}
+                .tag_area_main_wrap
+                  span.slide_toggle 展开
+                  each item in hotTags
+                    .tag
+                      .tag_item(data-id="#{item._id}")
+                        span(data-id="#{item._id}") #{item.name}
             
           .sort_area
             ul
@@ -91,16 +96,20 @@ block content
             .tag_area_main
               .my_tag
                 span.title 我订阅的标签：
-                each item in myTags
-                  .tag
-                    .tag_item(data-id="#{item._id}")
-                      span(data-id="#{item._id}") #{item.name}
+                .tag_area_main_wrap
+                  span.slide_toggle 展开
+                  each item in myTags
+                    .tag
+                      .tag_item(data-id="#{item._id}")
+                        span(data-id="#{item._id}") #{item.name}
               .hot_tag
                 span.title 热门标签：
-                each item in hotTags
-                  .tag
-                    .tag_item(data-id="#{item._id}")
-                      span(data-id="#{item._id}") #{item.name}
+                .tag_area_main_wrap
+                  span.slide_toggle 展开
+                  each item in hotTags
+                    .tag
+                      .tag_item(data-id="#{item._id}")
+                        span(data-id="#{item._id}") #{item.name}
           .sort_area
             ul
               li
@@ -126,16 +135,20 @@ block content
             .tag_area_main
               .my_tag
                 span.title 我订阅的标签：
-                each item in myTags
-                  .tag
-                    .tag_item(data-id="#{item._id}")
-                      span(data-id="#{item._id}") #{item.name}
+                .tag_area_main_wrap
+                  span.slide_toggle 展开
+                  each item in myTags
+                    .tag
+                      .tag_item(data-id="#{item._id}")
+                        span(data-id="#{item._id}") #{item.name}
               .hot_tag
                 span.title 热门标签：
-                each item in hotTags
-                  .tag
-                    .tag_item(data-id="#{item._id}")
-                      span(data-id="#{item._id}") #{item.name}
+                .tag_area_main_wrap
+                  span.slide_toggle 展开
+                  each item in hotTags
+                    .tag
+                      .tag_item(data-id="#{item._id}")
+                        span(data-id="#{item._id}") #{item.name}
           .sort_area
             ul
               li

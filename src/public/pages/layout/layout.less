@@ -1,5 +1,26 @@
 @import '../variable.less';
 
+body {
+	background: @main_background;
+}
+
+a {
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+  background-color: transparent;
+}
+
+.new-account{
+  display: block;
+  margin-top: 10px;
+}
+
 #header {
 	width: 100%;
 	height: @header_height;
@@ -155,21 +176,4 @@
     font-size: 10px;
     font-family: Arial, sans-serif;
 	}
-}
-
-a {
-  color: black;
-}
-
-a:hover {
-    text-decoration: none;
-}
-
-.nav>li>a:focus, .nav>li>a:hover {
-    background-color: transparent;
-}
-
-.new-account{
-    display: block;
-    margin-top: 10px;
 }
