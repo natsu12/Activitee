@@ -12,6 +12,8 @@ UserSchema = new mongoose.Schema {
   avatar: String,                                       #头像
   real_name: String,                                    #真实姓名
   phone_num: String,                                    #联系方式
+  qq: String,                                           #QQ号码
+  weixin: String,                                       #微信号
   host_acts: [{type: ObjectId, ref:'Activity'}],        #已发布的活动
   following_acts: [{type: ObjectId, ref: 'Activity'}],  #已关注的活动
   joining_acts: [{type: ObjectId, ref: 'Activity'}],    #已报名的活动

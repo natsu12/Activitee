@@ -22,23 +22,31 @@ block content
           td.value
             input.myinput.form-control(type="text", name="user[username]", value=user.username)
         tr
-          td.key 性别 #{user.gender}
+          td.key 性别
           td.value.gendertd
-            label.genderlabel 汉子&nbsp
             if user.gender == 0
-              input(type="radio" name="user[gender]" value="0" checked=True) 
+              label.genderlabel 汉子&nbsp
+                input(type="radio" name="user[gender]" value="0" checked="true") 
+              label.genderlabel &nbsp &nbsp 妹子 &nbsp
+                input(type="radio" name="user[gender]" value="1") 
+              label.genderlabel &nbsp &nbsp 保密 &nbsp
+                input(type="radio" name="user[gender]" value="2")
+
+            else if user.gender == 1
+              label.genderlabel 汉子&nbsp
+                input(type="radio" name="user[gender]" value="0") 
+              label.genderlabel &nbsp &nbsp 妹子 &nbsp
+                input(type="radio" name="user[gender]" value="1" checked="true")
+              label.genderlabel &nbsp &nbsp 保密 &nbsp
+                input(type="radio" name="user[gender]" value="2")
+
             else
-              input(type="radio" name="user[gender]" value="0" checked=False) 
-            label.genderlabel &nbsp &nbsp 妹子 &nbsp
-            if user.gender == 1
-              input(type="radio" name="user[gender]" value="1" checked=True)
-            else
-              input(type="radio" name="user[gender]" value="1" checked=False)
-            label.genderlabel &nbsp &nbsp 保密 &nbsp
-            if user.gender == 2
-              input(type="radio" name="user[gender]" value="2" checked=True)
-            else
-              input(type="radio" name="user[gender]" value="2" checked=False)
+              label.genderlabel 汉子&nbsp
+                input(type="radio" name="user[gender]" value="0") 
+              label.genderlabel &nbsp &nbsp 妹子 &nbsp
+                input(type="radio" name="user[gender]" value="1")
+              label.genderlabel &nbsp &nbsp 保密 &nbsp
+                input(type="radio" name="user[gender]" value="2" checked="true")
 
         tr
           td.key 头像
@@ -46,7 +54,11 @@ block content
         tr
           td.key
           td
-            img#currentAvatar(src="/upload/avatar/#{user.avatar}")
+            if user.avatar
+              img#currentAvatar(src="/avatars/#{user.avatar}")
+            else
+              img#currentAvatar(src="/avatars/unknown.jpg")
+
             input#avatar-input(type='file' name='avatar' style="display: inline")
             image-cropper(input='#avatar-input' preview='#avatar-preview')
               include image-cropper
@@ -64,7 +76,55 @@ block content
           td.value
             button.savebtn.btn.btn-default(type="submit") 确认修改
 
+    hr
 
+    h3.pwdtitle 修改密码
+    form(method="post", action="/s-user-save") 
+      input(type="hidden", name="type", value="pwd")
+      table
+        tr
+          td.key 原密码
+          td.value
+            input.myinput.form-control(type="password", name="user[pwdOriginal]")
+        tr
+          td.key 新密码
+          td.value
+            input.myinput.form-control(type="password", name="user[pwdNew]")
+        tr
+          td.key 确认密码
+          td.value
+            input.myinput.form-control(type="password", name="user[pwdNewConfirm]")
+        tr
+          td.key
+          td.value
+            button.savebtn.btn.btn-default(type="submit") 确认修改
+
+    hr
+
+    h3.pwdtitle 真实信息
+    form(method="post", action="/s-user-save") 
+      input(type="hidden", name="type", value="realInfo")
+      table
+        tr
+          td.key 真实姓名
+          td.value
+            input.myinput.form-control(type="text", name="user[real_name]" value=user.real_name)
+        tr
+          td.key 联系方式
+          td.value
+            input.myinput.form-control(type="text", name="user[phone_num]" value=user.phone_num)
+        tr
+          td.key QQ
+          td.value
+            input.myinput.form-control(type="text", name="user[qq]" value=user.qq)
+        tr
+          td.key 微信
+          td.value
+            input.myinput.form-control(type="text", name="user[weixin]" value=user.weixin)
+        tr
+          td.key
+          td.value
+            button.savebtn.btn.btn-default(type="submit") 确认修改
 
   script(src="/pages/setting/setting.js")
   script(src="/bootstrap/js/bootstrap-tagsinput.js")
