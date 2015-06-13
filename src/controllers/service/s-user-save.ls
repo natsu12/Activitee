@@ -41,11 +41,13 @@ module.exports = (req, res)!->
             user.tags.push tag_._id
           user.save (err, user) !-> if err then console.log err else console.log 'user tags updated!'
 
-          console.log req.body
-
           # 保存用户头像
-          # imageCropper.save req, 'avatar', uploadAbsoluteDir, avatarRelativeDir, req.user.username, (relativePath)!->
-          #  console.lot relativePath
+          if req.body['image-cropper-avatar-crop-x'] != undefined
+            imageCropper.save req, 'avatar', uploadAbsoluteDir, avatarRelativeDir, req.user.username, (relativePath)!->
+              user.avatar = relativePath
+              console.log 'update user avatar succeed!'
+          else
+            console.log 'no need to update avatar!'
 
           res.redirect '/setting'
 
