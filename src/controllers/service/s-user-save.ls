@@ -1,11 +1,22 @@
-require! {User:'../../models/user', Tag: '../../models/tag', passport: '../../passport/passport'}
+require! {
+  User:'../../models/user',
+  Tag: '../../models/tag',
+  passport: '../../passport/passport',
+  path,
+  multer,
+  '../../imageCropper'
+}
 
 # use the hash funtion in passport
 # the encrypt algorithm is MD5 indeed
 hash = passport.hash
 
+uploadAbsoluteDir = path.join __dirname, '..', '..', '..', 'upload'
+avatarRelativeDir = 'avatars'
+
 # save user information
 module.exports = (req, res)!->
+
   uid = req.user._id
   userObj = req.user
 
@@ -18,6 +29,10 @@ module.exports = (req, res)!->
       if err
         console.log err
       else
+        # 更新用户名及性别
+        user.username = req.body.user.username
+        user.gender = req.body.user.gender
+
         # 1. clean all tags in the original user.tags
         # 2. push the tags in req.body.tag
         user.tags = []
@@ -25,6 +40,12 @@ module.exports = (req, res)!->
           for tag_ in tags_
             user.tags.push tag_._id
           user.save (err, user) !-> if err then console.log err else console.log 'user tags updated!'
+
+          console.log req.body
+
+          # 保存用户头像
+          # imageCropper.save req, 'avatar', uploadAbsoluteDir, avatarRelativeDir, req.user.username, (relativePath)!->
+          #  console.lot relativePath
 
           res.redirect '/setting'
 
@@ -62,6 +83,8 @@ module.exports = (req, res)!->
       else
         user.real_name = req.body.user.real_name
         user.phone_num = req.body.user.phone_num
+        user.qq = req.body.user.qq
+        user.weixin = req.body.user.weixin
         user.save (err, user) !-> if err then console.log err else console.log 'user real info updated!'
 
     res.redirect '/setting'

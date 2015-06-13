@@ -1,81 +1,130 @@
 extends layout
 
 block content
+  link(rel='stylesheet' type='text/css' href='/pages/setting/setting.css')
   style(type="text/css")
     include ../public/bootstrap/css/bootstrap-tagsinput.css
 
-  h1 #{title}
 
-  .container
-    .row
-      form.form-horizontal(method="post", action="/s-user-save") 基本设置
-        input(type="hidden", name="user[username]", value=user.username)
-        input(type="hidden", name="type", value="basic")
+  h1.pagetitle #{title}
 
-        .form-group
-          label.col-sm-2.control-label(for="avatar") 头像  
-          .col-sm-6
+  div#basicinfodiv
+    h3.subtitle 基本信息
+
+    form(enctype='multipart/form-data' method="post", action="/s-user-save")
+      input(type="hidden", name="type", value="basic")
+      table
+        tr
+          td.key 注册邮箱
+          td.value #{user.email}
+        tr
+          td.key 用户名
+          td.value
+            input.myinput.form-control(type="text", name="user[username]", value=user.username)
+        tr
+          td.key 性别
+          td.value.gendertd
+            if user.gender == 0
+              label.genderlabel 汉子&nbsp
+                input(type="radio" name="user[gender]" value="0" checked="true") 
+              label.genderlabel &nbsp &nbsp 妹子 &nbsp
+                input(type="radio" name="user[gender]" value="1") 
+              label.genderlabel &nbsp &nbsp 保密 &nbsp
+                input(type="radio" name="user[gender]" value="2")
+
+            else if user.gender == 1
+              label.genderlabel 汉子&nbsp
+                input(type="radio" name="user[gender]" value="0") 
+              label.genderlabel &nbsp &nbsp 妹子 &nbsp
+                input(type="radio" name="user[gender]" value="1" checked="true")
+              label.genderlabel &nbsp &nbsp 保密 &nbsp
+                input(type="radio" name="user[gender]" value="2")
+
+            else
+              label.genderlabel 汉子&nbsp
+                input(type="radio" name="user[gender]" value="0") 
+              label.genderlabel &nbsp &nbsp 妹子 &nbsp
+                input(type="radio" name="user[gender]" value="1")
+              label.genderlabel &nbsp &nbsp 保密 &nbsp
+                input(type="radio" name="user[gender]" value="2" checked="true")
+
+        tr
+          td.key 头像
+          td.value 当前头像&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp设置新头像
+        tr
+          td.key
+          td
             if user.avatar
-              img(src="#{user.avatar}" width=50 height=50)
-            input(type="file" name="avatar")
+              img#currentAvatar(src="/avatars/#{user.avatar}")
+            else
+              img#currentAvatar(src="/avatars/unknown.jpg")
 
-        .form-group
-          .col-sm-offset-2.col-sm-6
-            button.btn.btn-default(type="submit") 上传
+            input#avatar-input(type='file' name='avatar' style="display: inline")
+            image-cropper(input='#avatar-input' preview='#avatar-preview')
+              include image-cropper
+            div#avatar-preview
 
-        .form-group
-          label.col-sm-2.control-label(for="inputCover") 我的订阅
-          .col-sm-10
-            input#inputTags.form-control(type="text", value=bookedTagNames, name="user[tags]", data-role="tagsinput")
+        tr
+          td.key.tagkey 订阅的Tag
+          td.value.tagvalue
+            input#inputTags(type="text", value=bookedTagNames, name="user[tags]", data-role="tagsinput")
             br
             - for (var i = 0; i < tagNames.length; ++i)
                 button.btn-addTag.btn.btn-default(type="button") #{tagNames[i]}
+        tr
+          td.key
+          td.value
+            button.savebtn.btn.btn-default(type="submit") 确认修改
 
-        .form-group
-          .col-sm-offset-2.col-sm-6
-            button.btn.btn-default(type="submit") 保存
+    hr
 
-      form.form-horizontal(method="post", action="/s-user-save") 修改密码
-        input(type="hidden", name="user[username]", value=user.username)
-        input(type="hidden", name="type", value="pwd")
+    h3.pwdtitle 修改密码
+    form(method="post", action="/s-user-save") 
+      input(type="hidden", name="type", value="pwd")
+      table
+        tr
+          td.key 原密码
+          td.value
+            input.myinput.form-control(type="password", name="user[pwdOriginal]")
+        tr
+          td.key 新密码
+          td.value
+            input.myinput.form-control(type="password", name="user[pwdNew]")
+        tr
+          td.key 确认密码
+          td.value
+            input.myinput.form-control(type="password", name="user[pwdNewConfirm]")
+        tr
+          td.key
+          td.value
+            button.savebtn.btn.btn-default(type="submit") 确认修改
 
-        .form-group
-          label.col-sm-2.control-label(for="pwdOriginal") 原密码
-          .col-sm-6
-            input.form-control(type="password", name="user[pwdOriginal]", required)
+    hr
 
-        .form-group
-          label.col-sm-2.control-label(for="pwdNew") 新密码
-          .col-sm-6
-            input.form-control(type="password", name="user[pwdNew]", required)
+    h3.pwdtitle 真实信息
+    form(method="post", action="/s-user-save") 
+      input(type="hidden", name="type", value="realInfo")
+      table
+        tr
+          td.key 真实姓名
+          td.value
+            input.myinput.form-control(type="text", name="user[real_name]" value=user.real_name)
+        tr
+          td.key 联系方式
+          td.value
+            input.myinput.form-control(type="text", name="user[phone_num]" value=user.phone_num)
+        tr
+          td.key QQ
+          td.value
+            input.myinput.form-control(type="text", name="user[qq]" value=user.qq)
+        tr
+          td.key 微信
+          td.value
+            input.myinput.form-control(type="text", name="user[weixin]" value=user.weixin)
+        tr
+          td.key
+          td.value
+            button.savebtn.btn.btn-default(type="submit") 确认修改
 
-        .form-group
-          label.col-sm-2.control-label(for="pwdNewConfirm") 确认密码
-          .col-sm-6
-            input.form-control(type="password", name="user[pwdNewConfirm]", required)
-
-        .form-group
-          .col-sm-offset-2.col-sm-6
-            button.btn.btn-default(type="submit") 提交
-
-
-      form.form-horizontal(method="post", action="/s-user-save") 真实信息
-        input(type="hidden", name="user[username]", value=user.username)
-        input(type="hidden", name="type", value="realInfo")
-
-        .form-group
-          label.col-sm-2.control-label(for="real_name") 真实姓名
-          .col-sm-6
-            input.form-control(type="text", name="user[real_name]", value=user.real_name, required)
-
-        .form-group
-          label.col-sm-2.control-label(for="phone_num") 联系方式
-          .col-sm-6
-            input.form-control(type="text", name="user[phone_num]", value=user.phone_num, required)
-
-        .form-group
-          .col-sm-offset-2.col-sm-6
-            button.btn.btn-default(type="submit") 保存
-
-  script(src="/pages/create/create.js")
+  script(src="/pages/setting/setting.js")
   script(src="/bootstrap/js/bootstrap-tagsinput.js")
