@@ -18,6 +18,10 @@ module.exports = (req, res)!->
       if err
         console.log err
       else
+        # 更新用户名及性别
+        user.username = req.body.user.username
+        user.gender = req.body.user.gender
+
         # 1. clean all tags in the original user.tags
         # 2. push the tags in req.body.tag
         user.tags = []

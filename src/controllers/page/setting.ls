@@ -10,6 +10,7 @@ module.exports = (req, res)!->
     User.find-by-id id, (err, user)!->
       console.log err if err
 
+      console.log user
       # 活取所有可选的tags
       Tag.find {}, (err, tags)->
         console.log 'query available tags failed!' if err
