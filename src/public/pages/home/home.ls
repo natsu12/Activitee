@@ -100,27 +100,90 @@ $ !->
     $ '.time' .addClass 'active'
     get-acts!
 
-  # 点击分页
-  $ '.paging' .click (e)!->
-    e.preventDefault!
-    $ '.pagination li' .remove-class 'active'
-    target = $ e.target.parentNode
-    target .add-class 'active'
-
-  # 向后台获取活动的函数
-  get-acts = !->
-    tags = []
+  # 处理下一页、上一页按钮的激活和灭活
+  paging-handler = !->
     for x in $ '.timing'
       if $ x .has-class 'active'
         time-bucket = $ x .data 'id'
-    for x in $ ('#' + time-bucket + ' .tag_selected')
+        break
+    time-id = '#' + time-bucket   # 限定在当前时段的tab中
+    $ '.previous,.next' .remove-class 'disabled'
+    for x in $ time-id+' .paging'
+      if $ x .parent! .has-class 'active'
+        current-page = $ x .data 'id'
+    if current-page is 1   # 通过当前页码来判断是否需要灭活下一页、上一页按钮
+      $ time-id+' .pagination .previous' .add-class 'disabled'
+    if current-page is $ time-id+' .paging' .length
+      $ time-id+' .pagination .next' .add-class 'disabled'
+  paging-handler!
+
+  # 点击页码
+  $ ".pagination" .on 'click','.paging',(e)!->
+    for x in $ '.timing'
+      if $ x .has-class 'active'
+        time-bucket = $ x .data 'id'
+        break
+    time-id = '#' + time-bucket
+    e.preventDefault!
+    target = $ e.target.parentNode
+    if target .has-class 'active'
+      return
+    $ time-id+' .pagination li' .remove-class 'active'
+    target .add-class 'active'
+    paging-handler!
+    get-acts true
+  # 点击上一页、下一页
+  $ ".pagination" .on 'click','.previous,.next',(e)!->
+    for x in $ '.timing'
+      if $ x .has-class 'active'
+        time-bucket = $ x .data 'id'
+        break
+    time-id = '#' + time-bucket
+    e.preventDefault!
+    target = $ e.target
+    if target .parent! .has-class 'disabled'
+      return  # 如果按钮灭活了，不处理
+    for x in $ time-id+' .paging'
+      if $ x .parent! .has-class 'active'
+        if (target .data 'id') is 0
+          $ x .parent! .prev! .add-class 'active'
+          $ x .parent! .remove-class 'active'
+          break
+        else if (target .data 'id') is -1
+          $ x .parent! .next! .add-class 'active'
+          $ x .parent! .remove-class 'active'
+          break
+    paging-handler!
+    get-acts true
+
+  # 向后台获取活动的函数
+  get-acts = (page-is-changed)!->
+    # 获取选择的时段
+    for x in $ '.timing'
+      if $ x .has-class 'active'
+        time-bucket = $ x .data 'id'
+        break
+    time-id = '#' + time-bucket
+    # 如果改变的不是页码，自动将页码设为1
+    if page-is-changed isnt true
+      page-num = 1
+    else
+      # 如果改变的是页码，获取页码
+      for x in $ time-id+' .paging'
+        if $ x .parent! .has-class 'active'
+          page-num = $ x .data 'id'
+    
+    # 获取选择的tag
+    tags = []
+    for x in $ time-id+' .tag_selected'
       tags.push ($ x .data 'id')
-    for x in $ '.sort'
+    # 获取排序依据
+    for x in $ time-id+' .sort'
       if $ x .has-class 'active'
         order-by = $ x .data 'id'
         break
     $ '.activities-template' .stop!  # 阻止未完成的动画，防止作死的用户频繁点击，造成页面闪烁
-    s-homepage-update time-bucket, tags, order-by, 1
+    s-homepage-update time-bucket, tags, order-by, page-num
 
   # @time-bucket type:String 表示即将进行的(future)、已过期的(past)或者是所有的(all)
   # @tags type:list 表示处于active状态的标签集合
@@ -141,4 +204,19 @@ $ !->
     $ '.activities-template' .hide!
     $ '.activities-template' .fade-in!
 
+    # 处理页码
+    time-id = '#' + time-bucket # 限定在当前的时段tab中
+    $ time-id+' .paging' .parent! .remove!
+    page-next = $ time-id+' .next'
+    $ time-id+' .next' .remove!
+    for i from 1 to data.num-of-pages
+      if i is page-num
+        page-li = $ '<li class="active">'
+      else
+        page-li = $ '<li>'
+      page-a = $ '<a class="paging" href="#" data-id="' + i + '">' + i + '</div>'
+      page-li .append page-a
+      $ time-id+' .pagination' .append page-li
+    $ time-id+' .pagination' .append page-next
+    paging-handler!
 

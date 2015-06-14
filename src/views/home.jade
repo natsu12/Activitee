@@ -76,8 +76,8 @@ block content
                     p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
                     p #{item.host.username}
           ul.pagination
-            li
-              a.paging(href="#",data-id='0') &laquo;
+            li.previous
+              a(href="#",data-id='0') &laquo;
             each value in pageList
               if value == 1
                 li.active
@@ -85,14 +85,8 @@ block content
               else
                 li
                   a.paging(href="#",data-id='#{value}') #{value}
-            //- li
-            //-   a.paging(href="#",data-id='3') 3
-            //- li
-            //-   a.paging(href="#",data-id='4') 4
-            //- li
-            //-   a.paging(href="#",data-id='5') 5
-            li
-              a.paging(href="#",data-id='-1') &raquo;
+            li.next
+              a(href="#",data-id='-1') &raquo;
 
         #past.tab-pane.fade
           .tag_area
@@ -132,6 +126,18 @@ block content
                     p #{item.title}
                     p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
                     p #{item.host.username}
+          ul.pagination
+            li.previous
+              a(href="#",data-id='0') &laquo;
+            each value in pageList
+              if value == 1
+                li.active
+                  a.paging(href="#",data-id='#{value}') #{value}
+              else
+                li
+                  a.paging(href="#",data-id='#{value}') #{value}
+            li.next
+              a(href="#",data-id='-1') &raquo;
 
         #all.tab-pane.fade
           .tag_area
@@ -171,6 +177,18 @@ block content
                     p #{item.title}
                     p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
                     p #{item.host.username}
+          ul.pagination
+            li.previous
+              a(href="#",data-id='0') &laquo;
+            each value in pageList
+              if value == 1
+                li.active
+                  a.paging(href="#",data-id='#{value}') #{value}
+              else
+                li
+                  a.paging(href="#",data-id='#{value}') #{value}
+            li.next
+              a(href="#",data-id='-1') &raquo;
 
   a(href='/create', class='text-center new-account') create an activity
   a(href='/host', class='text-center new-account') my activities
