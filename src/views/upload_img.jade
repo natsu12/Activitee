@@ -1,14 +1,34 @@
 extends layout
 
 block content
-  h1 #{title}
-  .container
-      .row
-        form.form-signin(role="form",method="post",enctype='multipart/form-data',action='/s-upload-img/#{act_id}')
-          .form-group
-              label.col-sm-2.control-label(for="inputCover") 封面
-              .col-sm-10
-                  input#inputCoverFile.form-control(type="file", name="cover")
-          .form-group
-              .col-sm-offset-2.col-sm-10
-                button.btn.btn-default(type="submit") 提交
+  link(rel="stylesheet", href="/pages/upload_img/upload_img.css")
+  #upload_wrap
+    .upload_head
+      h1.title #{title}
+      .frst
+        img(src='/images/create1.png')
+        p.step Step 1
+        p.text 填写基本信息
+      .second
+        img(src='/images/create2.png')
+        p.step Step 2
+        p.text 上传封面图片
+      .third
+        img(src='/images/create3.png')
+        p.wait 活动等待审核
+    .upload_main
+      form#the-form(enctype='multipart/form-data')
+        input#avatar-input(type='file' name='avatar')
+        image-cropper(input='#avatar-input' preview='#avatar-preview')
+          include image-cropper
+        #avatar-preview
+    //- .container
+    //-     .row
+    //-       form.form-signin(role="form",method="post",enctype='multipart/form-data',action='/s-upload-img/#{act_id}')
+    //-         .form-group
+    //-             label.col-sm-2.control-label(for="inputCover") 封面
+    //-             .col-sm-10
+    //-                 input#inputCoverFile.form-control(type="file", name="cover")
+    //-         .form-group
+    //-             .col-sm-offset-2.col-sm-10
+    //-               button.btn.btn-default(type="submit") 提交

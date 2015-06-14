@@ -4,6 +4,6 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 module.exports = (req, res)!->
   id = req.params.id
   res.render 'upload_img', {
-    title: '上传封面'
+    title: '发起活动'
     act_id: id
   }
