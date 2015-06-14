@@ -65,7 +65,7 @@ module.exports = (req, res)!->
 
   res.render 'home', {
     title: '活动主页'
-    user: req.user
+    user: user
     activities: first-page-activities
     hot-tags: hot-tags
     page-list: page-list

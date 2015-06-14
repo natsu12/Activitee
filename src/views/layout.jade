@@ -26,7 +26,8 @@ html
           
         if user
           .profile
-              p #{user.username}
+              img.avatar(src='/#{user.avatar}')
+              p.username #{user.username}
               .profile-menu.hide
                 ul
                   li

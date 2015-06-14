@@ -106,16 +106,26 @@ a:hover {
 		width: 160px;
 		position: relative;
 		margin-right: 90px;
-		p {
-				padding: 0px;
-				color: white;
-				text-align: center;
-				font-size: 17px;
-				font-family: @main_font;
-				height: @header_height;
-				line-height: @header_height;
-				width: 160px;
-				cursor: pointer;
+		cursor: pointer;
+		.avatar {
+			height: 40px;
+			width: 40px;
+			position: absolute;
+			top: 16px;
+		}
+		.username {
+			padding: 0px;
+			color: white;
+			text-align: center;
+			font-size: 20px;
+			font-family: @main_font;
+			// height: @header_height;
+			// line-height: @header_height;
+			// width: 160px;
+			// cursor: pointer;
+			position: absolute;
+			top: 22px;
+			left: 50px;
 		}
 		
 		.hide {
