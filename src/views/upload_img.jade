@@ -5,23 +5,27 @@ block content
   #upload_wrap
     .upload_head
       h1.title #{title}
-      .frst
+      .step
         img(src='/images/create1.png')
-        p.step Step 1
+        p.text Step 1
         p.text 填写基本信息
-      .second
+      .step
         img(src='/images/create2.png')
-        p.step Step 2
+        p.text Step 2
         p.text 上传封面图片
-      .third
+      .step
         img(src='/images/create3.png')
         p.wait 活动等待审核
     .upload_main
-      form#the-form(enctype='multipart/form-data')
-        input#avatar-input(type='file' name='avatar')
-        image-cropper(input='#avatar-input' preview='#avatar-preview')
+      p.title 封面图片
+      form#cover-form(enctype='multipart/form-data')
+        input.button(type="button", value="选择图片")
+        p.text 未选择任何图片
+        input#cover-input(type='file' name='cover')
+        image-cropper(input='#cover-input' preview='#cover-preview')
           include image-cropper
-        #avatar-preview
+        #cover-preview
+    button.next 下一步
     //- .container
     //-     .row
     //-       form.form-signin(role="form",method="post",enctype='multipart/form-data',action='/s-upload-img/#{act_id}')
@@ -32,3 +36,4 @@ block content
     //-         .form-group
     //-             .col-sm-offset-2.col-sm-10
     //-               button.btn.btn-default(type="submit") 提交
+    script(src='/pages/upload_img/upload_img.js')
