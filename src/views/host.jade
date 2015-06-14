@@ -4,7 +4,26 @@ block content
   link(rel='stylesheet', href='/pages/host/host.css')
   #host_wrap
     #user_message
-      p fuck
+      .acts_img
+        img(src='/#{user.avatar}', alt="头像")
+      .user_message_text
+        p.user_name #{user.username}
+        if user.email == null
+          p 邮箱：未填写
+        else
+          p 邮箱：#{user.email}
+        if user.phone_num == null
+          p 手机：未填写
+        else 
+          p 手机：#{user.phone_num}
+        if user.qq == null
+          p qq号：未填写
+        else
+          p qq号：#{user.qq}
+        if user.weixin == null
+          p 微信：未填写
+        else
+          p 微信：#{user.weixin}
     #act_area
       ul#myTab.nav.nav-tabs
         li.act_type.active(data-id="future")
@@ -22,11 +41,12 @@ block content
                   .acts_img
                     img(src="#{item.cover}", alt="活动封面")
                   .acts_info
-                    p.act_title #{item.title}
-                    p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
-                    p #{item.place}
-                    p #{item.host.username}
-                    p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
+                    .p_message
+                      p.act_title #{item.title}
+                      p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                      p #{item.place}
+                      p #{item.host.username}
+                      p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
           ul.pagination
             li
               a.paging(href="#",data-id='0') &laquo;
@@ -51,11 +71,12 @@ block content
                   .acts_img
                     img(src="#{item.cover}", alt="活动封面")
                   .acts_info
-                    p.act_title #{item.title}
-                    p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
-                    p #{item.place}
-                    p #{item.host.username}
-                    p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
+                    .p_message
+                      p.act_title #{item.title}
+                      p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                      p #{item.place}
+                      p #{item.host.username}
+                      p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
           ul.pagination
             li
               a.paging(href="#",data-id='0') &laquo;
@@ -80,11 +101,14 @@ block content
                   .acts_img
                     img(src="#{item.cover}", alt="活动封面")
                   .acts_info
-                    p.act_title #{item.title}
-                    p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
-                    p #{item.place}
-                    p #{item.host.username}
-                    p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
+                    .p_message
+                      p.act_title #{item.title}
+                      p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                      p #{item.place}
+                      p #{item.host.username}
+                      p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
+                    .edit
+                      a(target="_blank", href="/edit/#{item._id}") 编辑
           ul.pagination
             li
               a.paging(href="#",data-id='0') &laquo;
@@ -102,6 +126,8 @@ block content
               a.paging(href="#",data-id='-1') &raquo;
 
 
+    #host_img
+      img(src="images/host_pic.png", alt="fuck")
 
 
 
@@ -109,46 +135,6 @@ block content
 
 
 
-
-
-
-
-
-
-
-  p 用户：#{user.username}
-  p 头像：#{user.avatar}
-  .container
-      .row
-          table.table.table-hover.table-bordered
-              tread
-                  tr
-                      th 活动名称
-                      th 活动详情
-                      th 时间
-                      th 地点
-                      th 参与人数
-                      th 关注人数
-                      th 封面
-                      th 状态
-                      th 查看
-                      th 修改
-                      th 删除
-              tbody
-                  each item in host_act
-                      tr(class="item-id-#{item._id}")
-                          td #{item.title}
-                          td #{item.detail}
-                          td #{moment(item.time).format('YYYY/MM/DD')}
-                          td #{item.place}
-                          td #{item.joining_users.length}
-                          td #{item.following_users.length}
-                          td #{item.cover}
-                          td #{item.status}
-                          td: a(target="_blank", href="/detail/#{item._id}") 查看
-                          td: a(target="_blank", href="/edit/#{item._id}") 修改
-                          td
-                              button.btn.btn-danger.del(type="button", data-id="#{item._id}") 删除
     a(href='/create', class='text-center new-account') 发布活动
     a(href='/home', class='text-center new-account') 回到主页
     script(src="/pages/host/host.js")

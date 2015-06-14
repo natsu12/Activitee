@@ -20,7 +20,7 @@ module.exports = (req, res)!->
   res.render 'host', {
     title: '我发布的活动'
     user: req.user
-    host_act: host_act
-    following_act: following_act
-    joining_act: joining_act
+    host_act: host_act.reverse()
+    following_act: following_act.reverse()
+    joining_act: joining_act.reverse()
   }
