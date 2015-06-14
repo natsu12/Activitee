@@ -53,6 +53,7 @@ module.exports = do ->
                     _id: user._id
                     username: user.username
                     role: user.role
+                    avatar: user.avatar
                     authenticated: user.authenticated
                   }
                 next!

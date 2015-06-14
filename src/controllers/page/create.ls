@@ -2,6 +2,7 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 
 # create page
 module.exports = (req, res)!->
+  console.log req.user
   Tag.find {}, (err, tags)->
     if err
       console.log err
