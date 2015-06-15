@@ -5,7 +5,7 @@ module.exports = (req, res)!->
   username = req.body.username
   password = req.body.password
   # sign in
-  passport.signin username, password, res, (err, msg)!->
+  passport.signin res, username, password, (err, msg)!->
     if err
       res.status 500 .end!
     else

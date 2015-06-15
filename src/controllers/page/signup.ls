@@ -5,7 +5,7 @@ require! {
 toArray = (arrayLike)-> return [].map.call arrayLike, (item)-> item.toObject!
 
 getTags = (cb)!->
-  Tag.find {}, {_id: 0, meta: 0, activities: 0}, (err, tags)!->
+  Tag.find {}, {meta: 0, activities: 0}, (err, tags)!->
     if err
       cb err
     else
@@ -23,4 +23,4 @@ module.exports = (req, res)!->
     if err
       res.status 500 .end!
     else
-      res.render 'signup', tags
+      res.render 'signup', tags: tags

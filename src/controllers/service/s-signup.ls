@@ -1,57 +1,81 @@
 require! {
   '../../passport'
   User: '../../models/user'
+  Tag: '../../models/tag'
   '../../mail/mail'
   multer
   '../../imageCropper'
   path
+  async
+  mongoose
 }
 
 host = 'http://localhost:5000'
-uploadAbsoluteDir = path.join __dirname, '..', '..', '..', 'upload'
-avatarRelativeDir = 'avatars'
+
+usernameExists = (username, cb)!->
+  User.find username: username, (err, docs)!->
+    if err
+      cb err
+    else
+      cb null, docs.length > 0
+
+emailExists = (email, cb)!->
+  User.find email: email, (err, docs)!->
+    if err
+      cb err
+    else
+      cb null, docs.length > 0
+
+createUser = (data, cb)!->
+  data.password = passport.hash data.password
+  data.auth_code = Math.random!toString!
+  data.authenticated = 0
+  data.role = 0
+  data.tags = data.tags.split(',')
+  data.gender = parseInt(data.gender)
+  User.create data, (err)!-> cb err, data.auth_code
+
+sendAuthMail = (email, authCode)!->
+  mail.send email, 'Activitee注册验证邮件', "请点击<a href='#{host}/s-auth/#{authCode}'>此链接</a>完成注册验证"
 
 module.exports = (req, res)!->
   # x inputs from body
   username = req.body.username
   password = req.body.password
   email = req.body.email
-  # tags = req.body.tags
+  gender = req.body.gender
+  tags = req.body.tags
   # signup
   # check if username exists
-  User.find username: username, (err, docs)!->
+  usernameExists username, (err, exists)!->
     if err
+      console.log err
       res.status 500 .end!
+    else if exists
+      res.end 'username exists'
     else
-      # username exists
-      if docs.length > 0
-        res.end 'username exists'
-      # check if email exists
-      User.find email: email, (err, docs)!->
+      emailExists email, (err, exists)!->
         if err
+          console.log err
           res.status 500 .end!
+        else if exists
+          res.end 'email exists'
         else
-          # email exists
-          if docs.length > 0
-            res.end 'email exists'
-          # ok
-          else
-            imageCropper.save req, 'avatar', uploadAbsoluteDir, avatarRelativeDir, username, (relativePath)!->
-              authCode = Math.random!toString!
-              password := passport.hash password
-              User.create {
-                username: username
-                password: password
-                email: email
-                # tags: tags
-                role: 0
-                authenticated: 0
-                auth_code: authCode
-                avatar: relativePath
-              }, (err)!->
+          createUser {
+            username: username
+            password: password
+            email: email
+            gender: gender
+            tags: tags
+          }, (err, authCode)!->
+            if err
+              console.log err
+              res.status 500 .end!
+            else
+              sendAuthMail email, authCode
+              passport.signin res, username, password, (err)!->
                 if err
+                  console.log err
                   res.status 500 .end!
                 else
-                  # send auth mail
-                  mail.send email, 'Activitee注册验证邮件', "请点击<a href='#{host}/s-auth/#{authCode}'>此链接</a>完成注册验证"
                   res.end 'ok'

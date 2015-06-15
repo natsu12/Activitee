@@ -1,21 +1,64 @@
 extends layout
 
 block content
+  link(rel='stylesheet' type='text/css' href='/bootstrap/css/bootstrap-tagsinput.css')
   link(rel='stylesheet' type='text/css' href='/pages/signup/signup.css')
 
   div#signup-container
-    form#signup-form(enctype='multipart/form-data' method='POST' action='/s-signup')
-      label 邮箱
-      input(type='email' name='email' required)
-      label 用户名
-      input(type='text' name='username' required)
-      label 密码
-      input(type='password' name='password' required)
-      label 头像
-      input#avatar-input(type='file' name='avatar')
-      image-cropper(input='#avatar-input' preview='#avatar-preview')
-        include image-cropper
-      div#avatar-preview
-      button(type='submit') 注册
-
+    div#signup-header
+      div#signup-header-header 注册帐号
+      div#signup-steps
+        div#signup-step-1.signup-step-activated Step1#[br]填写基本信息
+        div#signup-step-2 Step2#[br]选择感兴趣的Tag
+        div#signup-step-3 完成注册
+    div#signup-slider-window
+      div#signup-slider-content
+        form#signup-form
+          div#signup-step-1-container
+            div.signup-step-content
+              table
+                tr
+                  td 注册邮箱
+                  td
+                    input(type='email' name='email' required)
+                tr
+                  td 用户名
+                  td
+                    input(type='text' name='username' required)
+                tr
+                  td 性别
+                  td
+                    | 汉子
+                    input(type='radio' name='gender' value='0')
+                    | 妹子
+                    input(type='radio' name='gender' value='1')
+                    | 保密
+                    input(type='radio' name='gender' value='2')
+                tr
+                  td 密码
+                  td
+                    input(type='password' name='password')
+            div.signup-step-buttons
+              button(type='button')#signup-step-1-next 下一步
+          div#signup-step-2-container
+            div.signup-step-content
+              table
+                tr
+                  td 选择Tag
+                  td
+                    input#signup-tags(name='tags' data-role='tagsinput' tag-class='signup-tag-checked')
+                tr
+                  td
+                  td
+                    each tag in tags
+                      button.signup-tag(type='button' _id=tag._id) #{tag.name}
+            div.signup-step-buttons
+              button(type='button')#signup-step-2-prev 上一步
+              button(type='submit') 完成
+          div#signup-step-3-container
+            div.signup-step-content
+              div#signup-step-3-header 您已经注册成功。欢迎加入Activitee！
+              div#signup-step-3-subheader 我们向你的邮箱发送了一封验证邮件，请前往你的邮箱完成邮箱验证
+              div#signup-step-3-or 你也可以先#[a(href='/setting') 完善个人信息]或者#[a(href='/home') 回到主页]
   script(src='/pages/signup/signup.js')
+  script(src='/bootstrap/js/bootstrap-tagsinput.js')

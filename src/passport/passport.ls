@@ -7,7 +7,7 @@ module.exports = do ->
   hash = MD5
 
   # async func for signin
-  signin = (username, password, res, cb)!->
+  signin = (res, username, password, cb)!->
     User.find {username: username, password: hash password}, (err, docs)!->
       if err
         cb err

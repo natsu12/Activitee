@@ -4,11 +4,15 @@ block content
   link(rel='stylesheet' type='text/css' href='/pages/signin/signin.css')
 
   div#signin-container
-    form#signin-form
-      label 用户名
-      input(type='text' name='username')
-      label 密码
-      input(type='password' name='password')
-      button(type='submit') 登录
+    img#signin-banner(src=banner)
+    div#signin-form-container
+      div#signin-header 登录 login
+      form#signin-form
+        div#signin-username
+          input(type='text' name='username' placeholder='请输入用户名')
+        div#signin-password
+          input(type='password' name='password' placeholder='请输入密码')
+        button(type='submit') 登录
+      a#signin-no-account(href='/signup') 还没有帐号？点击注册
 
   script(src='/pages/signin/signin.js')
