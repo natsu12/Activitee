@@ -1,7 +1,5 @@
 $ '#signup-form' .submit (evt)!->
   evt.preventDefault!
-  console.log @
-  return
   $.ajax do
     type: 'POST'
     url: '/s-signup'
