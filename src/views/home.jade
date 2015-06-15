@@ -70,10 +70,11 @@ block content
             each item in activities
               .acts
                 a(href="detail/#{item._id}")
-                  img(src="#{item.cover}", alt="活动封面")
+                  img.acts_cover(src="#{item.cover}", alt="活动封面")
                   .acts_info
                     p #{item.title}
                     p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                    img.host_avatar(src='#{item.host.avatar}')
                     p #{item.host.username}
           ul.pagination
             li.previous
@@ -121,10 +122,11 @@ block content
             each item in activities
               .acts
                 a(href="detail/#{item._id}")
-                  img(src="#{item.cover}", alt="活动封面")
+                  img.acts_cover(src="#{item.cover}", alt="活动封面")
                   .acts_info
                     p #{item.title}
                     p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                    img.host_avatar(src='#{item.host.avatar}')
                     p #{item.host.username}
           ul.pagination
             li.previous
@@ -172,10 +174,11 @@ block content
             each item in activities
               .acts
                 a(href="detail/#{item._id}")
-                  img(src="#{item.cover}", alt="活动封面")
+                  img.acts_cover(src="#{item.cover}", alt="活动封面")
                   .acts_info
                     p #{item.title}
                     p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                    img.host_avatar(src='#{item.host.avatar}')
                     p #{item.host.username}
           ul.pagination
             li.previous

@@ -13,7 +13,7 @@ module.exports = (req, res)!->
   page-num = parse-int option.page-num
   now = new Date!
   
-  (error, activities) <-! Activity .find {}
+  (error, activities) <-! Activity .find {} .populate 'host' .exec
   # 根据option的条件筛选
   result-activities = []
   for activity in activities

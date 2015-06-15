@@ -19,6 +19,7 @@ block content
     .upload_main
       p.title 封面图片
       form#cover-form(enctype='multipart/form-data')
+        input.id(type='hidden',value='#{act_id}')
         input.button(type="button", value="选择图片")
         p.text 未选择任何图片
         input#cover-input(type='file' name='cover')
@@ -26,14 +27,4 @@ block content
           include image-cropper
         #cover-preview
     button.next 下一步
-    //- .container
-    //-     .row
-    //-       form.form-signin(role="form",method="post",enctype='multipart/form-data',action='/s-upload-img/#{act_id}')
-    //-         .form-group
-    //-             label.col-sm-2.control-label(for="inputCover") 封面
-    //-             .col-sm-10
-    //-                 input#inputCoverFile.form-control(type="file", name="cover")
-    //-         .form-group
-    //-             .col-sm-offset-2.col-sm-10
-    //-               button.btn.btn-default(type="submit") 提交
     script(src='/pages/upload_img/upload_img.js')
