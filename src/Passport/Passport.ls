@@ -1,57 +1,69 @@
-require! {'./Session'}
+require! {MD5, Session: './session', User: '../models/user'}
 
-require! {User: '../models/user', MD5}
-DEFAULT_USER = User
-DEFAULT_HASH = MD5
-DEFAULT_SID_GENERATOR = !-> Math.random!toString!
-
-Passport = (User, hash, sidGenerator)->
-  # default args
-  User = User or DEFAULT_USER
-  hash = hash or DEFAULT_HASH
-  sidGenerator = sidGenerator or DEFAULT_SID_GENERATOR
+module.exports = do ->
+  sidGenerator = -> Math.random!toString!
   
+  # hash func for password
+  hash = MD5
+
+  # async func for signin
+  signin = (username, password, res, cb)!->
+    User.find {username: username, password: hash password}, (err, docs)!->
+      if err
+        cb err
+      else
+        # true username&password
+        if docs[0]
+          sid = sidGenerator!
+          res.cookie 'sid', sid
+          Session.create {sid: sid, username: username}, (err)!->
+            if err
+              cb err
+            else
+              cb null, 'ok'
+        # bad username/password
+        else
+          cb null, 'bad username/password'
+          
+  # async func for signout
+  signout = (res, cb)!->
+    res.cookie 'sid', '', expires: new Date(Date.now! - 1)
+    cb 'ok'
+
   # middleware for auth
-  @auth = (req, res, next)!->
-    # x sid from cookies
+  auth = (req, res, next)!->
     sid = req.cookies.sid
     if sid
-      # find session by sid
       Session.find sid: sid, (err, docs)!->
         if err
-          'handle error'
+          console.log err
+          res.status 500 .end!
         else
           session = docs[0]
           if session
-            # store username
-            req.username = session.username
-    next!
+            username = session.username
+            User.find username: username, (err, docs)!->
+              if err
+                console.log err
+                res.status 500 .end!
+              else
+                user = docs[0]
+                if user
+                  req.user = {
+                    _id: user._id
+                    username: user.username
+                    role: user.role
+                    authenticated: user.authenticated
+                  }
+                next!
+          else
+            next!
+    else
+      next!
   
-  # async func for signin
-  @signin = (username, password, res, cb)!->
-    User.find username: username, (err, docs)!->
-      if err
-        'handle error'
-      else
-        user = docs[0]
-        # ok
-        if user and user.password == hash(password)
-          res.cookie 'sid', sidGenerator!
-          cb 'ok'
-        # fail
-        else
-          cb 'bad username/password'
-
-  # async func for signout
-  @signout = (cb)!->
-    # x sid from cookies
-    sid = req.cookies.sid
-    if sid
-      # destroy session by sid
-      Session.remove sid: sid, (err)!->
-        if err
-          'handle error'
-        else
-          cb!
-
-module.exports = Passport
+  return {
+    hash: hash
+    signin: signin
+    signout: signout
+    auth: auth
+  }

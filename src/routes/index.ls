@@ -4,10 +4,10 @@ require! ['../controllers/page/create', '../controllers/page/edit', '../controll
 require! ['../controllers/page/following', '../controllers/page/joining', '../controllers/page/admin']
 require! ['../controllers/page/setting', '../controllers/page/upload_img']
 require! ['../controllers/page/signup', '../controllers/page/signin']
-
 require! ['../controllers/service/s-activity-save', '../controllers/service/s-activity-delete', '../controllers/service/s-user-save']
 require! ['../controllers/service/s-comment-save', '../controllers/service/s-comment-delete']
 require! ['../controllers/service/s-activity-follow', '../controllers/service/s-activity-join']
+require! ['../controllers/service/s-activity-cancle-follow', '../controllers/service//s-activity-cancle-join']
 require! ['../controllers/service/s-signin', '../controllers/service/s-signup', '../controllers/service/s-signout']
 require! ['../controllers/service/s-activity-save', '../controllers/service/s-activity-delete', '../controllers/service/s-auth']
 require! ['../controllers/service/s-upload-img']
@@ -45,18 +45,18 @@ module.exports = (passport)->
   router.post '/s-activity-save', s-activity-save
   router.get '/s-activity-delete', s-activity-delete
 
-  router.get '/s-activity-admin-update', s-activity-admin-update
-  # 活动审核的更新路由
-
   router.post '/s-comment-save', s-comment-save
   router.get '/s-comment-delete', s-comment-delete
 
   router.get '/s-activity-follow', s-activity-follow
   router.get '/s-activity-join', s-activity-join
+  router.get '/s-activity-cancle-join', s-activity-cancle-join
+  router.get '/s-activity-cancle-follow', s-activity-cancle-follow
   router.post '/s-user-save', s-user-save
 
   router.get '/s-auth/:authCode', s-auth
 
   router.post '/s-upload-img/:id', s-upload-img
+  router.get '/s-activity-admin-update', s-activity-admin-update
 
 

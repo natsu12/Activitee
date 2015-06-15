@@ -4,12 +4,6 @@ COVER_UPLOAD_FOLDER = '/cover/'
 
 # save a cover of an activity
 module.exports = (req, res)!->
-  # require! 'mongoose'                     # 为了写死登陆用户
-  # ObjectId = mongoose.Types.ObjectId('555842ce961d450f1f17307d')
-  # req.user = {
-  #   _id: ObjectId
-  #   username: 'test12'
-  # }
 
   id = req.params.id
   if id isnt undefined     # 上传图片
@@ -36,8 +30,8 @@ module.exports = (req, res)!->
           | 'image/png'    =>  extName = 'png'
           | 'image/x-png'  =>  extName = 'png'
 
-        # 图片保存到本地的名字
-        coverName = Math.random! + '.'+ extName
+        # 图片保存到本地的名字(活动id+时间戳 ==> 保证名字不冲突)
+        coverName = id + (new Date!).getTime! + '.'+ extName
         # 图片保存到本地的完整路径
         newPath = form.uploadDir + coverName
         # 
@@ -48,6 +42,6 @@ module.exports = (req, res)!->
         activity.save (err, activity)!->
            if err
              console.log err
-        res.redirect '/host'
+        res.redirect '/home'
   else
     console.log 'failed'

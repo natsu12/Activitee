@@ -1,10 +1,12 @@
-require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment'}
+require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment', User:'../../models/user'}
 _ = require 'underscore'
 
 module.exports = (req, res)!->
+
   type = req.query.type                 # reply or new
   if type == 'new'
     act_id = req.body.comment.activity_id
+    page_number = req.query.page
     if act_id == null
       console.log "no such activity"
       return
@@ -20,7 +22,13 @@ module.exports = (req, res)!->
     _comment.save (err, comment)!->
       if err
         console.log err
-      res.redirect '/detail/' + act_id
+      
+      User.findById req.user._id, (err, fromUser)!->
+        _comment.from = fromUser
+        res.render 'comment', {
+            comment : _comment
+            page : page_number
+        }
 
   else if type == 'reply'
     act_id = req.body.reply.activity_id
@@ -39,4 +47,13 @@ module.exports = (req, res)!->
       comment.save (err, comment) !->
         if err
           console.log(err)
-        res.redirect '/detail/' + act_id
+
+        User.findById req.user._id, (err, fromUser)!->
+          _reply.from = fromUser
+
+          User.findById replyObj.to, (err, toUser)!->
+            _reply.to = toUser
+            res.render 'reply', {
+              reply: _reply
+              comment: comment
+            }

@@ -1,125 +1,184 @@
 extends layout
 
 block content
+	link(rel='stylesheet', href='/pages/detail/detail.css')
 	#detail_wrap
+
 		.left_wrap
 			.act_header
+
+
 				img.act_cover(src="#{activity.cover}",alt="活动封面")
 				.act_info
 					h2.act_title #{activity.title}
-					p.act_time 开始时间：#{moment(activity.time).format('YYYY年M月DD日 星期E HH:MM')}
+					p.act_time 开始时间：#{moment(activity.time).format('YYYY年M月DD日 HH:MM')}
 					p.act_time 地点：#{activity.place}
 					p.act_host 发起者：#{activity.host.username}
 					p.act_follow
-						span 0人关注
-						span 0人参加
-					button.left 关注活动
-					button 我要参加
-			.act_main
-				h1 活动详情
-				pre.act_detail #{activity.detail}
+						span(id="follows")  #{activity.following_users.length}人关注
+						span(id="joins") #{activity.joining_users.length}人参加
+
+					if user
+						- var flag = 0;
+						each following_user in activity.following_users
+							if following_user.username == user.username
+								- flag = 1
+						if flag == 1
+							button.left(id="follow", type="button", data-id="#{activity._id}") 已关注
+						else
+							button.left(id="follow", type="button", data-id="#{activity._id}") 关注
+
+						- flag = 0
+						each join_user in activity.joining_users
+							if join_user.username == user.username
+								- flag = 1
+
+						if flag == 1
+							button(id="join", type="button", data-id="#{activity._id}") 已参加
+						else
+							button(id="join", type="button", data-id="#{activity._id}") 参加
+
+					else
+						button.left(id="not_login_button", type="button") 关注
+						button(id="not_login_button", type="button") 参加
+	
+			div(role="tabpanel")
+				.comment_and_detail_tag
+					ul#myTab.nav.nav-tabs.nav-justified
+						li.timing.active(data-id="detail")
+							a(href="#detail") 活动详情
+						li.timing(data-id="comment") 
+							a(href="#comment") 评论
+
+				.tab-content
+					#detail.tab-pane.active.fade.in(role="tabpanel")
+						.act_main
+							.act_detail
+								h1 活动详情
+								pre.act_detail #{activity.detail}
+
+					#comment.tab-pane.fade(role="tabpanel")
+						.act_main
+							.act_comments
+								.act_comments_main
+									h1 评论
+
+									if comments.length == 0
+										p 还没有评论哦！你发一条吧！	
+										lable(id="max_comment_page", style="display:none") #{0}
+										lable(id="max_comments", style="display:none") #{0}
+										nav.pagination(style="display:none")
+											li.disabled#Previous_comment_page(current="1")
+												a(href="javascript:void(0)", aria-label="Previous")
+													span(aria-hidden="true") &laquo;
+
+											li.disabled#Next_comment_page(current="1")
+												a(href="javascript:void(0)", aria-label="Next")
+													span(aria-hidden="true") &raquo;
+									else
+										nav.pagination
+											li.disabled#Previous_comment_page(current="1")
+												a(href="javascript:void(0)", aria-label="Previous")
+													span(aria-hidden="true") &laquo;
+
+											- var j = 1
+											each comment in comments
+												- j++
+												if j % 5 == 0
+													if j/5 == 1
+														li.active
+															a(id="comment_page_nav#{j/5}", class="comment_page_nav", page="#{j/5}", href="javascript:void(0)") #{j/5}
+													else
+														li
+															a(id="comment_page_nav#{j/5}", class="comment_page_nav", page="#{j/5}", href="javascript:void(0)") #{j/5}
+											if j % 5 != 0
+												li
+													a(id="comment_page_nav#{Math.ceil(j/5)}", class="comment_page_nav", page="#{Math.ceil(j/5)}", href="javascript:void(0)") #{Math.ceil(j/5)}
+										
+											- var is_one_page = ''
+											if comments.length == 1
+												- is_one_page = 'disabled'
+
+											li#Next_comment_page(current="1", class="#{is_one_page}")
+												a(href="javascript:void(0)", aria-label="Next")
+													span(aria-hidden="true") &raquo;
+										lable(id="max_comment_page", style="display:none") #{Math.ceil(j/5)}
+										lable(id="max_comments", style="display:none") #{j-1}
+
+										- var i = 0
+										- var display = 'block'
+										each comment in comments
+											- i++
+											if i >= 5 
+												- display = 'none'
+											
+											.comment_area(page="#{Math.ceil(i/5)}", style="display:#{display}")
+												.row.comment
+													.comment_userinfo.col-md-2
+														span: img(class="avatar", src="#{comment.from.avatar}",alt="avatar", with="80", height="80")
+														span#username #{comment.from.username}
+													.comment_content.col-md-6
+														span #{comment.content}
+
+													.row.comment_time.col-md-4
+															span#time #{moment(comment.meta.updateAt).format('YYYY.M.DD HH:MM')} &nbsp
+																a(class="reply_master",href="javascript:void(0)",data-comment="#{comment._id}") 回复 &nbsp
+																a(class="fold_comment",href="javascript:void(0)",data-comment="#{comment._id}") 展开/收起(
+																	span(id="reply_number#{comment._id}") #{comment.replies.length}
+																	span )
+												br
+												.row.replies(id="replies#{comment._id}", style="display:none")
+														if comment.replies.length != 0
+																each reply in comment.replies
+																	div.row.areply.col-md-offset-1.col-md-10
+																			.comment_userinfo.col-md-2
+																				span: img(class="avatar", src="#{comment.from.avatar}",alt="avatar", with="60", height="60")
+																				span#username #{reply.from.username}
+																			.reply_content.col-md-9
+																				p#reply_letter 回复#{reply.to.username} 
+																				p #{reply.content}
+																	.row.comment_time.col-md-4
+																		span#time_reply #{moment(reply.createAt).format('YYYY.M.DD HH:MM')}
+																			&nbsp
+																			a(class="reply",href="javascript:void(0)", data-to="#{reply.from._id}", data-user="#{reply.from.username}",data-comment="#{comment._id}") 回复
+
+
+																			
+												.row
+													form.form-horizontal.post_reply(id="post_reply#{comment._id}", data-comment="#{comment._id}")
+														div.col-md-6.col-md-offset-2.reply_form(id="reply_form#{comment._id}", data-comment="#{comment._id}")
+															input(id="reply_content#{comment._id}", type="text",class="form-control", name="reply[content]", placeholder="回复楼主", required)
+															input(type="hidden", name="reply[activity_id]", value="#{activity._id}")
+															input(id="reply_to#{comment._id}", type="hidden", name="reply[to]", value="#{comment.from._id}")
+															input(type="hidden",name="reply[com_id]", value="#{comment._id}")
+
+												hr
+												br
+
+								h2 发表评论
+								div.row
+									form.form-horizontal.post_comment
+										div.input-group.col-md-8
+											input(type="hidden", name="comment[activity_id]", value="#{activity._id}")
+											textarea.form-control(id="comment_content", type="text", name="comment[content]", required)
+											button(type="submit") 评论
+
 		.right_wrap
 			.act_tags
 				h3 该活动的标签
+				each item in activity.tags
+					.btn.btn-primary.tag(data-toggle="button") #{item.name}
+
 			.act_map
 				h3 活动地图
 			.host_info
 				h3 发起者信息
+				pre.act_host_info #{activity.host_info}
 
 
-	- var flag = 0;
-
-	if user
-		each following_user in activity.following_users
-			if following_user.username == user.username
-				- flag = 1
-
-		if flag == 1
-			button.btn.btn-info(type="button", disabled="disabled") 已关注
-		else
-			button.btn.btn-info(id="follow", type="button", data-id="#{activity._id}") 关注
-		&nbsp
-
-		- flag = 0
-		each join_user in activity.joining_users
-			if join_user.username == user.username
-				- flag = 1
-		if flag == 1
-			button.btn.btn-info(type="button", disabled="disabled") 已参加
-		else
-			button.btn.btn-info(id="join", type="button", data-id="#{activity._id}") 参加
-	br
-	br
-	dl
-		dt 标题
-		dd=activity.title
-		dt 简介
-		dd=activity.detail
-		dt 时间
-		dd #{moment(activity.time).format('YYYY年 M月 D日 星期E')}
-		dt 地点
-		dd=activity.place
-		dt 发布人
-		dd=activity.host.username
-		dt 发布者信息
-		p !{activity.host_info}
-		dt 关注人数
-		dd: span(id="follows") #{activity.following_users.length}
-		dt 参加人数
-		dd: span(id="joins") #{activity.joining_users.length} 
-		dt 图片
-		dd=activity.images
-		dt Tags
-		for each in activity.tags
-			dd=each.name
-		br
-
-
-	h2 Comments
-	div.row
-	if comments.length == 0
-		p no comments
-	else
-		each comment in comments
-			div
-				p user : #{comment.from.username}
-				p content : #{comment.content}
-				p #{moment(comment.meta.updateAt).format('YYYY年 M月 D日 星期E')}
-				if comment.replies.length != 0
-					p replies : 
-						each reply in comment.replies
-							div.row
-								div.col-md-4.col-md-offset-1
-									p from #{reply.from.username} to #{reply.to.username}
-										a(class="reply",href="#", style="float:right", data-to="#{reply.from._id}", data-user="#{reply.from.username}",data-comment="#{comment._id}") reply
-									p content : #{reply.content}
-									p createAt : #{moment(reply.createAt).format('YYYY年 M月 D日 星期E')}
-									hr
-
-			form.form-horizontal(method="post", action="/s-comment-save?type=reply")
-				div.input-group.col-md-2.col-md-offset-1
-					input(id="reply_content#{comment._id}", type="text",class="form-control", name="reply[content]", placeholder="回复楼主")
-					input(type="hidden", name="reply[activity_id]", value="#{activity._id}")
-					input(id="reply_to#{comment._id}", type="hidden", name="reply[to]", value="#{comment.from._id}")
-					input(type="hidden",name="reply[com_id]", value="#{comment._id}")
-					span.input-group-btn
-						button(class="btn btn-default" type="submit") Go
-			hr
-			br
-
-	hr
-	h2 Post
-	div.row
-		form.form-horizontal(method="post", action="/s-comment-save?type=new")
-			div.input-group.col-md-2
-				input(type="hidden", name="comment[activity_id]", value="#{activity._id}")
-				textarea.form-control(type="text", name="comment[content]")
-				button.btn.btn-default(type="submit") 提交
-
-		br
-
-	div.row
-		a(href='/home') 返回
-
+	script(src="/pages/detail/jquery.scrollTo.min.js")
 	script(src="/pages/detail/FollowAndJoin.js")
 	script(src="/pages/detail/reply.js")
+	script(src="/pages/detail/tab.js")
+	script(src="/pages/detail/paging.js")
+	script(src="/pages/detail/comment.js")

@@ -1,4 +1,4 @@
-require! {express, http, path, 'cookie-parser', 'body-parser', mongoose, 'express-session', './db', './Passport/Passport'}
+require! {express, http, path, 'cookie-parser', 'body-parser', mongoose, './db', './passport/passport', multer}
 logger = require 'morgan'
 flash = require 'connect-flash'
 favicon = require 'static-favicon'
@@ -7,7 +7,6 @@ mongoose.connect db.url
 app = express!
 server = http.create-server app
 
-passport = new Passport
 app.set 'views', path.join __dirname, 'views'
 app.set 'view engine', 'jade'
 
@@ -15,9 +14,10 @@ app.use favicon!
 app.use logger 'dev'
 app.use bodyParser.json!
 app.use bodyParser.urlencoded!
+app.use multer({dest: '../upload/tmp'})
 app.use cookieParser!
-# app.use passport.auth
-anotherPath = __dirname.replace '/bin', ''
+app.use passport.auth
+anotherPath = path.join __dirname, '..'
 app.use express.static path.join __dirname, 'public'
 app.use express.static path.join anotherPath, 'upload'
 

@@ -1,37 +1,45 @@
 extends layout
 
 block content
-  h1 #{title}
-  p 用户：#{user.username}
-  .container
+  link(rel='stylesheet', href='/pages/admin/admin.css')
+  link(rel='stylesheet', href='/pages/home/home.css')
+  #admin_wrap
+    h1.h1_type #{title}
+    .container
       .row
-          table.table.table-hover.table-bordered
-              tread
-                  tr
-                      th 发布时间
-                      th 活动名称
-                      th 活动简介
-                      th 时间
-                      th 地点
-                      th 图片
-                      th 封面
-                      th 状态
-                      th 
-              tbody
-                  each item in activities
-                      tr(class="item-id-#{item._id}")
-                          td #{moment(item.meta[createAt]).format('YYYY/MM/DD')}
-                          td #{item.title}
-                          td #{item.detail}
-                          td #{moment(item.time).format('YYYY/MM/DD')}
-                          td #{item.place}
-                          td
-                            .acts
-                              a(href="detail/#{item._id}")
-                              img(src="/images#{item.cover}", alt="活动封面")
-                          td #{item.cover}
-                          td #{item.status}
-                          td: button.btn.btn-default(class = "accept_button", data-id="#{item._id}") 通过
+        table.table.table-hover.table-bordered
+          thead
+            tr
+              th.title_blank 活动标题
+              th.time_blank 开始时间
+              th.place_blank 活动地点
+              th 活动Tag
+              th 活动详情
+              th 封面图片
+              th 
+          tbody
+            each item in activities
+              tr(class="item-id-#{item._id}")
+                td.title_blank #{item.title}
+                td.time_blank #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                td.place_blank #{item.place}
+                td.tag_blank 
+                  each _item in item.tags
+                    .btn.btn-primary.tag(data-toggle="button") #{_item.name}
+                td.detail_blank #{item.detail}
+                td.pic_blank
+                  .acts
+                    a(href="detail/#{item._id}")
+                    img(src="#{item.cover}", alt="活动封面")
+                td.click_blank: button.btn.btn-default(class = "accept_button", data-id="#{item._id}") 通过审核
+        ul.pagination
+          li
+            a.paging(href="/admin?page=#{now_page-1}") &laquo;
+          li.active
+            a.paging(href="") #{now_page}
+          li
+            a.paging(href="/admin?page=#{now_page+1}") &raquo;
+          li.text_list
+            共#{all_page}页 
 
-  script(src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js")
   script(src="/pages/admin/admin.js")

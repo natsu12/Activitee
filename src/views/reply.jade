@@ -1,0 +1,13 @@
+
+block reply
+	div.row.areply.col-md-offset-1.col-md-10
+			.comment_userinfo.col-md-2
+				span: img(class="avatar", src="/avatar/test2.jpeg",alt="avatar", with="60", height="60")
+				span#username #{reply.from.username}
+			.reply_content.col-md-9
+				p 回复#{reply.to.username} 
+				p #{reply.content}
+	.row.comment_time.col-md-4
+		span#time_reply #{moment(reply.createAt).format('YYYY.M.DD HH:MM')}
+			&nbsp
+			a(class="reply",href="#", data-to="#{reply.from._id}", data-user="#{reply.from.username}",data-comment="#{comment._id}") 回复

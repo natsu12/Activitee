@@ -1,14 +1,18 @@
 require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment'}
+Jade = require 'jade'
+Moment = require 'moment'
+_ = require 'underscore'
 
 module.exports = (req, res)!->
-  console.log req.query
+
+  # 获取活动
   option = req.query
   time-bucket = option.time-bucket
   tags = option.tags
   order-by = option.order-by
   page-num = parse-int option.page-num
   now = new Date!
-
+  
   (error, activities) <-! Activity .find {}
   # 根据option的条件筛选
   result-activities = []
@@ -19,7 +23,7 @@ module.exports = (req, res)!->
       result-activities.push activity
     else
       for tag in activity.tags
-        if (tags.index-of tag) != -1
+        if _.index-of(tags, tag.toString!) isnt -1
           result-activities.push activity
           break
 
@@ -36,10 +40,22 @@ module.exports = (req, res)!->
   to-index = page-num * num-each-page - 1
   for index from from-index to to-index
     break if result-activities[index] is undefined
+    result-activities[index].time-format = Moment(result-activities[index].time).format 'YYYY/MM/DD HH:MM'
     page-result-activities.push result-activities[index]
 
+  # 计算符合要求的活动的页数
+  num-of-pages = parseInt ((result-activities.length - 1) / num-each-page) + 1
+  
+  # 制造活动模板
+  (error, activities-template)<-! Jade.renderFile './src/views/activities-template.jade', { activities: page-result-activities }
+  console.log error if error
+
   # 返回结果到homepage
-  res.json {activities: page-result-activities}
+  res.json {
+    activities-template: activities-template
+    activities: page-result-activities
+    num-of-pages: num-of-pages
+  }
 
 activity-cmp-by-time-if-future-or-all = (activity1, activity2)->
   return 1 if activity1.time > activity2.time

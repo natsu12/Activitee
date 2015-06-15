@@ -1,0 +1,247 @@
+@import '../variable.less';
+
+#home_wrap {
+  width: 90%;
+  margin: 0 auto;
+  min-width: 1100px;
+
+  .back_to_top {
+    position: fixed;
+    display: none;
+    bottom: 60px;
+    right: 30px;
+    width: 190px;
+    height: 40px;
+    color: white;
+    font-family: @main_font;
+    font-size: 17px;
+    background: @main_yellow;
+    border: none;
+    outline: none;
+    &:hover{
+      background: #DB9319;
+    }
+  }
+}
+
+#myCarousel {
+  width: 800px;
+  margin: 50px;
+
+  .carousel-control {
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+    background: url('/images/last.png') center no-repeat;
+    background-size: 40px;
+    padding-right: 4px;
+    &:hover {
+      opacity: 1;
+      filter: alpha(opacity=90);
+    }
+  }
+  .carousel-control.right {
+    left: auto;
+    right: 0px;
+    padding-left: 9px;
+    background: url('/images/next.png') center no-repeat;
+    background-size: 40px;
+  }
+
+  .carousel-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 15px;
+      background: #333333;
+      height: 80px;
+  }
+  .carousel-indicators {
+    bottom: 0;
+  }
+}
+
+#act_area {
+  @act_area_width: 870px;
+  width: @act_area_width;
+  margin: 50px;
+  overflow: hidden;
+  #myTab {
+    .active a {
+      color: @main_yellow;
+    }
+  }
+  .tab-content {
+    border-right: 1px solid #e8e8e8;
+    border-left: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    overflow: hidden;
+    background: white;
+    .tag_area {
+      width: @act_area_width - 80px;
+      border: 1px solid #e8e8e8;
+      margin: 20px auto;
+      .tag_chosen {
+        width: 100%;
+        background: #EEEEEE;
+        padding: 7px 0 0 10px;
+        overflow: hidden;
+        .title {
+          float: left;
+          width: 80px;
+          margin-top: 3px;
+          margin-bottom: 10px;
+        }
+        .tag_selected {
+          float: left;
+          background: white;
+          padding: 3px;
+          margin-right: 10px;
+          margin-bottom: 7px;
+          .name {
+            margin-right: 10px;
+            cursor: default;
+          }
+          .tag_close {
+            height: 12px;
+            width: 12px;
+            margin-bottom: 2px;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .tag_area_main {
+        padding-bottom: 20px;
+        .my_tag, .hot_tag {
+          overflow: hidden;
+          padding: 20px 0 0 10px;
+          .title {
+            float: left;
+          }
+          .tag_area_main_wrap {
+            overflow: hidden;
+            margin-left: 120px;
+            position: relative;
+            .slide_toggle {
+              position: absolute;
+              right: 10px;
+              font-style: italic;
+              cursor: pointer;
+              width: 30px;
+              &:hover {
+                opacity: 0.5;
+              }
+            }
+            .slide_tag {
+              display: none;
+            }
+            .tag {
+              width: 130px;
+              float: left;
+              .tag_item {
+                padding-left: 15px;
+                background: url('/images/checkbox.gif') no-repeat 0 50%;
+                color: @main_yellow;
+                float: left;
+                cursor: pointer;
+                &.chosen {
+                  background: url('/images/checked.png') no-repeat 0 50%;
+                }
+                &:hover {
+                  opacity: 0.7;
+                }
+              }
+            }
+          }
+          
+        }
+      }
+      
+    }
+    .sort_area {
+      height: 40px;
+      width: @act_area_width;
+      border-bottom: 1px solid #e8e8e8;
+      border-top: 1px solid #e8e8e8;
+      overflow: hidden;
+      ul {
+        list-style-type: none;
+        li {
+          float: left;
+          height: 40px;
+          width: 120px;
+          margin-right: 20px;
+          cursor: pointer;
+          .sort {
+            display: block;
+            height: 40px;
+            width: 120px;
+            line-height: 40px;
+            color: @main_yellow;
+            text-align: center;
+            &:hover {
+              opacity: 0.7;
+            }
+          }
+          .sort.active {
+            background: @main_yellow;
+            color: white;
+          }
+        }
+      }
+    }
+
+    .activities-template {
+      overflow: hidden;
+      padding-bottom: 10px;
+      .acts {
+        float: left;
+        margin: 20px 0 0 30px;
+        width: 180px;
+        height: 290px;
+        box-shadow: 2px 2px 3px #d1d6da;
+
+        img {
+          height: 180px;
+          width: 180px;
+        }
+        .acts_info {
+          padding: 5px;
+          background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(white), to(#EEEEEE));
+          background: -ms-linear-gradient(top, white, #EEEEEE);
+          background: -moz-linear-gradient(top, white, #EEEEEE);
+          background: -webkit-linear-gradient(top, white, #EEEEEE);
+          background: -o-linear-gradient(top, white, #EEEEEE);
+          height: 110px;
+          p {
+            font-family: @main_font;
+            color: black;
+          }
+        }
+      }
+    
+    }
+
+    .pagination {
+      float: right;
+      margin-right: 20px;
+      a {
+        color: @main_yellow;
+      }
+      .active a {
+        background: @main_yellow;
+        border: 1px solid @main_yellow;
+        color: white;
+      }
+      .disabled a {
+        cursor: default;
+        color: #777;
+      }
+    }
+  }
+}

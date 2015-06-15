@@ -4,13 +4,13 @@ _ = require 'underscore'
 
 # save an activity
 module.exports = (req, res)!->
-  require! 'mongoose'                     # 为了写死登陆用户
-  ObjectId = mongoose.Types.ObjectId('555842ce961d450f1f17307d')
+  require! 'mongoose'                     # 为了写死登陆用户, 仿host.ls
+  ObjectId = new mongoose.Types.ObjectId('555842ce961d450f1f17307d')
   req.user = {
     _id: ObjectId
     username: 'test12'
+    role: 1
   }
-
   id = req.body.activity._id
   activityObj = req.body.activity
   if id isnt undefined     # 已存在，更新字段

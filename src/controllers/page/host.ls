@@ -4,23 +4,23 @@ _ = require 'underscore'
 findUserHost = (id, cb)->
    Activity .find {} .populate({path: 'host', select: {_id : 1}}) .find {host : id} .sort 'time' .exec cb
 
-findUserHost_test = (id, cb)->
-   Activity .find {} .populate('host') .find {} .sort 'time' .exec cb
-
 # host page
 module.exports = (req, res)!->
-  require! 'mongoose'                     # 为了写死登陆用户
-  ObjectId = new mongoose.Types.ObjectId('555842ce961d450f1f17307d')
-  req.user = {
-    _id: ObjectId
-    username: 'test12'
-  }
   user_id = req.user._id
-  findUserHost user_id, (err, activities)!->
-    if err
-      console.log err
-    res.render 'host', {
-      title: '我发布的活动'
-      user: req.user
-      activities: activities
-    }
+  # 找到所有发布的活动
+  (error, host_act) <- Activity .find {} .populate({path: 'host', select: {_id : 1, username: 1}}) .find {host : user_id} .sort 'time' .exec
+  #找到所有关注的活动
+  (error, following_act) <- Activity .find {} .populate({path: 'following_users', select: {_id : 1, username: 1}}) .find {following_users : user_id} .sort 'time' .exec
+  #找到所有参与的活动
+  (error, joining_act) <- Activity .find {} .populate({path: 'joining_users', select: {_id : 1, username: 1}}) .find {joining_users : user_id} .sort 'time' .exec
+
+  if error
+    console.log error
+
+  res.render 'host', {
+    title: '我发布的活动'
+    user: req.user
+    host_act: host_act
+    following_act: following_act
+    joining_act: joining_act
+  }

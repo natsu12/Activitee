@@ -21,7 +21,6 @@ getTags = (cb)!->
 module.exports = (req, res)!->
   getTags (err, tags)!->
     if err
-      'handle error'
+      res.status 500 .end!
     else
-      res.end JSON.stringify tags
-      # res.render 'register', tags
+      res.render 'signup', tags

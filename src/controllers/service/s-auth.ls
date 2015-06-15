@@ -2,16 +2,11 @@ require! {User: '../../models/user'}
 
 module.exports = (req, res)!->
   authCode = req.params.authCode
-  User.find authCode: authCode, (err, docs)!->
+  User.update {auth_code: authCode}, {$set: {authenticated: 1}}, (err, num)!->
     if err
-      'handle error'
+      console.log err
+      res.status 500 .end!
+    else if num > 0
+      res.end 'ok'
     else
-      user = docs[0]
-      if user
-        User.update {authCode: authCode}, {$set: {authenticated: 1}}, (err)!->
-          if err
-            'handle error'
-          else
-            res.end 'ok'
-      else
-        'handle error'
+      res.end 'bad auth code'

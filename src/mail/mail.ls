@@ -1,39 +1,39 @@
 require! {
-    nodemailer
+  nodemailer
+  './config'
 }
 
-user = 'username@host.com'
-pass = 'password'
-host = 'smtp.host.com'
-
 transport = nodemailer.createTransport 'SMTP',
-    host: host
-    auth:
-        user: user
-        pass: pass
+  host: config.host
+  auth:
+    greetingTimeout: config.timeout
+    connectionTimeout: config.timeout
+    socketTimeout: config.timeout
+    user: config.user
+    pass: config.pass
 
 !function send addr, subject, html
-    options =
-        from: user
-        to: addr
-        subject: subject
-        html: html
+  options =
+    from: config.user
+    to: addr
+    subject: subject
+    html: html
 
-    !function _send
-        console.log "mailing to #{addr}.."
-        transport.sendMail options, cb
-    
-    !function cb err, res
-        if err
-            console.log err
-            console.log 'retry.'
-            _send!
-        else
-            console.log "mailed to #{addr}."
-            console.log res.message
-            transport.close!
+  !function _send
+    console.log "mailing to #{addr}.."
+    transport.sendMail options, cb
+  
+  !function cb err, res
+    if err
+      console.log err
+      console.log 'retry.'
+      _send!
+    else
+      console.log "mailed to #{addr}."
+      console.log res.message
+      transport.close!
 
-    _send!
+  _send!
 
 module.exports =
-    send: send
+  send: send
