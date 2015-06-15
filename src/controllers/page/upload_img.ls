@@ -6,4 +6,5 @@ module.exports = (req, res)!->
   res.render 'upload_img', {
     title: '发起活动'
     act_id: id
+    user: req.user
   }

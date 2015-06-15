@@ -25,7 +25,7 @@ block content
       a.carousel-control.left(href="#myCarousel", data-slide="prev")
       a.carousel-control.right(href="#myCarousel", data-slide="next")
     
-    button.back_to_top 回到顶部
+    img.back_to_top(src='images/backtotop.png')
 
     #act_area
       ul#myTab.nav.nav-tabs
@@ -44,11 +44,14 @@ block content
               .my_tag
                 span.title 我订阅的标签：
                 .tag_area_main_wrap
-                  span.slide_toggle 展开
-                  each item in myTags
-                    .tag
-                      .tag_item(data-id="#{item._id}")
-                        span(data-id="#{item._id}") #{item.name}
+                  if myTags.length == 0
+                    span.no_tag 你还没有订阅任何标签哦，快去<a href='/setting'>订阅</a>吧！
+                  else
+                    span.slide_toggle 展开
+                    each item in myTags
+                      .tag
+                        .tag_item(data-id="#{item._id}")
+                          span(data-id="#{item._id}") #{item.name}
               .hot_tag
                 span.title 热门标签：
                 .tag_area_main_wrap
@@ -97,11 +100,14 @@ block content
               .my_tag
                 span.title 我订阅的标签：
                 .tag_area_main_wrap
-                  span.slide_toggle 展开
-                  each item in myTags
-                    .tag
-                      .tag_item(data-id="#{item._id}")
-                        span(data-id="#{item._id}") #{item.name}
+                  if myTags.length == 0
+                    span.no_tag 你还没有订阅任何标签哦，快去<a href='/setting'>订阅</a>吧！
+                  else
+                    span.slide_toggle 展开
+                    each item in myTags
+                      .tag
+                        .tag_item(data-id="#{item._id}")
+                          span(data-id="#{item._id}") #{item.name}
               .hot_tag
                 span.title 热门标签：
                 .tag_area_main_wrap
@@ -149,11 +155,14 @@ block content
               .my_tag
                 span.title 我订阅的标签：
                 .tag_area_main_wrap
-                  span.slide_toggle 展开
-                  each item in myTags
-                    .tag
-                      .tag_item(data-id="#{item._id}")
-                        span(data-id="#{item._id}") #{item.name}
+                  if myTags.length == 0
+                    span.no_tag 你还没有订阅任何标签哦，快去<a href='/setting'>订阅</a>吧！
+                  else
+                    span.slide_toggle 展开
+                    each item in myTags
+                      .tag
+                        .tag_item(data-id="#{item._id}")
+                          span(data-id="#{item._id}") #{item.name}
               .hot_tag
                 span.title 热门标签：
                 .tag_area_main_wrap
@@ -192,10 +201,5 @@ block content
                   a.paging(href="#",data-id='#{value}') #{value}
             li.next
               a(href="#",data-id='-1') &raquo;
-
-  a(href='/create', class='text-center new-account') create an activity
-  a(href='/host', class='text-center new-account') my activities
-  a(href='/following', class='text-center new-account') my following activities
-  a(href='/joining', class='text-center new-account') my joining activities
 
   script(src="pages/home/home.js")

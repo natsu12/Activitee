@@ -25,15 +25,19 @@ html
               a(href="/signup") 注册
           
         if user
+          a(href='/create')
+            .create.align-right
+              .createhover 新建活动
           .profile
-              img.avatar(src='/#{user.avatar}')
-              p.username #{user.username}
-              .profile-menu.hide
-                ul
-                  li
-                    a.setting(href="/setting") 设置
-                  li
-                    a.signout(href="/s-signout") 退出
+            img.avatar(src='/#{user.avatar}')
+            p.username #{user.username}
+            .profile-menu.hide
+              ul
+                li
+                  a.setting(href="/setting") 设置
+                li
+                  a.signout(href="/s-signout") 退出
+          
 
         .search
           form
