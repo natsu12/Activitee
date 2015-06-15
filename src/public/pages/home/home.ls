@@ -206,17 +206,25 @@ $ !->
 
     # 处理页码
     time-id = '#' + time-bucket # 限定在当前的时段tab中
-    $ time-id+' .paging' .parent! .remove!
-    page-next = $ time-id+' .next'
-    $ time-id+' .next' .remove!
-    for i from 1 to data.num-of-pages
-      if i is page-num
-        page-li = $ '<li class="active">'
-      else
-        page-li = $ '<li>'
-      page-a = $ '<a class="paging" href="#" data-id="' + i + '">' + i + '</div>'
-      page-li .append page-a
-      $ time-id+' .pagination' .append page-li
-    $ time-id+' .pagination' .append page-next
-    paging-handler!
+    # page-previous = $ time-id+' .previous'
+    # page-next = $ time-id+' .next'
+    $ time-id+' li' .remove!
+    if data.num-of-pages isnt 0
+      page-previous = $ '<li class="previous">'
+      page-previous-a = $ '<a href="#" data-id="0">&laquo;</a>'
+      page-previous .append page-previous-a
+      $ time-id+' .pagination' .append page-previous
+      for i from 1 to data.num-of-pages
+        if i is page-num
+          page-li = $ '<li class="active">'
+        else
+          page-li = $ '<li>'
+        page-a = $ '<a class="paging" href="#" data-id="' + i + '">' + i + '</a>'
+        page-li .append page-a
+        $ time-id+' .pagination' .append page-li
+      page-next = $ '<li class="next">'
+      page-next-a = $ '<a href="#" data-id="-1">&raquo;</a>'
+      page-next .append page-next-a
+      $ time-id+' .pagination' .append page-next
+      paging-handler!
 

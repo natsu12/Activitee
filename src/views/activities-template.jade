@@ -1,9 +1,14 @@
-each item in activities
-  .acts
-    a(href="detail/#{item._id}")
-      img.acts_cover(src="#{item.cover}", alt="活动封面")
-      .acts_info
-        p #{item.title}
-        p #{item.timeFormat}
-        img.host_avatar(src='#{item.host.avatar}')
-        p #{item.host.username}
+if activities.length == 0
+  .nothing
+    img.empty(src="/images/empty.png")
+    p.text 很抱歉，这里是个荒地哦!
+else
+  each item in activities
+    .acts
+      a(href="detail/#{item._id}")
+        img.acts_cover(src="#{item.cover}", alt="活动封面")
+        .acts_info
+          p #{item.title}
+          p #{item.timeFormat}
+          img.host_avatar(src='#{item.host.avatar}')
+          p #{item.host.username}
