@@ -1,52 +1,62 @@
 extends layout
 
 block content
-  style(type="text/css")
-    include ../public/bootstrap/css/bootstrap-tagsinput.css
+  link(rel='stylesheet', href='/pages/create/create.css')
+  link(rel='stylesheet', href='/bootstrap/css/bootstrap-tagsinput.css')
 
-  h1 #{title}
   .container
       .row
-          form.form-horizontal(method="post", action="/s-activity-save")
-              .form-group
-                  label.col-sm-2.control-label(for="inputTitle") 活动名称
-                  .col-sm-10
-                      input#inputTitle.form-control(type="text", name="activity[title]", required)
-              .form-group
-                  label.col-sm-2.control-label(for="inputDetail") 活动详情
-                  .col-sm-10
-                      textarea#inputDetail.form-control(rows=10, name="activity[detail]", required)
-              .form-group
-                  label.col-sm-2.control-label(for="inputTime") 时间
-                  .col-sm-10
-                      input#inputTime.form-control(type="text", name="activity[time]", required)
-              .form-group
-                  label.col-sm-2.control-label(for="inputPlace") 地点
-                  .col-sm-10
-                      input#inputPlace.form-control(type="text", name="activity[place]")
-              .form-group
-                  label.col-sm-2.control-label(for="inputCover") 标签
-                  .col-sm-10
-                      - tagList = tagNames.join(",")
-                      input#inputTags.form-control(type="text", name="activity[tags]", data-role="tagsinput")
-                      br
-                      - for (var i = 0; i < tagNames.length; ++i)
-                        button.btn-addTag.btn.btn-default(type="button") #{tagNames[i]}
-              .form-group
-                  label.col-sm-2.control-label(for="inputPlace") 主办方其他信息
-                  .col-sm-10
-                      textarea#inputHost.form-control(rows=5, name="activity[host_info]", required)
-              .form-group
-                  label.col-sm-2.control-label(for="inputCover") 是否需要真实信息
-                  label.checkbox-inline
-                    input(type="radio",name="activity[need_info]",value=1,checked)
-                    |需要
-                  label.checkbox-inline
-                    input(type="radio",name="activity[need_info]",value=0)
-                    |不需要
-              .form-group
-                  .col-sm-offset-2.col-sm-10
-                    button.btn.btn-default(type="submit") 提交
+        .create_head
+          h1.title #{title}
+          .first
+            img(src='/images/create1.png')
+            p.step Step 1
+            p.text 填写基本信息
+          .second
+            img(src='/images/create2_gray.png')
+            p.step Step 2
+            p.text 上传封面图片
+          .third
+            img(src='/images/create3.png')
+            p.wait 活动等待审核
+        form.form-horizontal(method="post", action="/s-activity-save")
+            .form-group
+                label.col-sm-2.control-label(for="inputTitle") 活动标题
+                .col-sm-10
+                    input#inputTitle.form-control(type="text", name="activity[title]", required)
+            .form-group
+                label.col-sm-2.control-label(for="inputTime") 开始时间
+                .col-sm-10
+                    input#inputTime.form-control(type="text", name="activity[time]", required)
+            .form-group
+                label.col-sm-2.control-label(for="inputPlace") 活动地点
+                .col-sm-10
+                    input#inputPlace.form-control(type="text", name="activity[place]")
+            .form-group
+                label.col-sm-2.control-label(for="inputCover") 活动Tag
+                .col-sm-10
+                    - tagList = tagNames.join(",")
+                    input#inputTags.form-control(type="text", name="activity[tags]", data-role="tagsinput")
+                    br
+                    - for (var i = 0; i < tagNames.length; ++i)
+                      button.btn-addTag.btn.btn-default(type="button") #{tagNames[i]}
+            .form-group
+                label.col-sm-2.control-label(for="inputDetail") 活动详情
+                .col-sm-10
+                    textarea#inputDetail.form-control(rows=10, name="activity[detail]", required)
+            .form-group
+                label.col-sm-2.control-label(for="inputCover") 报名是否需要真实信息
+                label.checkbox-inline
+                  input(type="radio", name="activity[need_info]", value=1, checked, id="need_info_true")
+                  label(for="need_info_true")
+                    span 是
+                label.checkbox-inline
+                  input(type="radio", name="activity[need_info]", value=0, id="need_info_false")
+                  label(for="need_info_false")
+                    span 否
+            .form-group
+                .col-sm-offset-2.col-sm-10
+                  button#next.btn.btn-default(type="submit") 下一步
 
-  script(src="/pages/create/create.js")
   script(src="/bootstrap/js/bootstrap-tagsinput.js")
+  script(src="/pages/create/tagsinput.js")
