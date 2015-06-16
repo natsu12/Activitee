@@ -11,11 +11,22 @@ module.exports = (req, res)!->
     Activity.findById id, (err, activity)!->
       if err
         console.log err
-      _activity = _.extend activity, activityObj
-      _activity.save (err, activity)!->
-         if err
-           console.log err
-         res.redirect '/host'
+      tagNames = activityObj.tags.split ","
+      Tag .find { name: { $in: tagNames } } (err, tagObjs)->
+        tags = []
+        for tagObj in tagObjs
+          tags.push tagObj._id
+        activityObj.tags = tags
+        _activity = _.extend activity, activityObj
+        # todo: 把活动从原有的tag中删除
+        for tagObj in tagObjs
+          tagObj.activities.push activity._id
+          tagObj.save!
+        _activity.save (err, activity)!->
+           if err
+             console.log err
+           res.redirect '/upload_img/' + activity._id
+
   else                     # 不存在，新建字段
     tagNames = activityObj.tags.split ","
     Tag .find { name: { $in: tagNames } } (err, tagObjs)->

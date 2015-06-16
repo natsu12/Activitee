@@ -18,6 +18,7 @@ block content
         p.wait 活动等待审核
     .upload_main
       p.title 封面图片
+      //- todo: 显示之前上传的封面
       form#cover-form(enctype='multipart/form-data')
         input.id(type='hidden',value='#{act_id}')
         input.button(type="button", value="选择图片")

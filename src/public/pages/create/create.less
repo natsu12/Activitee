@@ -1,9 +1,56 @@
 @import '../variable.less';
 
+#create_wrap {
+  overflow: hidden;
+}
+.create_head {
+  height: 140px;
+  overflow: hidden;
+  width: 90%;
+  margin: 0 auto;
+  div, p {
+    // display: inline-block;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+  .title {
+    float: left;
+    margin-right: 56px;
+    margin-top: 60px;
+  }
+  .first, .second, .third {
+    width: 218px;
+    height: 82px;
+    float: left;
+    margin-top: 40px;
+    margin-right: 30px;
+    img {
+      float: left;
+      width: 80px;
+      height: 80px;
+      margin-right: 10px;
+    }
+    .step, .text {
+      margin-top: 12px;
+      color: @main_yellow;
+      font-size: 17px;
+      font-family: @main_font;
+      &.gray {
+        color: #9FA0A1;
+      }
+    }
+    .wait {
+      margin-top: 28px;
+      color: #9FA0A1;
+      font-size: 17px;
+      font-family: @main_font;
+    }
+  }
+}
+
 .container  {
   width: 90%;
   margin: 0 auto;
-  margin-top: 40px;
   background-color: white;
   padding-top: 60px;
   padding-right: 60px;
@@ -17,53 +64,6 @@
   input, textarea, .bootstrap-tagsinput {  /* tricky author QAQ */
     border-radius: 8px;
     border: 1px solid @main_yellow;
-  }
-
-  .create_head {
-    height: 140px;
-    overflow: hidden;
-    width: 90%;
-    margin: 0 auto;
-    div, p {
-      display: inline-block;
-      overflow: hidden;
-    }
-    .title {
-      float: left;
-      margin-right: 124px;
-      margin-top: 60px;
-    }
-    .first, .second, .third {
-      width: 218px;
-      height: 82px;
-      float: left;
-      margin-top: 40px;
-      margin-right: 30px;
-      img {
-        float: left;
-        width: 80px;
-        height: 80px;
-        margin-right: 10px;
-      }
-      .step, .text {
-        margin-top: 12px;
-        color: @main_yellow;
-        font-size: 17px;
-        font-family: @main_font;
-      }
-      .wait {
-        margin-top: 28px;
-        color: #9FA0A1;
-        font-size: 17px;
-        font-family: @main_font;
-      }
-    }
-  }
-
-  #next {
-    border-radius: 0;
-    width: 160px;
-    float: right;
   }
   .btn-addTag {
     margin: 2px 6px;
@@ -93,3 +93,19 @@
     }
   }
 }
+
+.next {
+    width: 190px;
+    height: 40px;
+    float: right;
+    color: white;
+    margin: 30px;
+    font-family: @main_font;
+    font-size: 17px;
+    background: @main_yellow;
+    border: none;
+    outline: none;
+    &:hover{
+      background: #DB9319;
+    }
+  }

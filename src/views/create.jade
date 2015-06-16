@@ -4,22 +4,24 @@ block content
   link(rel='stylesheet', href='/pages/create/create.css')
   link(rel='stylesheet', href='/bootstrap/css/bootstrap-tagsinput.css')
 
-  .container
-      .row
-        .create_head
-          h1.title #{title}
-          .first
-            img(src='/images/create1.png')
-            p.step Step 1
-            p.text 填写基本信息
-          .second
-            img(src='/images/create2_gray.png')
-            p.step Step 2
-            p.text 上传封面图片
-          .third
-            img(src='/images/create3.png')
-            p.wait 活动等待审核
-        form.form-horizontal(method="post", action="/s-activity-save")
+  #create_wrap
+    .create_head
+      h1.title #{title}
+      .first
+        img(src='/images/create1.png')
+        p.step Step 1
+        p.text 填写基本信息
+      .second
+        img(src='/images/create2_gray.png')
+        p.step.gray Step 2
+        p.text.gray 上传封面图片
+      .third
+        img(src='/images/create3.png')
+        p.wait 活动等待审核
+    
+    form.form-horizontal(method="post", action="/s-activity-save")
+        .container
+          .row
             .form-group
                 label.col-sm-2.control-label(for="inputTitle") 活动标题
                 .col-sm-10
@@ -54,9 +56,7 @@ block content
                   input(type="radio", name="activity[need_info]", value=0, id="need_info_false")
                   label(for="need_info_false")
                     span 否
-            .form-group
-                .col-sm-offset-2.col-sm-10
-                  button#next.btn.btn-default(type="submit") 下一步
+        button.next(type="submit") 下一步
 
   script(src="/bootstrap/js/bootstrap-tagsinput.js")
   script(src="/pages/create/tagsinput.js")

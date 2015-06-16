@@ -4,7 +4,7 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 module.exports = (req, res)!->
   id = req.params.id
   res.render 'upload_img', {
-    title: '发起活动'
+    title: '发布活动信息'
     act_id: id
     user: req.user
   }
