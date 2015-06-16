@@ -1,14 +1,14 @@
-$ '#basic-form' .submit (evt)!->
+$ '#avatar-form' .submit (evt)!->
   evt.preventDefault!
   $.ajax do
     type: 'POST'
-    url: '/s-signup'
+    url: '/s-user-save'
     processData: false
     contentType: false
     data: new FormData(@)
     success: (msg)!->
       if msg == 'ok'
-        location.href = '/home'
+        location.href = '/setting'
       else
         alert msg
 
