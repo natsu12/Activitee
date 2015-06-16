@@ -42,11 +42,13 @@ module.exports = (req, res)!->
           if req.files.avatar
             imageCropper.save req, 'avatar', uploadAbsoluteDir, avatarRelativeDir, req.user.username, (relativePath)!->
               user.avatar = relativePath
-              user.save (err) !-> if err then console.log err
+              user.save (err) !-> 
+                if err then console.log err
+                res.redirect '/setting'
           else
             user.save (err) !-> if err then console.log err
 
-          res.redirect '/setting'
+          
 
   if req.body.type == "pwd"
     # console.log "updating user password..."
