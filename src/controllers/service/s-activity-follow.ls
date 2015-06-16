@@ -1,4 +1,4 @@
-require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment'}
+require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment', User:'../../models/user'}
 _ = require 'underscore'
 
 module.exports = (req, res)!->
@@ -9,4 +9,11 @@ module.exports = (req, res)!->
         activity.save (err, activity)!->
           if err
             console.log err
-          res.json {success : 1, follows : activity.following_users.length}
+          User.findById req.user._id, (err, user)!->
+            if err
+              console.log err
+            user.following_acts.push id
+            user.save (err, user)!->
+              if err
+                console.log err
+              res.json {success : 1, follows : activity.following_users.length}
