@@ -35,10 +35,11 @@ $ !->
     $ '#reply_form'+comment .hide 250
     return false
 
-  $ '.post_reply' .submit (e) !->
+  $ "body" .on "submit", ".post_reply" (e) !->
     target = $ e.target
     comment = target.data 'comment'
     data = $ '#post_reply'+comment .serialize()
+    #alert data
     $.post '/s-comment-save?type=reply', data, (results)!->
       $ '#replies'+comment .show()
       new_data = $ results .hide()
@@ -47,8 +48,8 @@ $ !->
       $ '#replies'+comment .append new_data
       $ '#reply_content'+comment .val ''
       $ 'body' .scrollTo '#post_comment'+comment, {
-      offset: -300
-      duration: 'slow'
+        offset: -300
+        duration: 'slow'
       }
       new_data .slideDown()
     return false

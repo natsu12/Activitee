@@ -33,7 +33,7 @@ block comment
 			div.col-md-6.col-md-offset-2.reply_form(id="reply_form#{comment._id}", data-comment="#{comment._id}")
 				input(id="reply_content#{comment._id}", type="text",class="form-control", name="reply[content]", placeholder="回复楼主", required)
 				input(type="hidden", name="reply[activity_id]", value="#{comment.act_id}")
-				input(id="reply_to#{comment._id}", type="hidden", name="reply[to]", value="#{comment.from._id}")
+				input(id="reply_to#{comment._id}", type="hidden", name="reply[to]", value="#{comment.from}")
 				input(type="hidden",name="reply[com_id]", value="#{comment._id}")
 
 	hr

@@ -1,4 +1,4 @@
-require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment'}
+require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment', User:'../../models/user'}
 _ = require 'underscore'
 
 module.exports = (req, res)!->
@@ -11,4 +11,11 @@ module.exports = (req, res)!->
         activity.save (err, activity)!->
           if err
             console.log err
-          res.json {success : 1, joins : activity.joining_users.length}
+          User.findById req.user._id, (err, user)!->
+            index = user.joining_acts.indexOf id
+            if index > -1
+              user.joining_acts.splice(index, 1)
+            user.save (err, user)!->
+              if err
+                console.log err
+              res.json {success : 1, joins : activity.joining_users.length}
