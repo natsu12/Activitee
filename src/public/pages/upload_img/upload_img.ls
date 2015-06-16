@@ -16,6 +16,6 @@ $ !->
       data: new FormData ($ '#cover-form')[0]
       success: (msg)!->
         if msg == 'ok'
-          location.href = '/home'
+          location.href = '/finish'
         else
           alert msg

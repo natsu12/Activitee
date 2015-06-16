@@ -40,7 +40,7 @@ module.exports = (req, res)!->
   to-index = page-num * num-each-page - 1
   for index from from-index to to-index
     break if result-activities[index] is undefined
-    result-activities[index].time-format = Moment(result-activities[index].time).format 'YYYY/MM/DD HH:MM'
+    result-activities[index].time-format = Moment(result-activities[index].time).format 'YYYY/MM/DD HH:mm'
     page-result-activities.push result-activities[index]
 
   # 计算符合要求的活动的页数

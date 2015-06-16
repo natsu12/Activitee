@@ -1,3 +1,24 @@
 extends layout
 
 block content
+  link(rel="stylesheet", href="/pages/finish/finish.css")
+  #upload_wrap
+    .upload_head
+      h1.title #{title}
+      .step
+        img(src='/images/create1.png')
+        p.text Step 1
+        p.text 填写基本信息
+      .step
+        img(src='/images/create2.png')
+        p.text Step 2
+        p.text 上传封面图片
+      .step
+        img(src='/images/create3_active.png')
+        p.text 活动等待审核
+    .upload_main
+      h1 您的活动发起请求已接收，请耐心等待审核。<br>可到“我发起的活动”中查看活动审核状态。
+      p <span id="second">5</span>秒后自动跳转到我发起的活动……
+    a(href='/host')
+      button.next 我发起的活动
+  script(src='/pages/finish/finish.js')

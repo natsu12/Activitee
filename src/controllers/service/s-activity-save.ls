@@ -1,6 +1,6 @@
 require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../../models/comment', User: '../../models/user'}
 _ = require 'underscore'
-
+moment = require 'moment'
 
 # save an activity
 module.exports = (req, res)!->
