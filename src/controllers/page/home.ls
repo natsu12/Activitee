@@ -35,6 +35,7 @@ module.exports = (req, res)!->
   id = req.user._id if req.user isnt undefined
 
   (error, user) <- User .find-one { _id : id } .populate 'tags' .exec
+  console.log user
   # 取前五个tags
   hot-tags = []
   my-tags = []
