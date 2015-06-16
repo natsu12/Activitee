@@ -14,8 +14,9 @@ html
         ul.nav
           li
             a.home(href="/home") 发现活动
-          li
-            a.host(href="/host") 我的活动
+          if user
+            li
+              a.host(href="/host") 我的活动
         
         unless user
           ul.nav.align-right

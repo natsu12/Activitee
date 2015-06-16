@@ -4,7 +4,6 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 module.exports = (req, res)!->
   id = req.params.id
   if id
-    # Activity.findById id, (err, activity)!->
     (err, activity) <- Activity .find-one { _id : id } .populate 'tags' .exec
     if err
       console.log err

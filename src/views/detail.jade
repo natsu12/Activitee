@@ -8,7 +8,7 @@ block content
 			.act_header
 
 
-				img.act_cover(src="#{activity.cover}",alt="活动封面")
+				img.act_cover(src="/#{activity.cover}",alt="活动封面")
 				.act_info
 					h2.act_title #{activity.title}
 					p.act_time 开始时间：#{moment(activity.time).format('YYYY年M月DD日 HH:MM')}

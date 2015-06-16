@@ -208,7 +208,7 @@ $ !->
     time-id = '#' + time-bucket # 限定在当前的时段tab中
     # page-previous = $ time-id+' .previous'
     # page-next = $ time-id+' .next'
-    $ time-id+' li' .remove!
+    $ time-id+' .pagination li' .remove!
     if data.num-of-pages isnt 0
       page-previous = $ '<li class="previous">'
       page-previous-a = $ '<a href="#" data-id="0">&laquo;</a>'
