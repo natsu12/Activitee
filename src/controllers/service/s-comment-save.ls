@@ -29,7 +29,7 @@ module.exports = (req, res)!->
             comment : _comment
             page : page_number
         }
-
+        
   else if type == 'reply'
     act_id = req.body.reply.activity_id
     com_id = req.body.reply.com_id

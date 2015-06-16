@@ -10,7 +10,7 @@ $ !->
       $.get '/s-activity-cancle-follow?id=' + id, (results) !->
         if results.success is 1
           $ '#follow' .text '关注'
-          $ '#follows' .text results.joins + '人关注' 
+          $ '#follows' .text results.follows + '人关注' 
 
   $ '#follow' .hover !->
     if $ '#follow' .text() == '已关注'
