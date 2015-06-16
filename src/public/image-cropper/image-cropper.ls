@@ -85,7 +85,7 @@ $ !->
         previewBackgroundDivPreview = previewWidth / maskWidth
         previewBackgroundWidth = croppingWidth * previewBackgroundDivPreview 
         previewBackgroundHeight = croppingHeight * previewBackgroundDivPreview 
-        previewBackgroundX = -(maskX - croppingX) * previewBackgroundDivPreview + croppingX
+        previewBackgroundX = -(maskX - croppingX) * previewBackgroundDivPreview
         previewBackgroundY = -(maskY - croppingY) * previewBackgroundDivPreview
         preview.css 'background-position', "#{previewBackgroundX}px #{previewBackgroundY}px"
         preview.css 'background-size', "#{previewBackgroundWidth}px #{previewBackgroundHeight}px"

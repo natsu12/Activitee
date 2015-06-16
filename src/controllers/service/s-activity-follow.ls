@@ -9,11 +9,10 @@ module.exports = (req, res)!->
         activity.save (err, activity)!->
           if err
             console.log err
-          User.findById req.user._id, (err, user)!->
-            if err
-              console.log err
-            user.following_acts.push id
-            user.save (err, user)!->
-              if err
-                console.log err
-              res.json {success : 1, follows : activity.following_users.length}
+          res.json {success : 1, follows : activity.following_users.length}
+  if id
+    User.findById req.user._id, (err, user)!->
+        user.following_acts.push id
+        user.save (err, user)!->
+          if err
+            console.log err

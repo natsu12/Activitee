@@ -1,29 +1,98 @@
 extends layout
 
 block content
-  h1 #{title}
-  p 用户：#{user.username}
-  p 图片：#{user.avatar}
-  .container
-      .row
-          table.table.table-hover.table-bordered
-              tread
-                  tr
-                      th 活动名称
-                      th 时间
-                      th 参与人数
-                      th 关注人数
-                      th 封面
-                      th 查看
-              tbody
-                  each item in activities
-                      tr(class="item-id-#{item._id}")
-                          td #{item.title}
-                          td #{moment(item.time).format('YYYY/MM/DD')}
-                          td #{item.joining_users.length}
-                          td #{item.following_users.length}
-                          td #{item.cover}
-                          td: a(target="_blank", href="/detail/#{item._id}") 查看
-    a(href='/home', class='text-center new-account') 回到主页
+  link(rel='stylesheet', href='/pages/following/following.css')
+  #following_wrap
+    #activity_message
+      .act_img
+        img(src='/#{activity.cover}', alt="头像")
+      .act_message_text
+        .p_message
+          p.act_title #{activity.title}
+          p #{moment(activity.time).format('YYYY年MM月DD日 HH:MM')}
+          p #{activity.place}
+          p #{activity.following_users.length}人关注 #{activity.joining_users.length}人参与
+          p.act_create 发起时间: #{moment(activity.meta.createAt).format('YYYY年MM月DD日 HH:MM')}
+        .edit
+          a(href="/host") 回到我发起的活动
+        
 
-  script(src="/livescript/host.js")
+
+    #following_area
+      p 关注本活动的人
+      .container
+        .row
+            table.table.table-hover.table-bordered.mytable
+                tread
+                    tr
+                        th 
+                        th 用户
+                tbody
+                    each item, i in page_following_user
+                        tr(class="item-id-#{item._id}")
+                            td #{i+1}
+                            td #{item.username}
+
+      ul.pagination
+        li
+          a.paging(href="/following?fpage=#{following_page-1}&jpage=#{joining_page}&act_id=#{activity._id}") &laquo;
+        each i in arr_following_page
+          if i == following_page
+            li.active
+              a.paging(href="/following?act_id=#{activity._id}&jpage=#{joining_page}&fpage=#{i}") #{i}
+          else
+            li
+              a.paging(href="/following?act_id=#{activity._id}&jpage=#{joining_page}&fpage=#{i}") #{i}
+        li
+          a.paging(href="/following?fpage=#{following_page+1}&jpage=#{joining_page}&act_id=#{activity._id}") &raquo;
+
+
+    #joining_area
+      p 参加本活动的人
+      .container
+        .row
+            table.table.table-hover.table-bordered.mytable
+                tread
+                    tr
+                        th 
+                        th 用户
+                        th 联系方式
+                tbody
+                    each item, i in join_users
+                        tr(class="item-id-#{item._id}")
+                            td #{i+1}
+                            td #{item.username}
+                            if item.phone_num == null && item.qq == null
+                              td 手机号:未填写 QQ:未填写
+                            else if item.phone_num == null
+                              td 手机号:未填写 QQ:#{item.qq}
+                            else if item.qq == null
+                              td 手机号:#{item.phone_num}QQ:未填写
+                            else
+                              td 手机号:#{item.phone_num}QQ:#{item.qq}
+
+      ul.pagination
+        li
+          a.paging(href="/following?jpage=#{joining_page-1}&fpage=#{following_page}&act_id=#{activity._id}") &laquo;
+        each i in arr_joining_page
+          if i == joining_page
+            li.active
+              a.paging(href="/following?act_id=#{activity._id}&fpage=#{following_page}&jpage=#{i}") #{i}
+          else
+            li
+              a.paging(href="/following?act_id=#{activity._id}&fpage=#{following_page}&jpage=#{i}") #{i}
+        li
+          a.paging(href="/following?jpage=#{joining_page+1}&fpage=#{following_page}&act_id=#{activity._id}") &raquo;
+
+
+
+
+      #host_img
+        img(src="images/host_pic.png", alt="")
+
+
+
+
+
+
+
