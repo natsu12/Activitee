@@ -3,7 +3,7 @@ require! ['../controllers/page/index', '../controllers/page/home', '../controlle
 require! ['../controllers/page/create', '../controllers/page/edit', '../controllers/page/host']
 require! ['../controllers/page/following', '../controllers/page/joining', '../controllers/page/admin']
 require! ['../controllers/page/setting', '../controllers/page/upload_img', '../controllers/page/finish']
-require! ['../controllers/page/signup', '../controllers/page/signin']
+require! ['../controllers/page/signup', '../controllers/page/signin', '../controllers/page/unreal']
 require! ['../controllers/service/s-activity-save', '../controllers/service/s-activity-delete', '../controllers/service/s-user-save']
 require! ['../controllers/service/s-comment-save', '../controllers/service/s-comment-delete']
 require! ['../controllers/service/s-activity-follow', '../controllers/service/s-activity-join']
@@ -38,7 +38,8 @@ module.exports = (passport)->
   router.get '/setting', setting
   router.get '/admin', admin
   router.get '/finish', finish
-  
+  router.get '/unreal', unreal
+
   # 获取数据更新主页内容
   router.get '/s-homepage-update', s-homepage-update
 

@@ -2,6 +2,8 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 
 # create page
 module.exports = (req, res)!->
+  if !req.user.real_name || !req.user.phone_num
+    res.redirect '/unreal'
   Tag.find {}, (err, tags)->
     if err
       console.log err

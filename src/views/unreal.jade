@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  link(rel="stylesheet", href="/pages/unreal/unreal.css")
+  #upload_wrap
+    .upload_head
+      img(src="/images/default_avatar.png")
+    .upload_main
+      h1 您还没有完善真实信息，不能发起活动噢！
+      p <span id="second">5</span>秒后自动跳转到个人设置页……
+    a(href='/host')
+      button.next 设置
+  script(src='/pages/unreal/unreal.js')

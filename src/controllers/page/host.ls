@@ -6,6 +6,8 @@ findUserHost = (id, cb)->
 
 # host page
 module.exports = (req, res)!->
+  if req.user is undefined
+    res.redirect '/signin'
   user_id = req.user._id
 
   # 找到所有发布的活动
