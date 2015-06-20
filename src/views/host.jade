@@ -57,7 +57,7 @@ block content
                     .acts_info
                        .p_message
                         p.act_title #{item.title}
-                        p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                        p #{moment(item.time).format('YYYY/MM/DD HH:mm')}
                         p #{item.place}
                         p #{item.host.username}
                         p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
@@ -87,7 +87,7 @@ block content
                     .acts_info
                        .p_message
                         p.act_title #{item.title}
-                        p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                        p #{moment(item.time).format('YYYY/MM/DD HH:mm')}
                         p #{item.place}
                         p #{item.host.username}
                         p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
@@ -117,7 +117,7 @@ block content
                     .acts_info
                       .p_message
                         p.act_title #{item.title}
-                        p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                        p #{moment(item.time).format('YYYY/MM/DD HH:mm')}
                         p #{item.place}
                         p #{item.host.username}
                         p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
@@ -147,7 +147,7 @@ block content
                     .acts_info
                       .p_message
                         p.act_title #{item.title}
-                        p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                        p #{moment(item.time).format('YYYY/MM/DD HH:mm')}
                         p #{item.place}
                         p #{item.host.username}
                         p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
@@ -176,18 +176,24 @@ block content
                       img(src="#{item.cover}", alt="活动封面")
                     .acts_info
                       .p_message
-                        if item.status == 0
-                          p.act_title #{item.title} (审核已通过)
+                        if item.status == 1
+                          p.act_title #{item.title}
+                            span (审核已通过)
                         else
-                          p.act_title #{item.title} (审核中)
-                        p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                          p.act_title #{item.title}
+                            span (审核中)
+                        p #{moment(item.time).format('YYYY/MM/DD HH:mm')}
                         p #{item.place}
                         p #{item.host.username}
-                        p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
-                        if item.status == 0
+                        if item.status == 1
+                          p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
                           a(href="/following?act_id=#{item._id}") (查看具体信息)
+                        else
+                          p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加   
                       .edit
                         a(target="_blank", href="/edit/#{item._id}") 编辑
+                      .create_time
+                        p 发起时间：#{moment(item.meta.createAt).format('YYYY年MM月DD日 HH:mm')}
             ul.pagination
               li
                 a.paging(href="/host?hpage=#{host_page-1}") &laquo;
@@ -213,18 +219,24 @@ block content
                       img(src="#{item.cover}", alt="活动封面")
                     .acts_info
                       .p_message
-                        if item.status == 0
-                          p.act_title #{item.title} (审核已通过)
+                        if item.status == 1
+                          p.act_title #{item.title}
+                            span (审核已通过)
                         else
-                          p.act_title #{item.title} (审核中)
-                        p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                          p.act_title #{item.title}
+                            span (审核中)
+                        p #{moment(item.time).format('YYYY/MM/DD HH:mm')}
                         p #{item.place}
                         p #{item.host.username}
-                        p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
-                        if item.status == 0
+                        if item.status == 1
+                          p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
                           a(href="/following?act_id=#{item._id}") (查看具体信息)
+                        else
+                          p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加                        
                       .edit
                         a(target="_blank", href="/edit/#{item._id}") 编辑
+                      .create_time
+                        p 发起时间：#{moment(item.meta.createAt).format('YYYY年MM月DD日 HH:mm')}
             ul.pagination
               li
                 a.paging(href="/host?hpage=#{host_page-1}") &laquo;

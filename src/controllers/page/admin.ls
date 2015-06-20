@@ -16,7 +16,10 @@ module.exports = (req, res)!->
 
   findUserHost user_id, (err, activities)!->
     # 获取跳转至的页面
-    now_page = Math.ceil req.query.page
+    if req.query.page is undefined
+      now_page = 1
+    else
+      now_page = Math.ceil req.query.page
 
     # 一页最多包含多少条
     page_contain = 5
