@@ -2,6 +2,8 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 
 # edit page
 module.exports = (req, res)!->
+  if !req.user
+    res.redirect '/signin'
   id = req.params.id
   if id
     (err, activity) <- Activity .find-one { _id : id } .populate 'tags' .exec

@@ -2,7 +2,8 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 
 # setting page
 module.exports = (req, res)!->
-
+  if !req.user
+    res.redirect '/signin'
   id = req.user._id
 
   # 必须先获取用户详细信息，再渲染

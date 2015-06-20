@@ -2,6 +2,8 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 
 # upload image page
 module.exports = (req, res)!->
+  if !req.user
+    res.redirect '/signin'
   id = req.params.id
   Activity .findOne {_id: id}, (err, activity)!->
     res.render 'upload_img', {

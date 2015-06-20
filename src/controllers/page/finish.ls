@@ -2,6 +2,8 @@ require! {Activity:'../../models/activity', Tag:'../../models/tag', Comment:'../
 
 # upload image page
 module.exports = (req, res)!->
+  if !req.user
+    res.redirect '/signin'
   id = req.params.id
   res.render 'finish', {
     title: '发布活动信息'

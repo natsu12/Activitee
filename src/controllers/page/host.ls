@@ -6,7 +6,7 @@ findUserHost = (id, cb)->
 
 # host page
 module.exports = (req, res)!->
-  if req.user is undefined
+  if !req.user
     res.redirect '/signin'
   user_id = req.user._id
 

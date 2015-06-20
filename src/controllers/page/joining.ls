@@ -6,6 +6,8 @@ findUserJoining = (id, cb)->
 
 # joining page
 module.exports = (req, res)!->
+  if !req.user
+    res.redirect '/signin'
   user_id = req.user._id
   findUserJoining user_id, (err, activities)!->
     if err
