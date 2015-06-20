@@ -5,17 +5,17 @@ require! {
 toArray = (arrayLike)-> return [].map.call arrayLike, (item)-> item.toObject!
 
 getTags = (cb)!->
-  Tag.find {}, {meta: 0, activities: 0}, (err, tags)!->
+  Tag.find {}, {meta: 0, users: 0}, (err, tags)!->
     if err
       cb err
     else
       tags = toArray(tags)
-      # count users
-      tags.forEach (tag)!-> tag.userCount = tag.users.length
-      # remove users field
+      # count activities
+      tags.forEach (tag)!-> tag.actCount = tag.activities.length
+      # remove activities field
       tags.forEach (tag)!-> delete tag.users
-      # sort by user count(desc)
-      tags.sort (b, a)-> a.userCount - b.userCount
+      # sort by act count(desc)
+      tags.sort (b, a)-> a.actCount - b.actCount
       cb null, tags
 
 module.exports = (req, res)!->
