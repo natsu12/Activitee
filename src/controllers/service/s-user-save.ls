@@ -16,18 +16,19 @@ avatarRelativeDir = 'avatars'
 
 # save user information
 module.exports = (req, res)!->
-
+  console.log 'enter s-user-save'
   uid = req.user._id
   userObj = req.user
 
   if req.body.type == "basic"
-
+    console.log 'request type is basic'
     # 更新用户订阅标签
     tags = String(req.body.user.tags).split ','
     User.findById uid, (err, user)!->
       if err
         console.log err
       else
+        console.log 'you have login!'
         # 更新性别
         user.gender = req.body.user.gender
 
@@ -38,15 +39,19 @@ module.exports = (req, res)!->
           for tag_ in tags_
             user.tags.push tag_._id
 
+          console.log 'test whether user have upload a new avatar'
           # 保存用户头像
           if req.files.avatar
+            console.log 'saving avatar...'
             imageCropper.save req, 'avatar', uploadAbsoluteDir, avatarRelativeDir, req.user.username, (relativePath)!->
               user.avatar = relativePath
               user.save (err) !-> 
                 if err then console.log err
-                res.redirect '/setting'
           else
+            console.log 'no need to update avatar'
             user.save (err) !-> if err then console.log err
+
+          res.redirect '/setting'
 
           
 

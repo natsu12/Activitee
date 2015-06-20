@@ -49,7 +49,9 @@ block content
 
         tr
           td.key 头像
-          td.value 当前头像&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp设置新头像
+          td.value
+            span 当前头像
+            span#setNewAvatar 设置新头像
         tr
           td.key
           td
@@ -84,15 +86,15 @@ block content
         tr
           td.key 原密码
           td.value
-            input.myinput.form-control(type="password", name="user[pwdOriginal]")
+            input.myinput.form-control(type="password", name="user[pwdOriginal]", required="ture")
         tr
           td.key 新密码
           td.value
-            input.myinput.form-control(type="password", name="user[pwdNew]")
+            input.myinput.form-control(type="password", name="user[pwdNew]", required="ture")
         tr
           td.key 确认密码
           td.value
-            input.myinput.form-control(type="password", name="user[pwdNewConfirm]")
+            input.myinput.form-control(type="password", name="user[pwdNewConfirm]", required="ture")
         tr
           td.key
           td.value
