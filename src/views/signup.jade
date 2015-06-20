@@ -33,13 +33,13 @@ block content
                     | 妹子
                     input(type='radio' name='gender' value='1')
                     | 保密
-                    input(type='radio' name='gender' value='2')
+                    input(type='radio' name='gender' value='2' checked)
                 tr
                   td 密码
                   td
-                    input(type='password' name='password')
+                    input(type='password' name='password' required)
             div.signup-step-buttons
-              button(type='button')#signup-step-1-next 下一步
+              button#signup-step-1-next 下一步
           div#signup-step-2-container
             div.signup-step-content
               table
@@ -52,6 +52,10 @@ block content
                   td
                     each tag in tags
                       button.signup-tag(type='button' _id=tag._id) #{tag.name}
+                tr
+                  td
+                  td
+                    div#signup-alert
             div.signup-step-buttons
               button(type='button')#signup-step-2-prev 上一步
               button(type='submit') 完成
