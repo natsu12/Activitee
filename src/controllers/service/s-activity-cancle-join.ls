@@ -19,6 +19,9 @@ module.exports = (req, res)!->
         if index > -1
           user.joining_acts.splice(index, 1)
           console.log 'delete'
+        else
+          console.log 'err not join activity delete'
+          return
         user.save (err, user)!->
           if err
             console.log err

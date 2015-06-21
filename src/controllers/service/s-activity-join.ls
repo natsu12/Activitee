@@ -3,17 +3,22 @@ _ = require 'underscore'
 
 module.exports = (req, res)!->
   id = req.query.id
+  
   if id
     Activity.findById id, (err, activity)!->
-        activity.joining_users.push req.user._id
-        activity.save (err, activity)!->
-          if err
-            console.log err
-          res.json {success : 1, joins : activity.joining_users.length}
-
-  if id
-    User.findById req.user._id, (err, user)!->
-        user.joining_acts.push id
-        user.save (err, user)!->
-          if err
-            console.log err
+      User.findById req.user._id, (err, user)!->
+          user.joining_acts.push id
+          user.save (err, user)!->
+            if err
+              console.log err
+          need_info = activity.need_info
+          if need_info is 1
+            console.log user.phone_num
+            if user.phone_num == undefined or user.real_name == undefined
+              res.json {success: -1}
+              return
+          activity.joining_users.push req.user._id
+          activity.save (err, activity)!->
+            if err
+              console.log err
+            res.json {success : 1, joins : activity.joining_users.length}

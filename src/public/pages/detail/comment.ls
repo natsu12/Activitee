@@ -39,7 +39,7 @@ $ !->
       $ '#max_comment_page' .text page_number+1
       page_number++
       new_li = '<li><a id="comment_page_nav'+page_number+'" page="'+page_number+'" href="javascript:void(0)" class="comment_page_nav">'+page_number+'</a></li>'
-
+    alert data    
     $.post '/s-comment-save?type=new&page='+page_number, data, (results)!->
       new_data = $ results .hide()
       $ '.act_comments_main' .append new_data
