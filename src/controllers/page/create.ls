@@ -8,8 +8,8 @@ module.exports = (req, res)!->
   User.findById uid, (err, user)!->
     if err
         console.log err
-    # if !user.real_name || !user.phone_num || !user.authenticated
-    #   res.redirect '/unreal'
+    if !user.real_name || !user.phone_num || !user.authenticated
+      res.redirect '/unreal'
     Tag.find {}, (err, tags)->
       if err
         console.log err
