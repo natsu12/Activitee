@@ -19,6 +19,8 @@ transport = nodemailer.createTransport 'SMTP',
     subject: subject
     html: html
 
+  retry = 0
+
   !function _send
     console.log "mailing to #{addr}.."
     transport.sendMail options, cb
@@ -26,8 +28,11 @@ transport = nodemailer.createTransport 'SMTP',
   !function cb err, res
     if err
       console.log err
-      console.log 'retry.'
-      _send!
+      if ++retry > config.retry
+        console.log 'retry exceeded. stop mailing.'
+      else
+        console.log 'retry.'
+        _send!
     else
       console.log "mailed to #{addr}."
       console.log res.message

@@ -2,5 +2,6 @@
     "user": "Activitee@163.com",
     "pass": "rydmrtutbuwmciwn",
     "host": "smtp.163.com",
-    "timeout": 3000
+    "timeout": 3000,
+    "retry": 3
 }
