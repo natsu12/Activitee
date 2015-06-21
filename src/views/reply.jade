@@ -1,12 +1,16 @@
 
 block reply
 	div.row.areply.col-md-offset-1.col-md-10
-			.comment_userinfo.col-md-2
-				span: img(class="avatar", src="/avatar/test2.jpeg",alt="avatar", with="60", height="60")
+		.comment_userinfo.col-md-2
+			if reply.from.username
+				if reply.from.avatar
+					span: img(class="avatar", src="/#{reply.from.avatar}",alt="avatar", with="50", height="50")
+				else
+					span: img(class="avatar", src="/avatars/default.png", alt="avatar", with="50", height="50")
 				span#username #{reply.from.username}
-			.reply_content.col-md-9
-				p 回复#{reply.to.username} 
-				p #{reply.content}
+		.reply_content.col-md-9
+			p 回复#{reply.to.username} 
+			p #{reply.content}
 	.row.comment_time.col-md-4
 		span#time_reply #{moment(reply.createAt).format('YYYY.M.DD HH:MM')}
 			&nbsp

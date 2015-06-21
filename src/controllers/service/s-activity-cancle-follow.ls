@@ -8,11 +8,10 @@ module.exports = (req, res)!->
         index = activity.following_users.indexOf req.user._id
         if index > -1
           activity.following_users.splice(index, 1)
-          console.log 'delete'
         activity.save (err, activity)!->
           if err
             console.log err
-          res.json {success : 1, joins : activity.following_users.length}
+          res.json {success : 1, follows : activity.following_users.length}
 
   if id
     User.findById req.user._id, (err, user)!->

@@ -8,10 +8,10 @@ block content
 			.act_header
 
 
-				img.act_cover(src="/#{activity.cover}",alt="活动封面")
+				img.act_cover(src="#{activity.cover}",alt="活动封面")
 				.act_info
 					h2.act_title #{activity.title}
-					p.act_time 开始时间：#{moment(activity.time).format('YYYY年M月DD日 HH:MM')}
+					p.act_time 开始时间：#{moment(activity.time).format('YYYY年M月DD日 HH:mm')}
 					p.act_time 地点：#{activity.place}
 					p.act_host 发起者：#{activity.host.username}
 					p.act_follow
@@ -39,8 +39,8 @@ block content
 							button(id="join", type="button", data-id="#{activity._id}") 参加
 
 					else
-						button.left(id="not_login_button", type="button") 关注
-						button(id="not_login_button", type="button") 参加
+						button.left(class="not_login_button", type="button") 关注
+						button(class="not_login_button", type="button") 参加
 	
 			div(role="tabpanel")
 				.comment_and_detail_tag
@@ -85,16 +85,19 @@ block content
 											each comment in comments
 												- j++
 												if j % 5 == 0
-													if j/5 == 1
+													if j == 5
 														li.active
 															a(id="comment_page_nav#{j/5}", class="comment_page_nav", page="#{j/5}", href="javascript:void(0)") #{j/5}
 													else
 														li
 															a(id="comment_page_nav#{j/5}", class="comment_page_nav", page="#{j/5}", href="javascript:void(0)") #{j/5}
 											if j % 5 != 0
-												li
-													a(id="comment_page_nav#{Math.ceil(j/5)}", class="comment_page_nav", page="#{Math.ceil(j/5)}", href="javascript:void(0)") #{Math.ceil(j/5)}
-										
+												if j <= 5
+													li.active
+														a(id="comment_page_nav#{Math.ceil(j/5)}", class="comment_page_nav", page="#{Math.ceil(j/5)}", href="javascript:void(0)") #{Math.ceil(j/5)}
+												else
+													li
+														a(id="comment_page_nav#{Math.ceil(j/5)}", class="comment_page_nav", page="#{Math.ceil(j/5)}", href="javascript:void(0)") #{Math.ceil(j/5)}
 											- var is_one_page = ''
 											if comments.length == 1
 												- is_one_page = 'disabled'
@@ -115,14 +118,20 @@ block content
 											.comment_area(page="#{Math.ceil(i/5)}", style="display:#{display}")
 												.row.comment
 													.comment_userinfo.col-md-2
-														span: img(class="avatar", src="/#{comment.from.avatar}",alt="avatar", with="80", height="80")
+														if comment.from.avatar
+															span: img(class="avatar", src="/#{comment.from.avatar}",alt="avatar", with="80", height="80")
+														else
+															span: img(class="avatar", src="/avatars/default.png", alt="avatar", with="80", height="80")
 														span#username #{comment.from.username}
 													.comment_content.col-md-6
 														span #{comment.content}
 
 													.row.comment_time.col-md-4
 															span#time #{moment(comment.meta.updateAt).format('YYYY.M.DD HH:MM')} &nbsp
-																a(class="reply_master",href="javascript:void(0)",data-comment="#{comment._id}") 回复 &nbsp
+																if user
+																	a(class="reply_master",href="javascript:void(0)",data-comment="#{comment._id}") 回复 &nbsp
+																else
+																	a(class="not_login_button", href="javascript:void(0)") 回复 &nbsp
 																a(class="fold_comment",href="javascript:void(0)",data-comment="#{comment._id}") 展开/收起(
 																	span(id="reply_number#{comment._id}") #{comment.replies.length}
 																	span )
@@ -132,15 +141,20 @@ block content
 																each reply in comment.replies
 																	div.row.areply.col-md-offset-1.col-md-10
 																			.comment_userinfo.col-md-2
-																				span: img(class="avatar", src="/#{comment.from.avatar}",alt="avatar", with="60", height="60")
+																				if reply.from.avatar
+																					span: img(class="avatar", src="/#{reply.from.avatar}",alt="avatar", with="50", height="50")
+																				else
+																					span: img(class="avatar", src="/avatars/default.png", alt="avatar", with="50", height="50")
 																				span#username #{reply.from.username}
 																			.reply_content.col-md-9
 																				p#reply_letter 回复#{reply.to.username} 
 																				p #{reply.content}
 																	.row.comment_time.col-md-4
 																		span#time_reply #{moment(reply.createAt).format('YYYY.M.DD HH:MM')}&nbsp
-																			a(class="reply",href="javascript:void(0)", data-to="#{reply.from._id}", data-user="#{reply.from.username}",data-comment="#{comment._id}") 回复
-
+																			if user
+																				a(class="reply",href="javascript:void(0)", data-to="#{reply.from._id}", data-user="#{reply.from.username}",data-comment="#{comment._id}") 回复
+																			else
+																				a(class="not_login_button", href="javascript:void(0)") 回复
 
 																			
 												.row
@@ -155,12 +169,15 @@ block content
 												br
 
 								h2 发表评论
-								div.row
-									form.form-horizontal.post_comment
-										div.input-group.col-md-8
-											input(type="hidden", name="comment[activity_id]", value="#{activity._id}")
-											textarea.form-control(id="comment_content", type="text", name="comment[content]", required)
-											button(type="submit") 评论
+								if user
+									div.row
+										form.form-horizontal.post_comment
+											div.input-group.col-md-8
+												input(type="hidden", name="comment[activity_id]", value="#{activity._id}")
+												textarea.form-control(id="comment_content", type="text", name="comment[content]", required)
+												button(type="submit") 评论
+								else
+									div.row: span(id="not_login_comment") 请先登录再评论
 
 		.right_wrap
 			.act_tags
@@ -177,6 +194,24 @@ block content
 					a 查看更大地图
 			.host_info
 				h3 发起者信息
+				if activity.host.avatar
+					span: img(class="big_avatar", src="/#{activity.host.avatar}",alt="avatar", with="100", height="100")
+				else
+					span: img(class="big_avatar", src="/avatars/default.png",alt="avatar", with="100", height="100")
+				div#host_username #{activity.host.username}
+				div#real_info
+					if activity.host.real_name
+						span 真实姓名: #{activity.host.real_name}
+						br
+					if activity.host.phone_num
+						span 联系方式: #{activity.host.phone_num}
+						br
+					if activity.host.qq
+						span qq: #{activity.host.qq}
+						br
+					if activity.host.weixin
+						span wechat: #{activity.host.weixin}
+						br
 				pre.act_host_info #{activity.host_info}
 	
 	#map_layout
