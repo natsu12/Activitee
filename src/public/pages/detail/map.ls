@@ -57,3 +57,26 @@ $ !->
     
     overView := new AMap.OverView!
     bmap.addControl overView
+
+  # 将大地图定位到中央
+  do locate-map-wrap = !->
+    map-wrap = $ '#map_wrap'
+    $ '#map_layout' .css {  # 定灰底层大小
+      height: $ document .height!
+      width:  $ document .width!
+    }
+    $ '#map_wrap' .css {   # 定大地图位置
+      left: ($ window .width! - map-wrap.outer-width!)/2
+      top:  ($ window .height! - map-wrap.outer-height!)/2 + $ document .scroll-top!
+    }
+
+  $ window .resize !->
+    locate-map-wrap!
+
+  $ '.big_map' .click (e)!->
+    e.preventDefault!
+    $ '#map_layout' .fade-in!
+    $ '#map_wrap' .fade-in!
+  $ '.close' .click !->
+    $ '#map_layout' .fade-out!
+    $ '#map_wrap' .fade-out!

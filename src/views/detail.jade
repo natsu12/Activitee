@@ -173,12 +173,16 @@ block content
 				input#lng(type="text", value='#{activity.lng}', class="disappear")
 				input#lat(type="text", value="#{activity.lat}", class="disappear")
 				div#mapContainerSmall
-				h3 查看更大地图
+				.big_map
+					a 查看更大地图
 			.host_info
 				h3 发起者信息
 				pre.act_host_info #{activity.host_info}
 	
-	div#mapContainerBig(hidden=true)
+	#map_layout
+	#map_wrap
+		i.fa.fa-times.fa-2x.pull-right.close
+		#mapContainerBig
 
 	script(src="/pages/detail/jquery.scrollTo.min.js")
 	script(src="/pages/detail/FollowAndJoin.js")
