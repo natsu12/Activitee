@@ -170,10 +170,15 @@ block content
 
 			.act_map
 				h3 活动地图
+				input#lng(type="text", value='#{activity.lng}', class="disappear")
+				input#lat(type="text", value="#{activity.lat}", class="disappear")
+				div#mapContainerSmall
+				h3 查看更大地图
 			.host_info
 				h3 发起者信息
 				pre.act_host_info #{activity.host_info}
-
+	
+	div#mapContainerBig(hidden=true)
 
 	script(src="/pages/detail/jquery.scrollTo.min.js")
 	script(src="/pages/detail/FollowAndJoin.js")
@@ -181,3 +186,5 @@ block content
 	script(src="/pages/detail/tab.js")
 	script(src="/pages/detail/paging.js")
 	script(src="/pages/detail/comment.js")
+	script(type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=9ab26b8051714a36df10a84611a02d45")
+	script(src="/pages/detail/map.js")
