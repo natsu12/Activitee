@@ -16,47 +16,50 @@ $ !->
   }
   amap.setFitView!
 
-  bmap = new AMap.Map 'mapContainerBig',{
-    view: new AMap.View2D {
-      center: lnglatXY
-      zoom: 20
+  showBMap = !->
+    bmap = new AMap.Map 'mapContainerBig',{
+      view: new AMap.View2D {
+        center: lnglatXY
+        zoom: 20
+      }
     }
-  }
-  bmarker = new AMap.Marker {
-    map: bmap
-    position: lnglatXY
-    icon: "/images/0.png"
-    # offset: new AMap.Pixel -43,-17
-  }
-  geolocation = null
-  toolBar = null
-  scale = null
-  overView = null
-  bmap.plugin ['AMap.Geolocation', 'AMap.ToolBar', 'AMap.Scale', 'AMap.OverView'], !->
-    geolocation := new AMap.Geolocation {
-      enableHighAccuracy: true  
-      timeout: 10000  
-      maximumAge: 0 
-      convert: true 
-      showButton: true  
-      buttonPosition: 'LB'  
-      buttonOffset: new AMap.Pixel(23, 75)  
-      showMarker: true  
-      showCircle: true  
-      panToLocation: true 
-      zoomToAccuracy: true  
+    bmarker = new AMap.Marker {
+      map: bmap
+      position: lnglatXY
+      icon: "/images/0.png"
+      # offset: new AMap.Pixel -43,-17
     }
-    bmap.addControl geolocation
-
+    bmap.setFitView!
+    geolocation = null
+    toolBar = null
+    scale = null
+    overView = null
+    bmap.plugin ['AMap.Geolocation', 'AMap.ToolBar', 'AMap.Scale', 'AMap.OverView'], !->
+      geolocation := new AMap.Geolocation {
+        enableHighAccuracy: true  
+        timeout: 10000  
+        maximumAge: 0 
+        convert: true 
+        showButton: true  
+        buttonPosition: 'LB'  
+        buttonOffset: new AMap.Pixel(23, 75)  
+        showMarker: true  
+        showCircle: true  
+        panToLocation: true 
+        zoomToAccuracy: true  
+      }
+      bmap.addControl geolocation
+      
+      toolBar := new AMap.ToolBar! 
+      bmap.addControl toolBar
     
-    toolBar := new AMap.ToolBar! 
-    bmap.addControl toolBar
-  
-    scale := new AMap.Scale!
-    bmap.addControl scale
+      scale := new AMap.Scale!
+      bmap.addControl scale
+      
+      overView := new AMap.OverView!
+      bmap.addControl overView
+    # 根据经纬度搜索并且显示信息窗体
     
-    overView := new AMap.OverView!
-    bmap.addControl overView
 
   # 将大地图定位到中央
   do locate-map-wrap = !->
@@ -75,6 +78,7 @@ $ !->
 
   $ '.big_map' .click (e)!->
     e.preventDefault!
+    showBMap!
     $ '#map_layout' .fade-in!
     $ '#map_wrap' .fade-in!
   $ '.close' .click !->
