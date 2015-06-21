@@ -1,5 +1,11 @@
 # Activitee
 
+## 项目介绍
+请看[视频介绍](http://v.youku.com/v_show/id_XMTI2NzYxNjcyOA==.html?qq-pf-to=pcqq.c2c)（第一次录制视频，制作失误导致非常不清晰，请谅解，只介绍了主要的功能，有较多功能被遗漏）。
+
+## 服务器地址
+项目已部署服务器，可以直接[访问](http://120.24.211.137:5000/)。
+
 ## 安装及运行
 1. 安装NodeJs和MonogoDB（windows下请将MonogoDB根目录加入环境变量，以免无法执行导入数据的相关命令）
 2. 安装ImageMagick：ubuntu下执行`sudo apt-get install imagemagick`，mac下执行`brew install imagemagick`（请先安装homebrew），windows下请参照[官网](http://www.imagemagick.org/script/binary-releases.php#windows)，选择适当版本安装。
