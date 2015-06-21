@@ -47,11 +47,13 @@ module.exports = (req, res)!->
               user.avatar = relativePath
               user.save (err) !-> 
                 if err then console.log err
+                res.redirect '/setting'
           else
             console.log 'no need to update avatar'
-            user.save (err) !-> if err then console.log err
-
-          res.redirect '/setting'
+            user.save (err) !->
+              if err then console.log err
+              res.redirect '/setting'
+          
 
           
 

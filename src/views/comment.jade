@@ -11,7 +11,7 @@ block comment
 		.comment_content.col-md-6
 			span #{comment.content}
 		.row.comment_time.col-md-4
-				span#time #{moment(comment.meta.updateAt).format('YYYY.M.DD HH:MM')} &nbsp
+				span#time #{moment(comment.meta.createAt).format('YYYY.MM.DD HH:mm')} &nbsp
 					a(class="reply_master",href="#",data-comment="#{comment._id}") 回复 &nbsp
 					a(class="fold_comment",href="#",data-comment="#{comment._id}") 展开/收起(
 						span(id="reply_number#{comment._id}") #{comment.replies.length}
@@ -31,7 +31,7 @@ block comment
 									p#reply_letter 回复#{reply.to.username} 
 									p #{reply.content}
 						.row.comment_time.col-md-4
-							span#time_reply #{moment(reply.createAt).format('YYYY.M.DD HH:MM')} &nbsp
+							span#time_reply #{moment(reply.createAt).format('YYYY.MM.DD HH:mm')} &nbsp
 								a(class="reply",href="#", data-to="#{reply.from._id}", data-user="#{reply.from.username}",data-comment="#{comment._id}") 回复
 
 	.row

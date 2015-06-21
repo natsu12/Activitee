@@ -24,9 +24,10 @@ module.exports = (req, res)!->
         console.log err
       
       User.findById req.user._id, (err, fromUser)!->
-        _comment.from = fromUser
+        console.log fromUser
+        comment.from = fromUser
         res.render 'comment', {
-            comment : _comment
+            comment : comment
             page : page_number
         }
         

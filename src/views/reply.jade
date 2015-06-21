@@ -12,6 +12,6 @@ block reply
 			p 回复#{reply.to.username} 
 			p #{reply.content}
 	.row.comment_time.col-md-4
-		span#time_reply #{moment(reply.createAt).format('YYYY.M.DD HH:MM')}
+		span#time_reply #{moment(reply.createAt).format('YYYY.MM.DD HH:mm')}
 			&nbsp
 			a(class="reply",href="#", data-to="#{reply.from._id}", data-user="#{reply.from.username}",data-comment="#{comment._id}") 回复

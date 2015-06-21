@@ -6,9 +6,10 @@ module.exports = (req, res)!->
   Activity .findOne {_id: id} .populate({path:'host following_users joining_users tags'}) .exec (err, activity)!->
     if err
       console.log (err)
-    Comment. find {act_id: id} .populate({path:'from replies.from replies.to'}) .exec (err, comments)!->
+    Comment. find {act_id: id} .sort 'meta.createAt' .populate({path:'from replies.from replies.to'}) .exec (err, comments)!->
       if err
         console.log (err)
+      console.log comments
       res.render 'detail', {
         title: activity.title + '详情'
         user: req.user
