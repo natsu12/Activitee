@@ -30,11 +30,16 @@ block content
             .form-group
                 label.col-sm-2.control-label(for="inputTime") 开始时间
                 .col-sm-10
-                    input#inputTime.form-control(type="text", name="activity[time]", value="#{activity.time}" , required)
-            .form-group
+                    input#inputTime.form-control(type="text", name="activity[time]", value="#{moment(activity.time).format('YYYY/MM/DD HH:mm')}" , required)
+            .form-group                
+                input#lng(type="text", name="activity[lng]", class="disappear", value='#{activity.lng}')
+                input#lat(type="text", name="activity[lat]", class="disappear", value='#{activity.lat}')
                 label.col-sm-2.control-label(for="inputPlace") 活动地点
                 .col-sm-10
-                    input#inputPlace.form-control(type="text", name="activity[place]", value="#{activity.place}" , required)
+                  input#inputPlace.form-control(type="text", name="activity[place]",value="#{activity.place}")
+                  div#mapResult
+                #map_wrap
+                  #mapContainer
             .form-group
                 label.col-sm-2.control-label(for="inputCover") 活动Tag
                 .col-sm-10
@@ -60,4 +65,6 @@ block content
         button.next(type="submit") 下一步
 
   script(src="/bootstrap/js/bootstrap-tagsinput.js")
+  script(type='text/javascript' src='http://webapi.amap.com/maps?v=1.3&key=9ab26b8051714a36df10a84611a02d45')
+  script(src="/pages/edit/map.js")
   script(src="/pages/create/tagsinput.js")

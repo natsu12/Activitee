@@ -7,8 +7,8 @@ paging_update = (page_number)!->
     else
        $ comment .hide 400
 
-  $ '.active' .attr 'class' ''
-  $ ($ '#comment_page_nav'+page_number .parent()) .attr 'class' 'active'
+  $ '.pagination .active' .remove-class 'active'
+  $ ($ '#comment_page_nav'+page_number .parent()) .add-class 'active'
   $ '#Previous_comment_page' .attr 'current' page_number
   $ '#Next_comment_page' .attr 'current' page_number
 
@@ -39,7 +39,6 @@ $ !->
       $ '#max_comment_page' .text page_number+1
       page_number++
       new_li = '<li><a id="comment_page_nav'+page_number+'" page="'+page_number+'" href="javascript:void(0)" class="comment_page_nav">'+page_number+'</a></li>'
-    alert data    
     $.post '/s-comment-save?type=new&page='+page_number, data, (results)!->
       new_data = $ results .hide()
       $ '.act_comments_main' .append new_data
@@ -48,7 +47,7 @@ $ !->
         $ '#Next_comment_page' .before new_li
       $ '#max_comments' .text comment_number
       paging_update page_number
-      if page_number == 1
-        $ '.pagination' .show 500
-      new_data .slideDown()
+      # if page_number == 1
+      #   $ '.pagination' .show 500
+      # new_data .slideDown()
     return false

@@ -12,7 +12,8 @@ module.exports = (req, res)!->
       if err
         console.log err
       tagNames = activityObj.tags.split ","
-      Tag .find { _id: { $in: activityObj.tags } } (err, oldTagObjs)!->
+      console.log activityObj
+      Tag .find { name: { $in: tagNames } } (err, oldTagObjs)!->
         # 把后来没有活动从原有的tag中删除，把原有的活动从新增列表中删除(避免重复插入)
         for oldTagObj in oldTagObjs
           if tagNames.indexOf oldTagObj.name == -1

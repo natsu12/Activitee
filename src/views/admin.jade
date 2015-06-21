@@ -21,12 +21,12 @@ block content
             each item in activities
               tr(class="item-id-#{item._id}")
                 td.title_blank #{item.title}
-                td.time_blank #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                td.time_blank #{moment(item.time).format('YYYY/MM/DD HH:mm')}
                 td.place_blank #{item.place}
                 td.tag_blank 
                   each _item in item.tags
                     .btn.btn-primary.tag(data-toggle="button") #{_item.name}
-                td.detail_blank #{item.detail}
+                td.detail_blank: a(href="detail/#{item._id}"): button.btn.btn-default 察看
                 td.pic_blank
                   .acts
                     a(href="detail/#{item._id}")

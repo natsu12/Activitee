@@ -5,16 +5,8 @@ findUserHost = (id, cb)->
 
 # admin page
 module.exports = (req, res)!->
-  require! 'mongoose'                     # 为了写死登陆用户, 仿host.ls
-  ObjectId = new mongoose.Types.ObjectId('555842ce961d450f1f17307d')
-  req.user = {
-    _id: ObjectId
-    username: 'test12'
-    role: 1
-  }
-  user_id = req.user._id
 
-  findUserHost user_id, (err, activities)!->
+  Activity .find {status: 0} .populate 'tags' .exec (err, activities)!->
     # 获取跳转至的页面
     if req.query.page is undefined
       now_page = 1

@@ -29,3 +29,4 @@ $ !->
     $.get '/s-send-email' (msg)!->
       if msg == 'ok'
         $ '.auth' .text '邮件已发送，请登陆邮箱完成验证'
+        $ '.auth' .remove-class 'auth'

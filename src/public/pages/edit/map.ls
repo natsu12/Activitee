@@ -1,18 +1,39 @@
 $ !->
   $ '#inputPlace' .keyup (e)!->
-    console.log e.which
     auto-search!  
 
-  
+  lng = parse-float ($ '#lng' .val!)
+  lat = parse-float ($ '#lat' .val!)
+  view2DOptions = null
+  markerOptions = null
+  lnglatXY = null
+  if !lng
+    view2DOptions := {
+      zoom: 13
+    }
+    markerOptions := {
+      map: amap
+      icon: '/images/0.png'
+    }
+  else
+    lnglatXY := new AMap.LngLat lng, lat
+    view2DOptions := {
+      center: lnglatXY
+      zoom: 20
+    }
+    markerOptions := {
+      map: amap
+      icon: '/images/0.png'
+      position: lnglatXY
+    }
+
   amap = new AMap.Map 'mapContainer', {
     resizeEnable: true
     # clickable: true
-    view: new AMap.View2D {
-      # center: new AMap.LngLat 116.397428, 39.90923
-      zoom: 12
-    }
+    view: new AMap.View2D view2DOptions
     keyboardEnable: false
   }
+  marker = new AMap.Marker markerOptions
 
   
   geolocation = null
