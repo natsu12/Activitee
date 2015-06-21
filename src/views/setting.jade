@@ -16,7 +16,10 @@ block content
       table
         tr
           td.key 注册邮箱
-          td.value #{user.email}
+          td.value 
+            | #{user.email}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            if !user.authenticated
+              a.auth 验证邮箱
         tr
           td.key 用户名
           td.value #{user.username}

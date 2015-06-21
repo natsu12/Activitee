@@ -13,6 +13,7 @@ require! ['../controllers/service/s-activity-save', '../controllers/service/s-ac
 require! ['../controllers/service/s-upload-img']
 require! ['../controllers/service/s-homepage-update']
 require! ['../controllers/service/s-activity-admin-update']
+require! ['../controllers/service/s-send-email']
 router = express.Router! 
 
 # is-authenticated = (req, res, next)-> if req.is-authenticated! then next! else res.redirect '/signin'
@@ -60,5 +61,5 @@ module.exports = (passport)->
 
   router.post '/s-upload-img/:id', s-upload-img
   router.get '/s-activity-admin-update', s-activity-admin-update
-
+  router.get '/s-send-email', s-send-email
 
