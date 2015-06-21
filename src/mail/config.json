@@ -2,5 +2,6 @@
     "user": "activitee@126.com",
     "pass": "irqalczlcswuxlgc",
     "host": "smtp.126.com",
-    "timeout": 3000
+    "timeout": 3000,
+    "retry": 3
 }
