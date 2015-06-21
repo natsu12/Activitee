@@ -58,6 +58,8 @@ module.exports = (req, res)!->
         detail: activityObj.detail
         time: activityObj.time
         place: activityObj.place
+        lng: activityObj.lng
+        lat: activityObj.lat
         host: req.user._id
         host_info: activityObj.host_info
         status: 0
