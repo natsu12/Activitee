@@ -5,6 +5,8 @@ ActivitySchema = new mongoose.Schema {
   title: String,                                           #标题
   time: Date,                                              #活动时间
   place: String,                                           #活动地点
+  lng: Number
+  lat: Number
   host: {type: ObjectId, ref: 'User'},                     #发布人
   host_info: String,                                       #发布人自愿提供的信息，如：微博、微信公众号
   following_users: [{type: ObjectId, ref: 'User'}],        #已关注的用户
