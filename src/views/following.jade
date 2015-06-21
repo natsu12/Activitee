@@ -9,12 +9,12 @@ block content
       .act_message_text
         .p_message
           p.act_title #{activity.title}
-          p #{moment(activity.time).format('YYYY年MM月DD日 HH:MM')}
+          p #{moment(activity.time).format('YYYY年MM月DD日 HH:mm')}
           p #{activity.place}
           p #{activity.following_users.length}人关注 #{activity.joining_users.length}人参与
-          p.act_create 发起时间: #{moment(activity.meta.createAt).format('YYYY年MM月DD日 HH:MM')}
+          p.act_create 发起时间: #{moment(activity.meta.createAt).format('YYYY年MM月DD日 HH:mm')}
         .edit
-          a(href="/host") 回到我发起的活动
+          a(href="/host?hpage=1") 回到我发起的活动
         
 
 

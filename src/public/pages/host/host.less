@@ -15,6 +15,23 @@
   }
 }
 
+.nothing {
+  margin: 30px auto;
+  width: 220px;
+  .empty {
+    width: 220px;
+    height: 220px;
+  }
+  .text {
+    text-align: center;
+    font-family: @main_font;
+    color: @main_yellow;
+    font-size: 17px;
+    margin-left: 10px;
+    margin-top: 6px;
+  }
+}
+
 #user_message {
   @user_message_width: 870px;
   width: @user_message_width;
@@ -77,7 +94,6 @@
         float: left;
         margin: 0 0 0 0;
         width:  866px;
-        height: 270px;
         border-bottom: 1px solid #e8e8e8;
         border-right: 2px solid #e8e8e8;
         border-left: 1px solid #e8e8e8;
@@ -94,15 +110,29 @@
           margin: 60px 0 0 60px;
           background: white;
           width:  550px;
-          height: 180px;
           .p_message {
             float:left;
-            width: 490px;
-            height:180px;
+            width: 470px;
             p {
+              overflow: hidden;
               text-align: left;
               font-family: @main_font;
               color: black;
+              span {
+                display: block;
+                color: gray;
+                font-size: 14pt;
+              }
+              a {
+                display: inline-block;
+                color: #F4C36A;
+                font-size: 13pt;
+              }
+            }
+            a {
+              display: block;
+              color: #F4C36A;
+              font-size: 13pt;
             }
             .act_title {
               font-size: 20pt;
@@ -122,6 +152,12 @@
               font-size: 14px;
               font-family: @main_font;
             }
+          }
+          .create_time {
+            float: right;
+            width: 235px;
+            color: gray;
+            font-size: 14px;
           }
         }
       }

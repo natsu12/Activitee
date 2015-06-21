@@ -1,16 +1,18 @@
 # Activitee
 
-## install & start development
-1. install MonogoDB
-2. run mongod (on default port 27017)
-3. npm install
-4. grunt watch
+## 安装及运行
+1. 安装NodeJs和MonogoDB（windows下请将MonogoDB根目录加入环境变量，以免无法执行导入数据的相关命令）
+2. 安装ImageMagick：ubuntu下执行`sudo apt-get install imagemagick`，mac下执行`brew install imagemagick`（请先安装homebrew），windows下请参照[官网](http://www.imagemagick.org/script/binary-releases.php#windows)，选择适当版本安装。
+3. 执行`mongod`（在默认的27017端口运行MonogoDB）。
+4. 在项目根目录，执行`npm install`。
+5. 进入`/data`目录，执行`sh import.sh`（Windows下请使用Git Bash命令行执行此命令），来导入项目数据。
+6. 在项目根目录，执行`grunt watch`。
 
 ## 文件目录结构
 ```
 .
 ├── doc     存放项目需求、分工等文档
-├── upload  用户上传的图片，包括avatar（头像），images（活动图片），cover（活动封面）
+├── upload  用户上传的图片，包括avatar（头像），cover（活动封面）
 ├── data    存放伪造数据的json文件
 └── src     项目的代码
     ├── controllers       页面后端的逻辑控制（后端主要在此目录下编写代码）
@@ -26,11 +28,3 @@
     └── views             存放网页前端视图模板
     
 ```
-
-## 工作流程规范
-1. 后端主要在`/controllers`目录下编写代码，包括所有数据库的读写操作，不需要在`/schemas`中定义公有方法。
-2. 按照文档，自行设计负责的页面所需要的接口，编写好一个接口后，可以改动`/routes/index.ls`，让前端请求某url时调用到该接口。
-3. 为保持每个人本地仓库中的代码是最新的，请在每天早上（或者编写代码之前）执行`git pull git@github.com:natsu12/Activitee.git`，（如果嫌链接太长，可以执行`git remote add XXXX git@github.com:natsu12/Activitee.git`，那下次就可以直接`git pull XXXX master`）
-4. 如果在pull的时候发现冲突，请参考[issue](https://github.com/natsu12/Activitee/issues/4)的解决办法。
-5. 建议每天晚上12点前（或者编写完代码之后）至少给我pull request一次，让我好掌握每个人的进度。
-6. 所有跟项目直接相关的讨论都需要在github上进行。有相关的第三方文档资料或博客请发issue，有问题请发issue或者在commit中添加评论，方便之后对前面工作的审查。尽量不要在Q群上讨论，Q群只用来通知。

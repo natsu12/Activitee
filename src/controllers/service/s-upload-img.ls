@@ -24,4 +24,4 @@ module.exports = (req, res)!->
           if err
             res.status 500 .end!
           else
-            res.end 'ok'
+            res.redirect '/host#host'

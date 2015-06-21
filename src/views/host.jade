@@ -49,6 +49,10 @@ block content
         if act_type == 1
           #following.active.tab-pane.fade.in
             .activities-template
+              if following_act.length == 0
+                .nothing
+                  img.empty(src="/images/empty.png")
+                  p.text 很抱歉，这里是个荒地哦!
               each item in following_act
                 .acts
                   a(href="detail/#{item._id}")
@@ -57,28 +61,31 @@ block content
                     .acts_info
                        .p_message
                         p.act_title #{item.title}
-                        p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                        p #{moment(item.time).format('YYYY/MM/DD HH:mm')}
                         p #{item.place}
                         p #{item.host.username}
                         p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
-            ul.pagination
-              li
-                a.paging(href="/host?fpage=#{following_page-1}") &laquo;
-              each i in arr_following_page
-                if i == following_page
-                  li.active
-                    a.paging(href="/host?fpage=#{i}") #{i}
-                else
-                  li
-                    a.paging(href="/host?fpage=#{i}") #{i}
-              li
-                a.paging(href="/host?fpage=#{following_page+1}") &raquo;
-              li
-                共 #{arr_following_page.length}页
+            if following_act.length != 0
+              ul.pagination
+                li
+                  a.paging(href="/host?fpage=#{following_page-1}") &laquo;
+                each i in arr_following_page
+                  if i == following_page
+                    li.active
+                      a.paging(href="/host?fpage=#{i}") #{i}
+                  else
+                    li
+                      a.paging(href="/host?fpage=#{i}") #{i}
+                li
+                  a.paging(href="/host?fpage=#{following_page+1}") &raquo;
 
         if act_type != 1
           #following.tab-pane.fade
             .activities-template
+              if following_act.length == 0
+                .nothing
+                  img.empty(src="/images/empty.png")
+                  p.text 很抱歉，这里是个荒地哦!
               each item in following_act
                 .acts
                   a(href="detail/#{item._id}")
@@ -87,28 +94,31 @@ block content
                     .acts_info
                        .p_message
                         p.act_title #{item.title}
-                        p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                        p #{moment(item.time).format('YYYY/MM/DD HH:mm')}
                         p #{item.place}
                         p #{item.host.username}
                         p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
-            ul.pagination
-              li
-                a.paging(href="/host?fpage=#{following_page-1}") &laquo;
-              each i in arr_following_page
-                if i == following_page
-                  li.active
-                    a.paging(href="/host?fpage=#{i}") #{i}
-                else
-                  li
-                    a.paging(href="/host?fpage=#{i}") #{i}
-              li
-                a.paging(href="/host?fpage=#{following_page+1}") &raquo;
-              li
-                共 #{arr_following_page.length}页
+            if following_act.length != 0
+              ul.pagination
+                li
+                  a.paging(href="/host?fpage=#{following_page-1}") &laquo;
+                each i in arr_following_page
+                  if i == following_page
+                    li.active
+                      a.paging(href="/host?fpage=#{i}") #{i}
+                  else
+                    li
+                      a.paging(href="/host?fpage=#{i}") #{i}
+                li
+                  a.paging(href="/host?fpage=#{following_page+1}") &raquo;
 
         if act_type == 2           
           #joining.active.tab-pane.fade.in
             .activities-template
+              if joining_act.length == 0
+                .nothing
+                  img.empty(src="/images/empty.png")
+                  p.text 很抱歉，这里是个荒地哦!
               each item in joining_act
                 .acts
                   a(href="detail/#{item._id}")
@@ -117,28 +127,31 @@ block content
                     .acts_info
                       .p_message
                         p.act_title #{item.title}
-                        p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                        p #{moment(item.time).format('YYYY/MM/DD HH:mm')}
                         p #{item.place}
                         p #{item.host.username}
                         p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
-            ul.pagination
-              li
-                a.paging(href="/host?jpage=#{joining_page-1}") &laquo;
-              each i in arr_joining_page
-                if i == joining_page
-                  li.active
-                    a.paging(href="/host?jpage=#{i}") #{i}
-                else
-                  li
-                    a.paging(href="/host?jpage=#{i}") #{i}
-              li
-                a.paging(href="/host?jpage=#{joining_page+1}") &raquo;
-              li
-                共 #{arr_joining_page.length}页
+            if joining_act.length != 0
+              ul.pagination
+                li
+                  a.paging(href="/host?jpage=#{joining_page-1}") &laquo;
+                each i in arr_joining_page
+                  if i == joining_page
+                    li.active
+                      a.paging(href="/host?jpage=#{i}") #{i}
+                  else
+                    li
+                      a.paging(href="/host?jpage=#{i}") #{i}
+                li
+                  a.paging(href="/host?jpage=#{joining_page+1}") &raquo;
 
         if act_type != 2           
           #joining.tab-pane.fade
             .activities-template
+              if joining_act.length == 0
+                .nothing
+                  img.empty(src="/images/empty.png")
+                  p.text 很抱歉，这里是个荒地哦!
               each item in joining_act
                 .acts
                   a(href="detail/#{item._id}")
@@ -147,28 +160,31 @@ block content
                     .acts_info
                       .p_message
                         p.act_title #{item.title}
-                        p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                        p #{moment(item.time).format('YYYY/MM/DD HH:mm')}
                         p #{item.place}
                         p #{item.host.username}
                         p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
-            ul.pagination
-              li
-                a.paging(href="/host?jpage=#{joining_page-1}") &laquo;
-              each i in arr_joining_page
-                if i == joining_page
-                  li.active
-                    a.paging(href="/host?jpage=#{i}") #{i}
-                else
-                  li
-                    a.paging(href="/host?jpage=#{i}") #{i}
-              li
-                a.paging(href="/host?jpage=#{joining_page+1}") &raquo;
-              li
-                共 #{arr_joining_page.length}页
+            if joining_act.length != 0
+              ul.pagination
+                li
+                  a.paging(href="/host?jpage=#{joining_page-1}") &laquo;
+                each i in arr_joining_page
+                  if i == joining_page
+                    li.active
+                      a.paging(href="/host?jpage=#{i}") #{i}
+                  else
+                    li
+                      a.paging(href="/host?jpage=#{i}") #{i}
+                li
+                  a.paging(href="/host?jpage=#{joining_page+1}") &raquo;
 
         if act_type == 3
           #host.active.tab-pane.fade.in
             .activities-template
+              if host_act.length == 0
+                .nothing
+                  img.empty(src="/images/empty.png")
+                  p.text 很抱歉，这里是个荒地哦!
               each item in host_act
                 .acts
                   a(href="detail/#{item._id}")
@@ -176,36 +192,45 @@ block content
                       img(src="#{item.cover}", alt="活动封面")
                     .acts_info
                       .p_message
-                        if item.status == 0
-                          p.act_title #{item.title} (审核已通过)
+                        if item.status == 1
+                          p.act_title #{item.title}
+                            span (审核已通过)
                         else
-                          p.act_title #{item.title} (审核中)
-                        p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                          p.act_title #{item.title}
+                            span (审核中)
+                        p #{moment(item.time).format('YYYY/MM/DD HH:mm')}
                         p #{item.place}
                         p #{item.host.username}
-                        p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
-                        if item.status == 0
+                        if item.status == 1
+                          p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
                           a(href="/following?act_id=#{item._id}") (查看具体信息)
+                        else
+                          p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加   
                       .edit
                         a(target="_blank", href="/edit/#{item._id}") 编辑
-            ul.pagination
-              li
-                a.paging(href="/host?hpage=#{host_page-1}") &laquo;
-              each i in arr_host_page
-                if i == host_page
-                  li.active
-                    a.paging(href="/host?hpage=#{i}") #{i}
-                else
-                  li
-                    a.paging(href="/host?hpage=#{i}") #{i}
-              li
-                a.paging(href="/host?hpage=#{host_page+1}") &raquo;
-              li
-                共 #{arr_host_page.length}页
+                      .create_time
+                        p 发起时间：#{moment(item.meta.createAt).format('YYYY年MM月DD日 HH:mm')}
+            if host_act.length != 0
+              ul.pagination
+                li
+                  a.paging(href="/host?hpage=#{host_page-1}") &laquo;
+                each i in arr_host_page
+                  if i == host_page
+                    li.active
+                      a.paging(href="/host?hpage=#{i}") #{i}
+                  else
+                    li
+                      a.paging(href="/host?hpage=#{i}") #{i}
+                li
+                  a.paging(href="/host?hpage=#{host_page+1}") &raquo;
 
         if act_type != 3
           #host.tab-pane.fade
             .activities-template
+              if host_act.length == 0
+                .nothing
+                  img.empty(src="/images/empty.png")
+                  p.text 很抱歉，这里是个荒地哦!
               each item in host_act
                 .acts
                   a(href="detail/#{item._id}")
@@ -213,45 +238,37 @@ block content
                       img(src="#{item.cover}", alt="活动封面")
                     .acts_info
                       .p_message
-                        if item.status == 0
-                          p.act_title #{item.title} (审核已通过)
+                        if item.status == 1
+                          p.act_title #{item.title}
+                            span (审核已通过)
                         else
-                          p.act_title #{item.title} (审核中)
-                        p #{moment(item.time).format('YYYY/MM/DD HH:MM')}
+                          p.act_title #{item.title}
+                            span (审核中)
+                        p #{moment(item.time).format('YYYY/MM/DD HH:mm')}
                         p #{item.place}
                         p #{item.host.username}
-                        p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
-                        if item.status == 0
+                        if item.status == 1
+                          p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加
                           a(href="/following?act_id=#{item._id}") (查看具体信息)
+                        else
+                          p #{item.following_users.length} 人关注    #{item.joining_users.length} 人参加                        
                       .edit
                         a(target="_blank", href="/edit/#{item._id}") 编辑
-            ul.pagination
-              li
-                a.paging(href="/host?hpage=#{host_page-1}") &laquo;
-              each i in arr_host_page
-                if i == host_page
-                  li.active
-                    a.paging(href="/host?hpage=#{i}") #{i}
-                else
-                  li
-                    a.paging(href="/host?hpage=#{i}") #{i}
-              li
-                a.paging(href="/host?hpage=#{host_page+1}") &raquo;
-              li
-                共 #{arr_host_page.length}页
+                      .create_time
+                        p 发起时间：#{moment(item.meta.createAt).format('YYYY年MM月DD日 HH:mm')}
+            if host_act.length != 0
+              ul.pagination
+                li
+                  a.paging(href="/host?hpage=#{host_page-1}") &laquo;
+                each i in arr_host_page
+                  if i == host_page
+                    li.active
+                      a.paging(href="/host?hpage=#{i}") #{i}
+                  else
+                    li
+                      a.paging(href="/host?hpage=#{i}") #{i}
+                li
+                  a.paging(href="/host?hpage=#{host_page+1}") &raquo;
 
 
-
-
-    #host_img
-      img(src="images/host_pic.png", alt="fuck")
-
-
-
-
-
-
-
-    a(href='/create', class='text-center new-account') 发布活动
-    a(href='/home', class='text-center new-account') 回到主页
     script(src="/pages/host/host.js")

@@ -16,12 +16,20 @@ module.exports = (req, res)!->
       Tag.find {}, (err, tags)->
         console.log 'query available tags failed!' if err
 
-        tagNames = [tag.name for tag in tags]
+        # 排序所有标签，按包含活动个数
+        tagNames = [{'tagName': tag.name, 'tagActNum': tag.activities.length} for tag in tags]
+        tagNames.sort sortTag
+        tagNames = [tag['tagName'] for tag in tagNames]
 
         if user.tags.length
         # 获取用户订阅的标签的名称列表
           Tag.find {$or: [{_id: id} for id in user.tags]}, (err, tags)!->
-            bookedTagNames = [tag.name for tag in tags]
+
+            # 排序用户订阅了的标签，按包含活动个数
+            bookedTagNames = [{'tagName': tag.name, 'tagActNum': tag.activities.length} for tag in tags]
+            bookedTagNames.sort sortTag
+            bookedTagNames = [tag['tagName'] for tag in bookedTagNames]
+
             res.render 'setting', {
               title: '个人设置'
               user: user
@@ -36,3 +44,6 @@ module.exports = (req, res)!->
             bookedTagNames: []
           }
 
+
+sortTag = (a, b) ->
+  return b['tagActNum'] - a['tagActNum']

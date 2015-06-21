@@ -5,8 +5,6 @@ _ = require 'underscore'
 
 # following page
 module.exports = (req, res)!->
-  if !req.user
-    res.redirect '/signin'
   user_id = req.user._id
   act_id = req.query.act_id
 
