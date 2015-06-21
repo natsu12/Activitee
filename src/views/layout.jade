@@ -21,6 +21,9 @@ html
           if user
             li
               a.host(href="/host") 我的活动
+          if user.role
+            li
+              a.admin(href="/admin") 审核活动
         
         unless user
           ul.nav.align-right
