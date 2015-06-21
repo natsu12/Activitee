@@ -29,7 +29,9 @@ $ !->
   
   geolocation = null
   toolBar = null
-  amap.plugin ['AMap.Geolocation', 'AMap.ToolBar'], !->
+  scale = null
+  overView = null
+  amap.plugin ['AMap.Geolocation', 'AMap.ToolBar', 'AMap.Scale', 'AMap.OverView'], !->
     geolocation := new AMap.Geolocation {
       enableHighAccuracy: true  
       timeout: 10000  
@@ -37,7 +39,7 @@ $ !->
       convert: true 
       showButton: true  
       buttonPosition: 'LB'  
-      buttonOffset: new AMap.Pixel(10, 20)  
+      buttonOffset: new AMap.Pixel(23, 75)  
       showMarker: true  
       showCircle: true  
       panToLocation: true 
@@ -49,7 +51,12 @@ $ !->
     toolBar := new AMap.ToolBar! 
     amap.addControl toolBar
   
-  
+    scale := new AMap.Scale!
+    amap.addControl scale
+    
+    overView := new AMap.OverView!
+    amap.addControl overView
+
   auto-search = !->
     keywords = ($ '#inputPlace' .val!)
     
@@ -120,6 +127,9 @@ $ !->
     amap.clearMap!
     resultStr1 = ""
     poiArr = data.poiList.pois
+    console.log poiArr
+    $ '#lng' .val (poiArr[0].location.lng)
+    $ '#lat' .val (poiArr[0].location.lat)
     for poi,index in poiArr
       resultStr1 += "<div id = 'divid" + (index+1) + "' onmouseover='openMarkerTipById1(" + index+ ",this)' onmouseout='onmouseout_MarkerStyle(" + (index+1) + ",this' style=\"font-size: 12px;cursor:pointer;padding:0px 0 4px 2px;border-bottom:1px solid \#C1FFC1;\"><table><tr><td><img src=\"http://webapi.amap.com/images/>" + (index+1) + ".png\"></td>" + "<td><h3><font color=\"#00a6ac\">Ãû³Æ: " + poi.name + "</font></h3>" + TipContents(poi.type, poi.address, poi.tel) + "</td></tr></table></div>"
       addmarker index,poi
@@ -139,7 +149,7 @@ $ !->
     latY = d.location.getLat!
     markerOption = {
       map:amap
-      icon: "http://webapi.amap/com/images/" + (i + 1) + ".png"
+      icon: "/images/" + (i + 1) + ".png"
       position: new AMap.LngLat lngX,latY
     }
     mar = new AMap.Marker markerOption
