@@ -2,7 +2,7 @@ require! {
   '../../passport'
   User: '../../models/user'
   Tag: '../../models/tag'
-  '../../mail/mail'
+  '../../authMail'
   multer
   '../../imageCropper'
   path
@@ -10,7 +10,6 @@ require! {
   mongoose
 }
 
-HOST = 'http://localhost:5000'
 DEFAULT_AVATAR = 'images/default_avatar.png'
 
 usernameExists = (username, cb)!->
@@ -36,9 +35,6 @@ createUser = (data, cb)!->
   data.gender = parseInt(data.gender)
   data.avatar = DEFAULT_AVATAR
   User.create data, (err)!-> cb err, data.auth_code
-
-sendAuthMail = (email, authCode)!->
-  mail.send email, 'Activitee注册验证邮件', "请点击<a href='#{HOST}/s-auth/#{authCode}'>此链接</a>完成注册验证"
 
 module.exports = (req, res)!->
   # x inputs from body
@@ -74,7 +70,7 @@ module.exports = (req, res)!->
               console.log err
               res.status 500 .end!
             else
-              sendAuthMail email, authCode
+              authMail.send email, authCode
               passport.signin res, username, password, (err)!->
                 if err
                   console.log err
