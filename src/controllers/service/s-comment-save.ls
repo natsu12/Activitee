@@ -24,7 +24,7 @@ module.exports = (req, res)!->
         console.log err
       
       User.findById req.user._id, (err, fromUser)!->
-        console.log fromUser
+        comment := comment.toObject!
         comment.from = fromUser
         res.render 'comment', {
             comment : comment
