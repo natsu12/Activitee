@@ -1,7 +1,7 @@
 # Activitee
 
 ## 项目介绍
-请看[视频介绍](http://v.youku.com/v_show/id_XMTI2NzYxNjcyOA==.html?qq-pf-to=pcqq.c2c)（第一次录制视频，制作失误导致非常不清晰，请谅解，只介绍了主要的功能，有较多功能被遗漏）。
+请看[视频介绍](http://v.youku.com/v_show/id_XMTI2NzkyMDk4MA==.html)。
 
 ## 服务器地址
 项目已部署服务器，可以直接[访问](http://120.24.211.137:5000/)。
@@ -15,7 +15,7 @@
 6. 在项目根目录，执行`grunt watch`。
 
 ## 项目汇报
-项目汇报在`doc`目录下。
+项目汇报在`/doc`目录下。
 
 ## 文件目录结构
 ```
