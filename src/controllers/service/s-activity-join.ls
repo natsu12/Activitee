@@ -13,8 +13,7 @@ module.exports = (req, res)!->
               console.log err
           need_info = activity.need_info
           if need_info is 1
-            console.log user.phone_num
-            if user.phone_num == undefined or user.real_name == undefined
+            if !user.phone_num or !user.real_name
               res.json {success: -1}
               return
           activity.joining_users.push req.user._id

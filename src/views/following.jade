@@ -56,20 +56,15 @@ block content
                     tr
                         th 
                         th 用户
+                        th 真实姓名
                         th 联系方式
                 tbody
                     each item, i in join_users
                         tr(class="item-id-#{item._id}")
                             td #{i+1}
                             td #{item.username}
-                            if item.phone_num == null && item.qq == null
-                              td 手机号:未填写 QQ:未填写
-                            else if item.phone_num == null
-                              td 手机号:未填写 QQ:#{item.qq}
-                            else if item.qq == null
-                              td 手机号:#{item.phone_num}QQ:未填写
-                            else
-                              td 手机号:#{item.phone_num}QQ:#{item.qq}
+                            td #{item.real_name}
+                            td #{item.phone_num}
 
       ul.pagination
         li

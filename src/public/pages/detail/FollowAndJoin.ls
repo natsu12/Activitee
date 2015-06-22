@@ -31,6 +31,7 @@ $ !->
     id = $ '#join' .attr 'data-id'
     if $ '#join' .text() == '参加'
       $.get '/s-activity-join?id=' + id, (results) !->
+        console.log results
         if results.success is 1
           $ '#join' .text '已参加'
           $ '#joins' .text results.joins + '人参加'
